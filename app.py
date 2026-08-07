@@ -149,6 +149,10 @@ def main():
     # 3-Column Main Layout
     col1, col2, col3 = st.columns([1, 1.1, 1.2])
 
+    # Initialize session state for compiled report if not present
+    if "latest_report" not in st.session_state:
+        st.session_state["latest_report"] = None
+
     # ----------------------------------------------------
     # COLUMN 1: Research Planner & Running Tasks
     # ----------------------------------------------------
@@ -163,11 +167,12 @@ def main():
             )
             submitted = st.form_submit_button("🚀 Launch Research Task", use_container_width=True)
             if submitted and query_input.strip():
-                controller.add_task(
-                    name=f"Research: {query_input[:30]}...",
-                    payload={"query": query_input, "initiator": "streamlit_ui"},
-                )
-                st.success("Task queued in state.json!")
+                with st.spinner("Decomposing query and executing PlannerEngine graph..."):
+                    from backend.planner.planner import PlannerEngine
+                    planner = PlannerEngine()
+                    report = planner.run_pipeline(query_input.strip())
+                    st.session_state["latest_report"] = report.compiled_markdown
+                st.success("PlannerEngine pipeline completed successfully!")
                 st.rerun()
 
         st.markdown("#### Active & Queued Tasks")
@@ -235,18 +240,21 @@ def main():
     with col3:
         st.subheader("📄 Draft Report & Evidence")
 
-        st.markdown(
-            """
-            ### Executive Summary: Aegis Platform Baseline Security
-            The **Aegis Research OS** integrates hybrid RAG retrieval and isolated python code sandboxes to ensure safe execution of autonomous research workflows **[1]**.
-            
-            #### Key Findings
-            1. **NeMo Guardrails Integration**: Prompt injection attempts are flagged and intercepted prior to planner graph evaluation **[2]**.
-            2. **Deterministic State Contract**: `state.json` maintains schema compliance across sandbox, planner, and memory subsystems **[1]**.
-            
-            ---
-            """
-        )
+        if st.session_state["latest_report"]:
+            st.markdown(st.session_state["latest_report"])
+        else:
+            st.markdown(
+                """
+                ### Executive Summary: Aegis Platform Baseline Security
+                The **Aegis Research OS** integrates hybrid RAG retrieval and isolated python code sandboxes to ensure safe execution of autonomous research workflows **[1]**.
+                
+                #### Key Findings
+                1. **NeMo Guardrails Integration**: Prompt injection attempts are flagged and intercepted prior to planner graph evaluation **[2]**.
+                2. **Deterministic State Contract**: `state.json` maintains schema compliance across sandbox, planner, and memory subsystems **[1]**.
+                
+                ---
+                """
+            )
 
         st.markdown("#### 🕸️ Evidence Graph & Source Citations")
         sources_data = [
