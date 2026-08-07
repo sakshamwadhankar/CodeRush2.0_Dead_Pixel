@@ -219,16 +219,13 @@ Human Approval
 # 👥 Team
 
 **Dead_Pixel**
+Saksham Wadhankar
+Pradum Meshram
+Om Rai
+Sahil Mahure
+Animesh Yadav
 
-- **Saksham Wadhankar**
-- **Om Rai**
-- **Sahil Mahure**
-- **Animesh Yadav**
-- **Pradum Meshram**
-
-Building trustworthy autonomous AI research systems.
-
----
+## Building trustworthy autonomous AI research systems.
 
 # 📄 License
 
