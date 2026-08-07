@@ -1066,6 +1066,66 @@
         "action_type": "synthesis",
         "subquestion": "Synthesize evidence and compile final report for: Q-learning"
       }
+    },
+    {
+      "task_id": "task_7e5d49e0",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-07T22:17:17.649254+00:00",
+      "updated_at": "2026-08-07T22:17:17.930698+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: PRINCE Cryptographic Cipher"
+      }
+    },
+    {
+      "task_id": "task_cb2b624f",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: PR...",
+      "status": "completed",
+      "created_at": "2026-08-07T22:17:17.934809+00:00",
+      "updated_at": "2026-08-07T22:17:38.223314+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: PRINCE Cryptographic Cipher"
+      }
+    },
+    {
+      "task_id": "task_b12ab2c9",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: PR...",
+      "status": "completed",
+      "created_at": "2026-08-07T22:17:38.246411+00:00",
+      "updated_at": "2026-08-07T22:17:40.617842+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: PRINCE Cryptographic Cipher"
+      }
+    },
+    {
+      "task_id": "task_4339ad55",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "completed",
+      "created_at": "2026-08-07T22:17:40.621630+00:00",
+      "updated_at": "2026-08-07T22:17:42.861092+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: PRINCE Cryptographic Cipher"
+      }
+    },
+    {
+      "task_id": "task_0de7d7d2",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "completed",
+      "created_at": "2026-08-07T22:17:42.887255+00:00",
+      "updated_at": "2026-08-07T22:17:42.892421+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: PRINCE Cryptographic Cipher"
+      }
     }
   ],
   "system_logs": [
@@ -5794,6 +5854,267 @@
       "metadata": {
         "incident_id": "sec_1a559018",
         "alert_type": "NeMo Guardrails Prompt Injection"
+      }
+    },
+    {
+      "log_id": "log_033e74b5",
+      "timestamp": "2026-08-07T22:17:17.648884+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: The read operation timed out",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_8bce8297",
+      "timestamp": "2026-08-07T22:17:17.649230+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "PRINCE Cryptographic Cipher",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_76112f56",
+      "timestamp": "2026-08-07T22:17:17.649274+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_7e5d49e0)",
+      "metadata": {
+        "task_id": "task_7e5d49e0"
+      }
+    },
+    {
+      "log_id": "log_ede09c1b",
+      "timestamp": "2026-08-07T22:17:17.653469+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_7e5d49e0 status to running",
+      "metadata": {
+        "task_id": "task_7e5d49e0",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_dfe75aad",
+      "timestamp": "2026-08-07T22:17:17.930770+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_7e5d49e0 status to completed",
+      "metadata": {
+        "task_id": "task_7e5d49e0",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_a6f25e66",
+      "timestamp": "2026-08-07T22:17:17.934731+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_5e02d151",
+      "timestamp": "2026-08-07T22:17:17.934783+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_fde0de8e",
+      "timestamp": "2026-08-07T22:17:17.934832+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: PR...' (task_cb2b624f)",
+      "metadata": {
+        "task_id": "task_cb2b624f"
+      }
+    },
+    {
+      "log_id": "log_26202bb5",
+      "timestamp": "2026-08-07T22:17:17.937075+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_cb2b624f status to running",
+      "metadata": {
+        "task_id": "task_cb2b624f",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_5c7d7789",
+      "timestamp": "2026-08-07T22:17:17.939452+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_cb2b624f status to pending_approval",
+      "metadata": {
+        "task_id": "task_cb2b624f",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_05dc1531",
+      "timestamp": "2026-08-07T22:17:38.223346+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_cb2b624f status to completed",
+      "metadata": {
+        "task_id": "task_cb2b624f",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_48d50cfe",
+      "timestamp": "2026-08-07T22:17:38.246374+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "PRINCE Cryptographic Cipher",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_c5085988",
+      "timestamp": "2026-08-07T22:17:38.246435+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: PR...' (task_b12ab2c9)",
+      "metadata": {
+        "task_id": "task_b12ab2c9"
+      }
+    },
+    {
+      "log_id": "log_fba67376",
+      "timestamp": "2026-08-07T22:17:38.250114+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_b12ab2c9 status to running",
+      "metadata": {
+        "task_id": "task_b12ab2c9",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_afb44185",
+      "timestamp": "2026-08-07T22:17:40.617890+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_b12ab2c9 status to completed",
+      "metadata": {
+        "task_id": "task_b12ab2c9",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_59022579",
+      "timestamp": "2026-08-07T22:17:40.621539+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.95",
+      "metadata": {
+        "confidence": 0.95,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_42e10adc",
+      "timestamp": "2026-08-07T22:17:40.621606+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.94 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_910a1355",
+      "timestamp": "2026-08-07T22:17:40.621660+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_4339ad55)",
+      "metadata": {
+        "task_id": "task_4339ad55"
+      }
+    },
+    {
+      "log_id": "log_93ccf14f",
+      "timestamp": "2026-08-07T22:17:40.624905+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_4339ad55 status to running",
+      "metadata": {
+        "task_id": "task_4339ad55",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_8577954c",
+      "timestamp": "2026-08-07T22:17:40.628581+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_4339ad55 status to pending_approval",
+      "metadata": {
+        "task_id": "task_4339ad55",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_a2cd1d56",
+      "timestamp": "2026-08-07T22:17:42.861122+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_4339ad55 status to completed",
+      "metadata": {
+        "task_id": "task_4339ad55",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_332cc806",
+      "timestamp": "2026-08-07T22:17:42.887217+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "PRINCE Cryptographic Cipher",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_fc49ca91",
+      "timestamp": "2026-08-07T22:17:42.887279+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_0de7d7d2)",
+      "metadata": {
+        "task_id": "task_0de7d7d2"
+      }
+    },
+    {
+      "log_id": "log_0b3ba468",
+      "timestamp": "2026-08-07T22:17:42.889959+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_0de7d7d2 status to running",
+      "metadata": {
+        "task_id": "task_0de7d7d2",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_330dbe59",
+      "timestamp": "2026-08-07T22:17:42.892443+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_0de7d7d2 status to completed",
+      "metadata": {
+        "task_id": "task_0de7d7d2",
+        "new_status": "completed"
       }
     }
   ],
