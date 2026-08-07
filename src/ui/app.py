@@ -1,7 +1,11 @@
 import json
+import os
+from dotenv import load_dotenv
 import streamlit as st
 from pathlib import Path
 from typing import Dict, Any
+
+load_dotenv()
 
 from src.orchestration.state_controller import StateController
 from src.orchestration.state_models import TaskStatus, LogLevel, SeverityLevel
@@ -156,6 +160,8 @@ def main():
         st.session_state["rejected_subtasks"] = []
     if "current_graph" not in st.session_state:
         st.session_state["current_graph"] = None
+    if "current_graph_results" not in st.session_state:
+        st.session_state["current_graph_results"] = []
 
     # Check if any task in state.json is waiting for user approval
     pending_approval_tasks = [
@@ -172,6 +178,10 @@ def main():
         if ac1.button("✅ Approve Sensitive Action", use_container_width=True, key="btn_approve_gate"):
             sub_id = pending_task.payload.get("subtask_id", "sub_002")
             st.session_state["approved_subtasks"].append(sub_id)
+            
+            # Clear the pending status so the UI banner disappears
+            controller.update_task_status(pending_task.task_id, TaskStatus.COMPLETED)
+            
             controller.log_system_event(
                 level=LogLevel.INFO,
                 component="StreamlitUI",
@@ -184,8 +194,10 @@ def main():
                     st.session_state["current_graph"],
                     approved_subtasks=st.session_state["approved_subtasks"],
                     rejected_subtasks=st.session_state["rejected_subtasks"],
+                    previous_results=st.session_state["current_graph_results"]
                 )
                 if results:
+                    st.session_state["current_graph_results"] = results
                     report = planner.compile_report(st.session_state["current_graph"], results)
                     st.session_state["latest_report"] = report.compiled_markdown
             st.success("Approval granted. Execution resumed!")
@@ -194,13 +206,29 @@ def main():
         if ac2.button("❌ Reject Action", use_container_width=True, key="btn_reject_gate"):
             sub_id = pending_task.payload.get("subtask_id", "sub_002")
             st.session_state["rejected_subtasks"].append(sub_id)
+            
+            # Clear the pending status
             controller.update_task_status(pending_task.task_id, TaskStatus.CANCELLED)
+            
             controller.log_system_event(
                 level=LogLevel.WARNING,
                 component="StreamlitUI",
                 message=f"User rejected sensitive subtask execution: {sub_id}",
             )
-            st.error("Action rejected by user. Execution halted.")
+            if st.session_state["current_graph"]:
+                from src.orchestration.planner import PlannerEngine
+                planner = PlannerEngine()
+                results = planner.execute_graph(
+                    st.session_state["current_graph"],
+                    approved_subtasks=st.session_state["approved_subtasks"],
+                    rejected_subtasks=st.session_state["rejected_subtasks"],
+                    previous_results=st.session_state["current_graph_results"]
+                )
+                if results:
+                    st.session_state["current_graph_results"] = results
+                    report = planner.compile_report(st.session_state["current_graph"], results)
+                    st.session_state["latest_report"] = report.compiled_markdown
+            st.error("Action rejected by user. Execution resumed without this subtask.")
             st.rerun()
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -224,18 +252,27 @@ def main():
             )
             submitted = st.form_submit_button("🚀 Launch Research Task", use_container_width=True)
             if submitted and query_input.strip():
-                with st.spinner("Decomposing query and executing PlannerEngine graph..."):
+                st.session_state["latest_report"] = None
+                st.session_state["approved_subtasks"] = []
+                st.session_state["rejected_subtasks"] = []
+                st.session_state["current_graph_results"] = []
+                st.session_state["current_graph"] = None
+                
+                with st.spinner("Decomposing research objective..."):
                     from src.orchestration.planner import PlannerEngine
                     planner = PlannerEngine()
                     graph = planner.decompose_query(query_input.strip())
                     st.session_state["current_graph"] = graph
+                    
                     results = planner.execute_graph(
                         graph,
                         approved_subtasks=st.session_state["approved_subtasks"],
                         rejected_subtasks=st.session_state["rejected_subtasks"],
+                        previous_results=st.session_state["current_graph_results"]
                     )
                     if results:
-                        report = planner.compile_report(graph, results)
+                        st.session_state["current_graph_results"] = results
+                        report = planner.compile_report(st.session_state["current_graph"], results)
                         st.session_state["latest_report"] = report.compiled_markdown
                 st.success("PlannerEngine cycle updated!")
                 st.rerun()

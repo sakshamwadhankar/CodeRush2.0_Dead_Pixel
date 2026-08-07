@@ -314,9 +314,9 @@
     {
       "task_id": "task_57ddfafa",
       "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: pr...",
-      "status": "pending_approval",
+      "status": "completed",
       "created_at": "2026-08-07T20:50:28.375240+00:00",
-      "updated_at": "2026-08-07T20:50:28.377659+00:00",
+      "updated_at": "2026-08-07T21:30:49.087652+00:00",
       "payload": {
         "subtask_id": "sub_002",
         "action_type": "code_execution",
@@ -350,9 +350,9 @@
     {
       "task_id": "task_a9aa17ce",
       "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
-      "status": "pending_approval",
+      "status": "completed",
       "created_at": "2026-08-07T20:50:37.550020+00:00",
-      "updated_at": "2026-08-07T20:50:37.552100+00:00",
+      "updated_at": "2026-08-07T21:31:00.936548+00:00",
       "payload": {
         "subtask_id": "sub_003",
         "action_type": "synthesis",
@@ -458,9 +458,9 @@
     {
       "task_id": "task_eeb59471",
       "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
-      "status": "pending_approval",
+      "status": "cancelled",
       "created_at": "2026-08-07T20:51:12.656201+00:00",
-      "updated_at": "2026-08-07T20:51:12.658744+00:00",
+      "updated_at": "2026-08-07T21:31:12.901708+00:00",
       "payload": {
         "subtask_id": "sub_003",
         "action_type": "synthesis",
@@ -494,9 +494,9 @@
     {
       "task_id": "task_f03d465b",
       "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
-      "status": "pending_approval",
+      "status": "cancelled",
       "created_at": "2026-08-07T20:51:19.294080+00:00",
-      "updated_at": "2026-08-07T20:51:19.296918+00:00",
+      "updated_at": "2026-08-07T21:31:13.449418+00:00",
       "payload": {
         "subtask_id": "sub_003",
         "action_type": "synthesis",
@@ -530,9 +530,9 @@
     {
       "task_id": "task_4e04758e",
       "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
-      "status": "pending_approval",
+      "status": "cancelled",
       "created_at": "2026-08-07T20:51:27.930271+00:00",
-      "updated_at": "2026-08-07T20:51:27.937489+00:00",
+      "updated_at": "2026-08-07T21:31:13.906723+00:00",
       "payload": {
         "subtask_id": "sub_003",
         "action_type": "synthesis",
@@ -566,9 +566,9 @@
     {
       "task_id": "task_4f0d4a8d",
       "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
-      "status": "pending_approval",
+      "status": "cancelled",
       "created_at": "2026-08-07T20:52:09.173070+00:00",
-      "updated_at": "2026-08-07T20:52:09.176006+00:00",
+      "updated_at": "2026-08-07T21:31:14.169878+00:00",
       "payload": {
         "subtask_id": "sub_003",
         "action_type": "synthesis",
@@ -602,9 +602,9 @@
     {
       "task_id": "task_25fc1757",
       "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
-      "status": "pending_approval",
+      "status": "cancelled",
       "created_at": "2026-08-07T20:52:14.986482+00:00",
-      "updated_at": "2026-08-07T20:52:14.992540+00:00",
+      "updated_at": "2026-08-07T21:31:14.411445+00:00",
       "payload": {
         "subtask_id": "sub_003",
         "action_type": "synthesis",
@@ -638,13 +638,133 @@
     {
       "task_id": "task_ad147cb3",
       "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
-      "status": "pending_approval",
+      "status": "cancelled",
       "created_at": "2026-08-07T20:52:21.105320+00:00",
-      "updated_at": "2026-08-07T20:52:21.107669+00:00",
+      "updated_at": "2026-08-07T21:31:14.796349+00:00",
       "payload": {
         "subtask_id": "sub_003",
         "action_type": "synthesis",
         "subquestion": "Synthesize evidence and compile final report for: prims algorithm"
+      }
+    },
+    {
+      "task_id": "task_44fce2c9",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-07T21:27:21.232671+00:00",
+      "updated_at": "2026-08-07T21:27:25.845551+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: prim's and kruskal algorithm"
+      }
+    },
+    {
+      "task_id": "task_854adf9b",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: pr...",
+      "status": "cancelled",
+      "created_at": "2026-08-07T21:27:25.849382+00:00",
+      "updated_at": "2026-08-07T21:31:15.220312+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: prim's and kruskal algorithm"
+      }
+    },
+    {
+      "task_id": "task_d1bbc9a1",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: pr...",
+      "status": "failed",
+      "created_at": "2026-08-07T21:30:49.222268+00:00",
+      "updated_at": "2026-08-07T21:30:51.288675+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: prim's and kruskal algorithm"
+      }
+    },
+    {
+      "task_id": "task_b17db50e",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "cancelled",
+      "created_at": "2026-08-07T21:30:51.292412+00:00",
+      "updated_at": "2026-08-07T21:31:19.356655+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: prim's and kruskal algorithm"
+      }
+    },
+    {
+      "task_id": "task_cda36d71",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "failed",
+      "created_at": "2026-08-07T21:31:01.078646+00:00",
+      "updated_at": "2026-08-07T21:31:01.091624+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: prim's and kruskal algorithm"
+      }
+    },
+    {
+      "task_id": "task_3321c3ac",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-07T21:32:05.880323+00:00",
+      "updated_at": "2026-08-07T21:32:09.780216+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: prim's and kruskal algorithm"
+      }
+    },
+    {
+      "task_id": "task_bf6c0882",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: pr...",
+      "status": "completed",
+      "created_at": "2026-08-07T21:32:09.799439+00:00",
+      "updated_at": "2026-08-07T21:32:14.578699+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: prim's and kruskal algorithm"
+      }
+    },
+    {
+      "task_id": "task_d569ed17",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: pr...",
+      "status": "failed",
+      "created_at": "2026-08-07T21:32:14.644634+00:00",
+      "updated_at": "2026-08-07T21:32:16.693882+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: prim's and kruskal algorithm"
+      }
+    },
+    {
+      "task_id": "task_2ad7d73a",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "completed",
+      "created_at": "2026-08-07T21:32:16.698114+00:00",
+      "updated_at": "2026-08-07T21:32:47.604304+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: prim's and kruskal algorithm"
+      }
+    },
+    {
+      "task_id": "task_0a45637b",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "failed",
+      "created_at": "2026-08-07T21:32:47.649939+00:00",
+      "updated_at": "2026-08-07T21:32:47.657768+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: prim's and kruskal algorithm"
       }
     }
   ],
@@ -3472,6 +3592,600 @@
       "metadata": {
         "task_id": "task_ad147cb3",
         "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_4ae249de",
+      "timestamp": "2026-08-07T21:27:21.230481+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: The read operation timed out",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_0792c019",
+      "timestamp": "2026-08-07T21:27:21.232592+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "prim's and kruskal algorithm",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_aa49ab1b",
+      "timestamp": "2026-08-07T21:27:21.232730+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_44fce2c9)",
+      "metadata": {
+        "task_id": "task_44fce2c9"
+      }
+    },
+    {
+      "log_id": "log_645d241c",
+      "timestamp": "2026-08-07T21:27:21.241422+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_44fce2c9 status to running",
+      "metadata": {
+        "task_id": "task_44fce2c9",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_d525413a",
+      "timestamp": "2026-08-07T21:27:25.845624+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_44fce2c9 status to completed",
+      "metadata": {
+        "task_id": "task_44fce2c9",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_508aadfd",
+      "timestamp": "2026-08-07T21:27:25.849272+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_653aafbd",
+      "timestamp": "2026-08-07T21:27:25.849346+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_19ba74e7",
+      "timestamp": "2026-08-07T21:27:25.849424+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: pr...' (task_854adf9b)",
+      "metadata": {
+        "task_id": "task_854adf9b"
+      }
+    },
+    {
+      "log_id": "log_7e4aa6ec",
+      "timestamp": "2026-08-07T21:27:25.852769+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_854adf9b status to running",
+      "metadata": {
+        "task_id": "task_854adf9b",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_fe10c638",
+      "timestamp": "2026-08-07T21:27:25.856137+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_854adf9b status to pending_approval",
+      "metadata": {
+        "task_id": "task_854adf9b",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_c8c44281",
+      "timestamp": "2026-08-07T21:30:49.087725+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_57ddfafa status to completed",
+      "metadata": {
+        "task_id": "task_57ddfafa",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_5a32afdb",
+      "timestamp": "2026-08-07T21:30:49.222123+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "prim's and kruskal algorithm",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_836415c3",
+      "timestamp": "2026-08-07T21:30:49.222345+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: pr...' (task_d1bbc9a1)",
+      "metadata": {
+        "task_id": "task_d1bbc9a1"
+      }
+    },
+    {
+      "log_id": "log_88755176",
+      "timestamp": "2026-08-07T21:30:49.228736+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_d1bbc9a1 status to running",
+      "metadata": {
+        "task_id": "task_d1bbc9a1",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_dac5c130",
+      "timestamp": "2026-08-07T21:30:51.288744+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_d1bbc9a1 status to failed",
+      "metadata": {
+        "task_id": "task_d1bbc9a1",
+        "new_status": "failed"
+      }
+    },
+    {
+      "log_id": "log_e9349f0d",
+      "timestamp": "2026-08-07T21:30:51.292327+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.0",
+      "metadata": {
+        "confidence": 0.0,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_02eb0e8a",
+      "timestamp": "2026-08-07T21:30:51.292450+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_b17db50e)",
+      "metadata": {
+        "task_id": "task_b17db50e"
+      }
+    },
+    {
+      "log_id": "log_d04f2b28",
+      "timestamp": "2026-08-07T21:30:51.298022+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_b17db50e status to running",
+      "metadata": {
+        "task_id": "task_b17db50e",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_38e0280e",
+      "timestamp": "2026-08-07T21:30:51.303182+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_b17db50e status to pending_approval",
+      "metadata": {
+        "task_id": "task_b17db50e",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_37930900",
+      "timestamp": "2026-08-07T21:31:00.936653+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_a9aa17ce status to completed",
+      "metadata": {
+        "task_id": "task_a9aa17ce",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_5bbe74f8",
+      "timestamp": "2026-08-07T21:31:01.078534+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "prim's and kruskal algorithm",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_2cf7ac0a",
+      "timestamp": "2026-08-07T21:31:01.078725+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_cda36d71)",
+      "metadata": {
+        "task_id": "task_cda36d71"
+      }
+    },
+    {
+      "log_id": "log_9fc5db85",
+      "timestamp": "2026-08-07T21:31:01.085472+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_cda36d71 status to running",
+      "metadata": {
+        "task_id": "task_cda36d71",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_67ba43f5",
+      "timestamp": "2026-08-07T21:31:01.091698+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_cda36d71 status to failed",
+      "metadata": {
+        "task_id": "task_cda36d71",
+        "new_status": "failed"
+      }
+    },
+    {
+      "log_id": "log_19ffbdf7",
+      "timestamp": "2026-08-07T21:31:12.901766+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_eeb59471 status to cancelled",
+      "metadata": {
+        "task_id": "task_eeb59471",
+        "new_status": "cancelled"
+      }
+    },
+    {
+      "log_id": "log_943694b5",
+      "timestamp": "2026-08-07T21:31:13.449464+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_f03d465b status to cancelled",
+      "metadata": {
+        "task_id": "task_f03d465b",
+        "new_status": "cancelled"
+      }
+    },
+    {
+      "log_id": "log_a3cf8744",
+      "timestamp": "2026-08-07T21:31:13.906801+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_4e04758e status to cancelled",
+      "metadata": {
+        "task_id": "task_4e04758e",
+        "new_status": "cancelled"
+      }
+    },
+    {
+      "log_id": "log_ff01344c",
+      "timestamp": "2026-08-07T21:31:14.169925+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_4f0d4a8d status to cancelled",
+      "metadata": {
+        "task_id": "task_4f0d4a8d",
+        "new_status": "cancelled"
+      }
+    },
+    {
+      "log_id": "log_06aa1046",
+      "timestamp": "2026-08-07T21:31:14.411516+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_25fc1757 status to cancelled",
+      "metadata": {
+        "task_id": "task_25fc1757",
+        "new_status": "cancelled"
+      }
+    },
+    {
+      "log_id": "log_4a1ea6b2",
+      "timestamp": "2026-08-07T21:31:14.796401+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_ad147cb3 status to cancelled",
+      "metadata": {
+        "task_id": "task_ad147cb3",
+        "new_status": "cancelled"
+      }
+    },
+    {
+      "log_id": "log_92abc908",
+      "timestamp": "2026-08-07T21:31:15.220365+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_854adf9b status to cancelled",
+      "metadata": {
+        "task_id": "task_854adf9b",
+        "new_status": "cancelled"
+      }
+    },
+    {
+      "log_id": "log_d4cd1500",
+      "timestamp": "2026-08-07T21:31:19.356728+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_b17db50e status to cancelled",
+      "metadata": {
+        "task_id": "task_b17db50e",
+        "new_status": "cancelled"
+      }
+    },
+    {
+      "log_id": "log_19a6ed14",
+      "timestamp": "2026-08-07T21:32:05.879674+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: The read operation timed out",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_73b5dbbe",
+      "timestamp": "2026-08-07T21:32:05.880275+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "prim's and kruskal algorithm",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_b3136540",
+      "timestamp": "2026-08-07T21:32:05.880361+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_3321c3ac)",
+      "metadata": {
+        "task_id": "task_3321c3ac"
+      }
+    },
+    {
+      "log_id": "log_ca2e56fc",
+      "timestamp": "2026-08-07T21:32:05.885925+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_3321c3ac status to running",
+      "metadata": {
+        "task_id": "task_3321c3ac",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_3a76abad",
+      "timestamp": "2026-08-07T21:32:09.780307+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_3321c3ac status to completed",
+      "metadata": {
+        "task_id": "task_3321c3ac",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_ef6a253b",
+      "timestamp": "2026-08-07T21:32:09.799250+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_934bafb6",
+      "timestamp": "2026-08-07T21:32:09.799383+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_e244054b",
+      "timestamp": "2026-08-07T21:32:09.799502+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: pr...' (task_bf6c0882)",
+      "metadata": {
+        "task_id": "task_bf6c0882"
+      }
+    },
+    {
+      "log_id": "log_acc6a4f8",
+      "timestamp": "2026-08-07T21:32:09.810164+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_bf6c0882 status to running",
+      "metadata": {
+        "task_id": "task_bf6c0882",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_bc19db98",
+      "timestamp": "2026-08-07T21:32:09.825261+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_bf6c0882 status to pending_approval",
+      "metadata": {
+        "task_id": "task_bf6c0882",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_698c3af0",
+      "timestamp": "2026-08-07T21:32:14.578772+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_bf6c0882 status to completed",
+      "metadata": {
+        "task_id": "task_bf6c0882",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_4c4801dd",
+      "timestamp": "2026-08-07T21:32:14.644493+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "prim's and kruskal algorithm",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_bad7fb2b",
+      "timestamp": "2026-08-07T21:32:14.644686+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: pr...' (task_d569ed17)",
+      "metadata": {
+        "task_id": "task_d569ed17"
+      }
+    },
+    {
+      "log_id": "log_865984a1",
+      "timestamp": "2026-08-07T21:32:14.649917+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_d569ed17 status to running",
+      "metadata": {
+        "task_id": "task_d569ed17",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_ed6b540d",
+      "timestamp": "2026-08-07T21:32:16.693950+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_d569ed17 status to failed",
+      "metadata": {
+        "task_id": "task_d569ed17",
+        "new_status": "failed"
+      }
+    },
+    {
+      "log_id": "log_15ab53f5",
+      "timestamp": "2026-08-07T21:32:16.698024+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.0",
+      "metadata": {
+        "confidence": 0.0,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_0310f50c",
+      "timestamp": "2026-08-07T21:32:16.698151+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_2ad7d73a)",
+      "metadata": {
+        "task_id": "task_2ad7d73a"
+      }
+    },
+    {
+      "log_id": "log_bf5b96fc",
+      "timestamp": "2026-08-07T21:32:16.701540+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_2ad7d73a status to running",
+      "metadata": {
+        "task_id": "task_2ad7d73a",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_3f078ced",
+      "timestamp": "2026-08-07T21:32:16.705147+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_2ad7d73a status to pending_approval",
+      "metadata": {
+        "task_id": "task_2ad7d73a",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_d083972b",
+      "timestamp": "2026-08-07T21:32:47.604380+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_2ad7d73a status to completed",
+      "metadata": {
+        "task_id": "task_2ad7d73a",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_e844a41a",
+      "timestamp": "2026-08-07T21:32:47.649877+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "prim's and kruskal algorithm",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_ef988c13",
+      "timestamp": "2026-08-07T21:32:47.649974+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_0a45637b)",
+      "metadata": {
+        "task_id": "task_0a45637b"
+      }
+    },
+    {
+      "log_id": "log_f2bfc28f",
+      "timestamp": "2026-08-07T21:32:47.654040+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_0a45637b status to running",
+      "metadata": {
+        "task_id": "task_0a45637b",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_324af220",
+      "timestamp": "2026-08-07T21:32:47.657812+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_0a45637b status to failed",
+      "metadata": {
+        "task_id": "task_0a45637b",
+        "new_status": "failed"
       }
     }
   ],

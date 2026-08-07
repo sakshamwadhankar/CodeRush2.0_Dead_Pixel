@@ -104,12 +104,13 @@ class PlannerEngine:
             return os.environ.get("STRICT_APPROVAL_SYNTHESIS", "True").lower() == "true"
         return False
 
-    def execute_graph(self, graph: TaskGraph, approved_subtasks: Optional[List[str]] = None, rejected_subtasks: Optional[List[str]] = None) -> List[Dict[str, Any]]:
+    def execute_graph(self, graph: TaskGraph, approved_subtasks: Optional[List[str]] = None, rejected_subtasks: Optional[List[str]] = None, previous_results: Optional[List[Dict[str, Any]]] = None) -> List[Dict[str, Any]]:
         """
         Loops through TaskGraph subtasks sequentially, updating state.json and calling contract endpoints.
-        Enforces confidence thresholds and stop conditions.
+        Enforces confidence thresholds and stop conditions. Skips previously executed tasks if provided.
         """
-        results: List[Dict[str, Any]] = []
+        results: List[Dict[str, Any]] = previous_results.copy() if previous_results else []
+        skip_count = len(results)
 
         approved = approved_subtasks or []
         rejected = rejected_subtasks or []
@@ -122,6 +123,9 @@ class PlannerEngine:
         )
 
         for index, subtask in enumerate(graph.subtasks, start=1):
+            if index <= skip_count:
+                continue
+
             # 1. Track task in state.json
             task_entry = self.state_controller.add_task(
                 name=f"Subtask {index}: {subtask.action_type.value.upper()} - {subtask.subquestion[:35]}...",
