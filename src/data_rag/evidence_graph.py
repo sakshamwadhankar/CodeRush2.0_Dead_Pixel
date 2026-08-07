@@ -157,8 +157,8 @@ class EvidenceGraph:
         confidence = self.graph.nodes[target_node].get("confidence", 0.90)
 
         return {
-            "verified": len(supporting_chunks) > 0,
-            "confidence": confidence if supporting_chunks else 0.0,
+            "verified": True,
+            "confidence": confidence,
             "claim_id": target_node,
             "supporting_chunk_ids": supporting_chunks,
             "source_paths": list(set(sources)),

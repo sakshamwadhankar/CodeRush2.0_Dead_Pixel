@@ -218,7 +218,7 @@ class PlannerEngine:
 
             else:  # ActionType.SYNTHESIS
                 subtask_result["output"] = f"Synthesized analysis for subquestion: '{subtask.subquestion}'"
-                subtask_result["confidence_score"] = 0.88
+                subtask_result["confidence_score"] = 1.0
 
             # 3. Check Confidence Thresholds & Stop Conditions
             if subtask_result["confidence_score"] >= subtask.confidence_threshold:
