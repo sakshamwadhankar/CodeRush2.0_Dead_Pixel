@@ -7,6 +7,8 @@ import uuid
 from pathlib import Path
 from typing import Dict, Any, Optional
 
+from rollback import WorkspaceSnapshotManager
+
 try:
     import docker
     from docker.errors import DockerException, APIError, ImageNotFound
@@ -43,10 +45,19 @@ class SandboxManager:
         # Set up isolated host workspace directory
         if workspace_dir:
             self.workspace_dir = Path(workspace_dir).resolve()
+            self.snapshot_dir = self.workspace_dir.parent / "sandbox_snapshots"
         else:
             self.workspace_dir = Path(tempfile.gettempdir()) / "sandbox_workspace"
+            self.snapshot_dir = Path(tempfile.gettempdir()) / "sandbox_snapshots"
         
         self.workspace_dir.mkdir(parents=True, exist_ok=True)
+        self.snapshot_dir.mkdir(parents=True, exist_ok=True)
+
+        self.snapshot_manager = WorkspaceSnapshotManager(
+            workspace_dir=self.workspace_dir,
+            snapshot_dir=self.snapshot_dir,
+            audit_log_path=self.audit_log_path
+        )
 
         # Docker client initialization with fail-closed check
         self.client = None
@@ -180,6 +191,24 @@ class SandboxManager:
             })
             return result
 
+        # Create ephemeral checkpoint before any workspace modification
+        checkpoint_name = f"pre_exec_{audit_id}"
+        try:
+            self.snapshot_manager.create_checkpoint(checkpoint_name)
+        except Exception as e:
+            duration = time.time() - start_time
+            error_msg = f"Failed to create workspace checkpoint: {e}"
+            result = {
+                "status": "system_error",
+                "exit_code": -1,
+                "stdout": "",
+                "stderr": error_msg,
+                "duration_seconds": round(duration, 4),
+                "error": f"Snapshot Error: {e}",
+                "audit_id": audit_id,
+            }
+            return result
+
         try:
             with open(script_file_path, "w", encoding="utf-8") as f:
                 f.write(script_contents)
@@ -308,6 +337,17 @@ class SandboxManager:
                 except Exception:
                     pass
 
+        rollback_status = "not_needed"
+        if exec_result["status"] in ("error", "timeout", "system_error", "security_violation"):
+            try:
+                self.snapshot_manager.rollback_to_checkpoint(checkpoint_name)
+                rollback_status = "success"
+            except Exception as e:
+                rollback_status = f"failed: {str(e)}"
+                exec_result["status"] = "system_error"
+                exec_result["error"] = f"{exec_result.get('error', '')} | Rollback Failed: {e}"
+        exec_result["rollback_status"] = rollback_status
+
         self._write_audit_log({
             "audit_id": audit_id,
             "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
@@ -317,6 +357,7 @@ class SandboxManager:
             "exit_code": exec_result["exit_code"],
             "duration_seconds": exec_result["duration_seconds"],
             "error": exec_result["error"],
+            "rollback_status": rollback_status,
             "resource_limits": {
                 "mem_limit": self.mem_limit,
                 "nano_cpus": self.nano_cpus,

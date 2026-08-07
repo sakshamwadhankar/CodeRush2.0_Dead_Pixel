@@ -70,12 +70,14 @@ def test_audit_logger_format(temp_workspace):
     with open(audit_file, "r", encoding="utf-8") as f:
         logs = json.load(f)
     
-    assert len(logs) == 1
-    entry = logs[0]
-    assert entry["status"] == "success"
-    assert entry["language"] == "python"
-    assert "resource_limits" in entry
-    assert entry["resource_limits"]["network_mode"] == "none"
+    # We now have 2 logs: snapshot_create and sandbox execution
+    assert len(logs) == 2
+    
+    exec_entry = [l for l in logs if "language" in l and "exit_code" in l][0]
+    assert exec_entry["status"] == "success"
+    assert exec_entry["language"] == "python"
+    assert "resource_limits" in exec_entry
+    assert exec_entry["resource_limits"]["network_mode"] == "none"
 
 
 def test_execution_timeout_mock(temp_workspace):
