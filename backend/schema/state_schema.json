@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AppState",
+  "type": "object",
+  "required": [
+    "active_tasks",
+    "system_logs",
+    "user_config",
+    "security_incidents"
+  ],
+  "properties": {
+    "active_tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "task_id",
+          "name",
+          "status",
+          "created_at",
+          "updated_at",
+          "payload"
+        ],
+        "properties": {
+          "task_id": { "type": "string" },
+          "name": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "running", "completed", "failed", "cancelled"]
+          },
+          "created_at": { "type": "string" },
+          "updated_at": { "type": "string" },
+          "payload": { "type": "object" }
+        }
+      }
+    },
+    "system_logs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "log_id",
+          "timestamp",
+          "level",
+          "component",
+          "message",
+          "metadata"
+        ],
+        "properties": {
+          "log_id": { "type": "string" },
+          "timestamp": { "type": "string" },
+          "level": {
+            "type": "string",
+            "enum": ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+          },
+          "component": { "type": "string" },
+          "message": { "type": "string" },
+          "metadata": { "type": "object" }
+        }
+      }
+    },
+    "user_config": {
+      "type": "object",
+      "required": [
+        "max_concurrent_tasks",
+        "sandbox_timeout_seconds",
+        "rag_top_k",
+        "log_level",
+        "security_strict_mode"
+      ],
+      "properties": {
+        "max_concurrent_tasks": { "type": "integer", "minimum": 1 },
+        "sandbox_timeout_seconds": { "type": "integer", "minimum": 1 },
+        "rag_top_k": { "type": "integer", "minimum": 1 },
+        "log_level": { "type": "string" },
+        "security_strict_mode": { "type": "boolean" }
+      }
+    },
+    "security_incidents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "incident_id",
+          "timestamp",
+          "alert_type",
+          "severity",
+          "source_component",
+          "description",
+          "raw_payload",
+          "resolved"
+        ],
+        "properties": {
+          "incident_id": { "type": "string" },
+          "timestamp": { "type": "string" },
+          "alert_type": { "type": "string" },
+          "severity": {
+            "type": "string",
+            "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+          },
+          "source_component": { "type": "string" },
+          "description": { "type": "string" },
+          "raw_payload": { "type": "object" },
+          "resolved": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}
