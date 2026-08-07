@@ -30,7 +30,11 @@
     "sandbox_timeout_seconds": 30,
     "rag_top_k": 5,
     "log_level": "INFO",
-    "security_strict_mode": true
+    "security_strict_mode": true,
+    "model_provider": "ollama",
+    "ollama_model": "gemma4:latest",
+    "gemini_model": "gemini-1.5-flash",
+    "ollama_base_url": "http://localhost:11434"
   },
   "security_incidents": [
     {

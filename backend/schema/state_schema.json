@@ -73,7 +73,11 @@
         "sandbox_timeout_seconds": { "type": "integer", "minimum": 1 },
         "rag_top_k": { "type": "integer", "minimum": 1 },
         "log_level": { "type": "string" },
-        "security_strict_mode": { "type": "boolean" }
+        "security_strict_mode": { "type": "boolean" },
+        "model_provider": { "type": "string" },
+        "ollama_model": { "type": "string" },
+        "gemini_model": { "type": "string" },
+        "ollama_base_url": { "type": "string" }
       }
     },
     "security_incidents": {

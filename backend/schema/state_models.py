@@ -56,6 +56,11 @@ class UserConfig(BaseModel):
     rag_top_k: int = Field(default=5, ge=1)
     log_level: LogLevel = Field(default=LogLevel.INFO)
     security_strict_mode: bool = Field(default=True)
+    model_provider: str = Field(default="ollama")
+    ollama_model: str = Field(default="gemma4:latest")
+    gemini_model: str = Field(default="gemini-1.5-flash")
+    ollama_base_url: str = Field(default="http://localhost:11434")
+
 
 
 class SecurityIncident(BaseModel):
