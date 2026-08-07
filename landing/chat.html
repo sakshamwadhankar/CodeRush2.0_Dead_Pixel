@@ -9,7 +9,7 @@
     .chat-layout {
       min-height: calc(100vh - 5rem);
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 320px 1fr;
       gap: 24px;
       padding-top: 24px;
       padding-bottom: 40px;
@@ -25,14 +25,79 @@
       height: fit-content;
     }
 
+    /* TASK TIMELINE IN SIDEBAR */
+    .task-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .task-timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 14px;
+      bottom: 14px;
+      width: 2px;
+      background-color: var(--color-ash);
+      z-index: 1;
+    }
+
+    .task-timeline-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      position: relative;
+      z-index: 2;
+    }
+
+    .task-marker {
+      width: 24px;
+      height: 24px;
+      background-color: var(--surface-card);
+      border: 2px solid var(--color-carbon-black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .task-timeline-item.active .task-marker {
+      border-color: var(--color-mint-chip);
+      background-color: var(--color-carbon-black);
+    }
+
+    .task-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .task-title {
+      font-weight: var(--font-weight-medium);
+      font-size: 13px;
+      color: var(--color-carbon-black);
+    }
+
+    .task-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-smoke);
+    }
+
+    /* CHAT CONTAINER */
     .chat-container {
       background-color: var(--surface-card);
       border-radius: var(--radius-card);
       padding: 32px;
       display: flex;
       flex-direction: column;
-      height: 78vh;
+      height: 80vh;
       justify-content: space-between;
+      gap: 16px;
     }
 
     .messages-area {
@@ -42,7 +107,6 @@
       flex-direction: column;
       gap: 16px;
       padding-right: 12px;
-      margin-bottom: 20px;
     }
 
     .msg-bubble {
@@ -65,6 +129,49 @@
       color: var(--color-paper-white);
       align-self: flex-end;
       border-bottom-right-radius: 4px;
+    }
+
+    /* LOGS DROPDOWN WIDGET */
+    .logs-dropdown {
+      background-color: var(--color-graphite);
+      color: var(--color-paper-white);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .logs-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    .logs-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .logs-content {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #3a3a3a;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 160px;
+      overflow-y: auto;
+    }
+
+    .log-line {
+      color: var(--color-smoke);
+    }
+
+    .log-line.active {
+      color: var(--color-mint-chip);
     }
 
     .chat-input-bar {
@@ -107,24 +214,47 @@
   </header>
 
   <main class="container chat-layout">
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR WITH ACTIVE & QUEUED TASK TIMELINE -->
     <aside class="sidebar-card">
       <div class="mint-tag">AGENT STANDBY</div>
       <h3 class="text-heading" style="font-size: 20px;">AEGIS RESEARCH ASSISTANT</h3>
       <p style="color: var(--color-slate); font-size: 13px;">Ask any complex investigation goal. Aegis runs Playwright web intelligence, ChromaDB RAG, and air-gapped Docker code execution.</p>
       
-      <div style="border-top: 1px solid var(--color-ash); padding-top: 16px; display: flex; flex-direction: column; gap: 8px;">
-        <span class="mono-label" style="color: var(--color-smoke);">ACTIVE MODULES</span>
-        <div style="font-family: var(--font-mono); font-size: 11px; display: flex; flex-direction: column; gap: 4px;">
-          <span>🟢 FastAPI REST API : 8000</span>
-          <span>🟢 ChromaDB RAG Vector Store</span>
-          <span>🟢 Playwright Web Scraper</span>
-          <span>🟢 Docker Sandbox Isolation</span>
+      <div style="border-top: 1px solid var(--color-ash); padding-top: 16px; display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span class="mono-label" style="color: var(--color-smoke);">TASK QUEUE & TIMELINE</span>
+          <span class="mint-tag" style="padding: 2px 8px; font-size: 10px;">3 TASKS</span>
+        </div>
+
+        <div class="task-timeline">
+          <div class="task-timeline-item active">
+            <div class="task-marker">🟢</div>
+            <div class="task-info">
+              <div class="task-title">#AE-8012: Security RAG Audit</div>
+              <div class="task-meta">RUNNING · Docker Sandbox</div>
+            </div>
+          </div>
+
+          <div class="task-timeline-item">
+            <div class="task-marker">⏳</div>
+            <div class="task-info">
+              <div class="task-title">#AE-8013: Playwright Web Scrape</div>
+              <div class="task-meta">QUEUED · Step 2/4</div>
+            </div>
+          </div>
+
+          <div class="task-timeline-item">
+            <div class="task-marker">⏳</div>
+            <div class="task-info">
+              <div class="task-title">#AE-8014: Citation Conflict Check</div>
+              <div class="task-meta">QUEUED · Evidence Graph</div>
+            </div>
+          </div>
         </div>
       </div>
     </aside>
 
-    <!-- CHAT INTERFACE -->
+    <!-- CHAT INTERFACE WITH LOGS DROPDOWN -->
     <section class="chat-container">
       <div class="messages-area" id="chat-messages">
         <div class="msg-bubble msg-agent">
@@ -132,6 +262,20 @@
           Welcome to Aegis Research OS! Enter your research goal below (e.g. <em>"Analyze competitor LLM security benchmarks and build citation report"</em>).
         </div>
       </div>
+
+      <!-- LOGS DROPDOWN WIDGET -->
+      <details class="logs-dropdown" id="chat-logs-dropdown" open>
+        <summary class="logs-summary">
+          <span class="mono-label">📋 AGENT EXECUTION LOGS & TRACE</span>
+          <span class="mint-tag" style="padding: 2px 6px; font-size: 10px;">LIVE TRACE</span>
+        </summary>
+        <div class="logs-content" id="chat-logs-body">
+          <div class="log-line active"><code>[04:36:12] Cognitive Planner: YAML strategy loaded. Step breakdown ready.</code></div>
+          <div class="log-line"><code>[04:36:13] Playwright: Scraping target DOM endpoints (Air-gapped mode).</code></div>
+          <div class="log-line"><code>[04:36:14] Hybrid RAG: ChromaDB dense + BM25Okapi sparse fusion complete.</code></div>
+          <div class="log-line"><code>[04:36:15] Sandbox API: Docker python container execution verified.</code></div>
+        </div>
+      </details>
 
       <div class="chat-input-bar">
         <input type="text" id="chat-input-field" class="chat-input" placeholder="Type your research prompt here...">
@@ -145,6 +289,7 @@
       const input = document.getElementById('chat-input-field');
       const btn = document.getElementById('send-chat-btn');
       const messages = document.getElementById('chat-messages');
+      const logsBody = document.getElementById('chat-logs-body');
 
       function sendMessage() {
         const text = input.value.trim();
@@ -156,6 +301,15 @@
         messages.appendChild(userBubble);
         input.value = '';
         messages.scrollTop = messages.scrollHeight;
+
+        // Log entry append
+        if (logsBody) {
+          const logLine = document.createElement('div');
+          logLine.className = 'log-line active';
+          logLine.innerHTML = `<code>[${new Date().toLocaleTimeString()}] Executing research prompt: "${text}"</code>`;
+          logsBody.appendChild(logLine);
+          logsBody.scrollTop = logsBody.scrollHeight;
+        }
 
         setTimeout(() => {
           const agentBubble = document.createElement('div');

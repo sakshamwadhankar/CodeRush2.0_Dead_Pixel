@@ -78,10 +78,10 @@
   --spacing-80: 80px;
   --spacing-96: 96px;
 
-  /* Layout — Wide Desktop PC First */
-  --page-max-width: 1440px;
-  --section-gap: 96px;
-  --card-padding: 32px;
+  /* Layout — Ultra-Wide Widescreen PC First */
+  --page-max-width: 1720px;
+  --section-gap: 104px;
+  --card-padding: 36px;
 
   /* Border Radii */
   --radius-button: 8px;
@@ -124,31 +124,32 @@ body {
   overflow-x: hidden;
 }
 
-/* MOVING GRID BACKGROUND */
+/* MOVING GRID BACKGROUND — CONTINUOUS VISIBLE DIAGONAL SCROLL */
 body::before {
   content: '';
   position: fixed;
   top: 0;
   left: 0;
-  width: 200%;
-  height: 200%;
+  width: 100vw;
+  height: 100vh;
   z-index: -1;
   background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px;
-  animation: moveGrid 28s linear infinite;
+    linear-gradient(to right, rgba(0, 0, 0, 0.095) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.095) 1.5px, transparent 1.5px);
+  background-size: 54px 54px;
+  animation: moveGrid 14s linear infinite;
   pointer-events: none;
 }
 
 @keyframes moveGrid {
   0% {
-    transform: translate(0, 0);
+    background-position: 0 0;
   }
   100% {
-    transform: translate(-48px, -48px);
+    background-position: 54px 54px;
   }
 }
+
 
 /* ON-SCROLL TYPOGRAPHY & ELEMENT REVEAL ANIMATIONS */
 .scroll-reveal {
@@ -174,15 +175,15 @@ body::before {
 .container {
   max-width: var(--page-max-width);
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 60px;
 }
 
 /* Typography Utility Classes */
 .text-display-xl {
   font-family: var(--font-display);
-  font-size: var(--text-display-xl);
+  font-size: clamp(88px, 8.8vw, 150px);
   font-weight: var(--font-weight-bold);
-  line-height: var(--leading-display-xl);
+  line-height: 0.88;
   letter-spacing: var(--tracking-display-xl);
   text-transform: uppercase;
 }
@@ -356,7 +357,7 @@ body::before {
 
 /* TOP NAVIGATION BAR — SHORTER SLIMMER PC PILL */
 .header-wrapper {
-  height: 5rem;
+  height: 5.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -365,16 +366,16 @@ body::before {
   z-index: 1000;
   background-color: rgba(229, 229, 229, 0.92);
   backdrop-filter: blur(10px);
-  padding: 0 40px;
+  padding: 0 60px;
 }
 
 .nav-pill {
   width: 100%;
   max-width: var(--page-max-width);
-  height: 54px;
+  height: 60px;
   background-color: var(--surface-card);
   border-radius: var(--radius-nav-pill);
-  padding: 0 var(--spacing-24);
+  padding: 0 var(--spacing-32, 32px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -384,11 +385,11 @@ body::before {
 .word-flip-container {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   perspective: 1000px;
   vertical-align: middle;
   min-height: 1.1em;
-  margin: 4px 0;
+  margin: 6px 0;
   max-width: 100%;
 }
 
@@ -396,20 +397,20 @@ body::before {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 8px;
-  height: 1.02em;
+  padding: 0 12px;
+  height: 1.05em;
   background-color: var(--color-mint-chip);
   color: var(--color-carbon-black);
-  border-radius: 8px;
+  border-radius: 12px;
   font-family: var(--font-display);
-  font-size: clamp(36px, 4.2vw, 76px); /* Sleek compact flipping cube text */
+  font-size: clamp(52px, 5.8vw, 110px); /* Bold prominent flipping letter cubes */
   font-weight: var(--font-weight-bold);
   line-height: 1;
   text-transform: uppercase;
   transform-style: preserve-3d;
   transition: transform 0.45s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.35s ease, background-color 0.2s ease;
   will-change: transform, opacity;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15) !important; /* Subtle mechanical edge depth */
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18) !important; /* Mechanical edge depth */
 }
 
 .char-cube.flip-out {

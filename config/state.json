@@ -1126,6 +1126,30 @@
         "action_type": "synthesis",
         "subquestion": "Synthesize evidence and compile final report for: PRINCE Cryptographic Cipher"
       }
+    },
+    {
+      "task_id": "task_88ff4020",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-07T23:00:15.842660+00:00",
+      "updated_at": "2026-08-07T23:00:15.894518+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: modi"
+      }
+    },
+    {
+      "task_id": "task_1cf9cd90",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: mo...",
+      "status": "completed",
+      "created_at": "2026-08-07T23:00:15.899106+00:00",
+      "updated_at": "2026-08-07T23:01:14.552280+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: modi"
+      }
     }
   ],
   "system_logs": [
@@ -6114,6 +6138,130 @@
       "message": "Updated task task_0de7d7d2 status to completed",
       "metadata": {
         "task_id": "task_0de7d7d2",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_3e045235",
+      "timestamp": "2026-08-07T23:00:15.838715+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: The read operation timed out",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_d045b106",
+      "timestamp": "2026-08-07T23:00:15.842660+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "modi",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_1bce1501",
+      "timestamp": "2026-08-07T23:00:15.842660+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_88ff4020)",
+      "metadata": {
+        "task_id": "task_88ff4020"
+      }
+    },
+    {
+      "log_id": "log_f2975e31",
+      "timestamp": "2026-08-07T23:00:15.855727+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_88ff4020 status to running",
+      "metadata": {
+        "task_id": "task_88ff4020",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_ad1f9bfd",
+      "timestamp": "2026-08-07T23:00:15.894518+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_88ff4020 status to completed",
+      "metadata": {
+        "task_id": "task_88ff4020",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_e7d4cb5a",
+      "timestamp": "2026-08-07T23:00:15.899106+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_66d07ef0",
+      "timestamp": "2026-08-07T23:00:15.899106+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_4e1f9b18",
+      "timestamp": "2026-08-07T23:00:15.899106+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: mo...' (task_1cf9cd90)",
+      "metadata": {
+        "task_id": "task_1cf9cd90"
+      }
+    },
+    {
+      "log_id": "log_4543db3e",
+      "timestamp": "2026-08-07T23:00:15.903214+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_1cf9cd90 status to running",
+      "metadata": {
+        "task_id": "task_1cf9cd90",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_b5ced505",
+      "timestamp": "2026-08-07T23:00:15.906297+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_1cf9cd90 status to pending_approval",
+      "metadata": {
+        "task_id": "task_1cf9cd90",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_a21766b3",
+      "timestamp": "2026-08-07T23:00:59.037328+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_1cf9cd90 status to running",
+      "metadata": {
+        "task_id": "task_1cf9cd90",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_30449f87",
+      "timestamp": "2026-08-07T23:01:14.552280+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_1cf9cd90 status to completed",
+      "metadata": {
+        "task_id": "task_1cf9cd90",
         "new_status": "completed"
       }
     }
