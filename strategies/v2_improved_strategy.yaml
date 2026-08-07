@@ -1,0 +1,16 @@
+name: "Self-Evolved Improved Strategy"
+version: "v2.1.0"
+description: "Improved strategy with optimized top-k, denser semantic chunking, and strict deduplication."
+
+retrieval:
+  top_k: 5
+  dense_weight: 0.6
+  sparse_weight: 0.4
+  rrf_k: 60
+  chunk_size: 400
+  chunk_overlap: 50
+  dedup_threshold: 0.85
+
+llm:
+  temperature: 0.2
+  max_tokens: 1024

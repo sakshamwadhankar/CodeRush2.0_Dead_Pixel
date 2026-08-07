@@ -1,0 +1,16 @@
+name: "Baseline RAG Strategy"
+version: "v1.0.0"
+description: "Initial baseline configuration for Hybrid Search and RAG Engine."
+
+retrieval:
+  top_k: 3
+  dense_weight: 0.5
+  sparse_weight: 0.5
+  rrf_k: 60
+  chunk_size: 500
+  chunk_overlap: 30
+  dedup_threshold: 0.90
+
+llm:
+  temperature: 0.7
+  max_tokens: 512

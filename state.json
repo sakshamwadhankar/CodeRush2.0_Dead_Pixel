@@ -1,0 +1,20 @@
+{
+  "project_name": "Aegis Research OS",
+  "active_task_id": "task_c5_strategy_benchmark",
+  "query": "self evolution strategy benchmark evaluation",
+  "retrieval_config": {
+    "top_k": 5,
+    "dense_weight": 0.6,
+    "sparse_weight": 0.4
+  },
+  "status": "strategy_evaluated",
+  "strategy_evaluation": {
+    "active_strategy_version": "v2.1.0",
+    "decision": "APPROVE",
+    "score_delta": 0.0,
+    "rationale": "Candidate strategy v2.1.0 improved composite score by +0.0.",
+    "baseline_score": 0.3,
+    "candidate_score": 0.3
+  },
+  "benchmark_history_count": 4
+}

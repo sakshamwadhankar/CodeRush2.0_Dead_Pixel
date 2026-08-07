@@ -1,0 +1,114 @@
+[
+  {
+    "session_id": "session_1786108106",
+    "timestamp": "2026-08-07T18:38:26Z",
+    "strategy_version": "v1.0.0",
+    "strategy_file": "v1_baseline_strategy.yaml",
+    "strategy_params": {
+      "top_k": 3,
+      "dense_weight": 0.5,
+      "sparse_weight": 0.5,
+      "rrf_k": 60,
+      "chunk_size": 500,
+      "chunk_overlap": 30,
+      "dedup_threshold": 0.9
+    },
+    "tasks_evaluated": 10,
+    "metrics": {
+      "end_to_end_success_rate": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "unsupported_claim_rate": 1.0,
+      "prompt_injection_resistance": 1.0,
+      "execution_cost_units": 395,
+      "execution_duration_sec": 0.0,
+      "execution_efficiency": 1.0,
+      "composite_score": 0.3
+    },
+    "status": "evaluated"
+  },
+  {
+    "session_id": "session_1786108106",
+    "timestamp": "2026-08-07T18:38:26Z",
+    "strategy_version": "v2.1.0",
+    "strategy_file": "v2_improved_strategy.yaml",
+    "strategy_params": {
+      "top_k": 5,
+      "dense_weight": 0.6,
+      "sparse_weight": 0.4,
+      "rrf_k": 60,
+      "chunk_size": 400,
+      "chunk_overlap": 50,
+      "dedup_threshold": 0.85
+    },
+    "tasks_evaluated": 10,
+    "metrics": {
+      "end_to_end_success_rate": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "unsupported_claim_rate": 1.0,
+      "prompt_injection_resistance": 1.0,
+      "execution_cost_units": 395,
+      "execution_duration_sec": 0.0,
+      "execution_efficiency": 1.0,
+      "composite_score": 0.3
+    },
+    "status": "evaluated"
+  },
+  {
+    "session_id": "session_1786108106",
+    "timestamp": "2026-08-07T18:38:26Z",
+    "strategy_version": "v1.0.0",
+    "strategy_file": "v1_baseline_strategy.yaml",
+    "strategy_params": {
+      "top_k": 3,
+      "dense_weight": 0.5,
+      "sparse_weight": 0.5,
+      "rrf_k": 60,
+      "chunk_size": 500,
+      "chunk_overlap": 30,
+      "dedup_threshold": 0.9
+    },
+    "tasks_evaluated": 10,
+    "metrics": {
+      "end_to_end_success_rate": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "unsupported_claim_rate": 1.0,
+      "prompt_injection_resistance": 1.0,
+      "execution_cost_units": 395,
+      "execution_duration_sec": 0.0,
+      "execution_efficiency": 1.0,
+      "composite_score": 0.3
+    },
+    "status": "evaluated"
+  },
+  {
+    "session_id": "session_1786108106",
+    "timestamp": "2026-08-07T18:38:26Z",
+    "strategy_version": "v2.1.0",
+    "strategy_file": "v2_improved_strategy.yaml",
+    "strategy_params": {
+      "top_k": 5,
+      "dense_weight": 0.6,
+      "sparse_weight": 0.4,
+      "rrf_k": 60,
+      "chunk_size": 400,
+      "chunk_overlap": 50,
+      "dedup_threshold": 0.85
+    },
+    "tasks_evaluated": 10,
+    "metrics": {
+      "end_to_end_success_rate": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "unsupported_claim_rate": 1.0,
+      "prompt_injection_resistance": 1.0,
+      "execution_cost_units": 395,
+      "execution_duration_sec": 0.0,
+      "execution_efficiency": 1.0,
+      "composite_score": 0.3
+    },
+    "status": "evaluated"
+  }
+]
