@@ -10,7 +10,7 @@ import time
 import yaml
 from typing import List, Dict, Any, Optional, Tuple
 
-from retriever.hybrid_engine import HybridRAGEngine
+from src.data_rag.hybrid_engine import HybridRAGEngine
 from evaluator.dataset import BenchmarkDataset
 from evaluator.metrics import EvaluationMetricsCalculator
 

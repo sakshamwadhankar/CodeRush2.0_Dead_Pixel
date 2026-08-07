@@ -4,7 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 import pytest
 
-from quarantine_parser import QuarantineService, SecureParser
+from src.security.quarantine_parser import QuarantineService, SecureParser
 
 @pytest.fixture
 def quarantine_env(tmp_path):

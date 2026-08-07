@@ -7,7 +7,7 @@ import uuid
 from pathlib import Path
 from typing import Dict, Any, Optional
 
-from rollback import WorkspaceSnapshotManager
+from src.security.rollback import WorkspaceSnapshotManager
 
 try:
     import docker

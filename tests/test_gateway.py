@@ -5,8 +5,8 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock
 from pydantic import BaseModel, Field
 
-from backend.gateway.gateway import ModelGateway, ModelGatewayError
-from backend.controllers.state_controller import StateController
+from src.orchestration.gateway import ModelGateway, ModelGatewayError
+from src.orchestration.state_controller import StateController
 
 
 class SamplePlan(BaseModel):

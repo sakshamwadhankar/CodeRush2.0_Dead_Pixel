@@ -8,7 +8,7 @@ import pytest
 from evaluator.dataset import BenchmarkDataset
 from evaluator.metrics import EvaluationMetricsCalculator
 from evaluator.benchmark_runner import StrategyBenchmarkRunner
-from retriever.hybrid_engine import HybridRAGEngine
+from src.data_rag.hybrid_engine import HybridRAGEngine
 
 
 def test_benchmark_dataset():

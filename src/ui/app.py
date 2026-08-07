@@ -3,8 +3,8 @@ import streamlit as st
 from pathlib import Path
 from typing import Dict, Any
 
-from backend.controllers.state_controller import StateController
-from backend.schema.state_models import TaskStatus, LogLevel, SeverityLevel
+from src.orchestration.state_controller import StateController
+from src.orchestration.state_models import TaskStatus, LogLevel, SeverityLevel
 
 # Page configuration
 st.set_page_config(
@@ -50,6 +50,7 @@ st.markdown(
     .status-badge-running { color: #60A5FA; font-weight: 600; }
     .status-badge-completed { color: #34D399; font-weight: 600; }
     .status-badge-failed { color: #F87171; font-weight: 600; }
+    .status-badge-pending_approval { color: #F59E0B; font-weight: 600; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -70,7 +71,7 @@ def main():
     # Header
     st.markdown('<p class="main-header">🧠 Aegis Research OS</p>', unsafe_allow_html=True)
     st.markdown(
-        '<p class="sub-header">Self-Evolving Autonomous Research Agent | Mock State Layout & Contract Inspector</p>',
+        '<p class="sub-header">Self-Evolving Autonomous Research Agent | Live Execution State</p>',
         unsafe_allow_html=True,
     )
 
@@ -146,12 +147,68 @@ def main():
             st.success("Security incidents resolved!")
             st.rerun()
 
-    # 3-Column Main Layout
-    col1, col2, col3 = st.columns([1, 1.1, 1.2])
-
     # Initialize session state for compiled report if not present
     if "latest_report" not in st.session_state:
         st.session_state["latest_report"] = None
+    if "approved_subtasks" not in st.session_state:
+        st.session_state["approved_subtasks"] = []
+    if "rejected_subtasks" not in st.session_state:
+        st.session_state["rejected_subtasks"] = []
+    if "current_graph" not in st.session_state:
+        st.session_state["current_graph"] = None
+
+    # Check if any task in state.json is waiting for user approval
+    pending_approval_tasks = [
+        t for t in app_state.active_tasks if getattr(t, "status", None) == TaskStatus.PENDING_APPROVAL
+    ]
+    if pending_approval_tasks:
+        pending_task = pending_approval_tasks[0]
+        st.warning(
+            f"⚠️ **HUMAN-IN-THE-LOOP APPROVAL REQUIRED**\n\n"
+            f"**Task ID:** `{pending_task.task_id}` | **Action:** `{pending_task.name}`\n\n"
+            f"The agent has paused backend execution pending explicit user consent for this sensitive operation."
+        )
+        ac1, ac2 = st.columns(2)
+        if ac1.button("✅ Approve Sensitive Action", use_container_width=True, key="btn_approve_gate"):
+            sub_id = pending_task.payload.get("subtask_id", "sub_002")
+            st.session_state["approved_subtasks"].append(sub_id)
+            controller.log_system_event(
+                level=LogLevel.INFO,
+                component="StreamlitUI",
+                message=f"User approved sensitive subtask execution: {sub_id}",
+            )
+            if st.session_state["current_graph"]:
+                from src.orchestration.planner import PlannerEngine
+                planner = PlannerEngine()
+                results = planner.execute_graph(
+                    st.session_state["current_graph"],
+                    approved_subtasks=st.session_state["approved_subtasks"],
+                    rejected_subtasks=st.session_state["rejected_subtasks"],
+                )
+                if results:
+                    report = planner.compile_report(st.session_state["current_graph"], results)
+                    st.session_state["latest_report"] = report.compiled_markdown
+            st.success("Approval granted. Execution resumed!")
+            st.rerun()
+
+        if ac2.button("❌ Reject Action", use_container_width=True, key="btn_reject_gate"):
+            sub_id = pending_task.payload.get("subtask_id", "sub_002")
+            st.session_state["rejected_subtasks"].append(sub_id)
+            controller.update_task_status(pending_task.task_id, TaskStatus.CANCELLED)
+            controller.log_system_event(
+                level=LogLevel.WARNING,
+                component="StreamlitUI",
+                message=f"User rejected sensitive subtask execution: {sub_id}",
+            )
+            st.error("Action rejected by user. Execution halted.")
+            st.rerun()
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # 3-Column Main Layout
+    col1, col2, col3 = st.columns([1, 1.1, 1.2])
+
+    # (Lines moved up before st.columns)
 
     # ----------------------------------------------------
     # COLUMN 1: Research Planner & Running Tasks
@@ -168,11 +225,19 @@ def main():
             submitted = st.form_submit_button("🚀 Launch Research Task", use_container_width=True)
             if submitted and query_input.strip():
                 with st.spinner("Decomposing query and executing PlannerEngine graph..."):
-                    from backend.planner.planner import PlannerEngine
+                    from src.orchestration.planner import PlannerEngine
                     planner = PlannerEngine()
-                    report = planner.run_pipeline(query_input.strip())
-                    st.session_state["latest_report"] = report.compiled_markdown
-                st.success("PlannerEngine pipeline completed successfully!")
+                    graph = planner.decompose_query(query_input.strip())
+                    st.session_state["current_graph"] = graph
+                    results = planner.execute_graph(
+                        graph,
+                        approved_subtasks=st.session_state["approved_subtasks"],
+                        rejected_subtasks=st.session_state["rejected_subtasks"],
+                    )
+                    if results:
+                        report = planner.compile_report(graph, results)
+                        st.session_state["latest_report"] = report.compiled_markdown
+                st.success("PlannerEngine cycle updated!")
                 st.rerun()
 
         st.markdown("#### Active & Queued Tasks")
@@ -180,14 +245,15 @@ def main():
             st.info("No active tasks found in state.json.")
         else:
             for task in reversed(app_state.active_tasks):
-                status_class = f"status-badge-{task.status.value}"
+                status_val = task.status.value if hasattr(task.status, 'value') else str(task.status)
+                status_class = f"status-badge-{status_val}"
                 with st.container():
                     st.markdown(
                         f"""
                         <div class="card-box">
                             <b>{task.name}</b><br/>
                             <small>ID: {task.task_id}</small><br/>
-                            Status: <span class="{status_class}">{task.status.value.upper()}</span><br/>
+                            Status: <span class="{status_class}">{status_val.upper()}</span><br/>
                             <small>Created: {task.created_at[:19]}</small>
                         </div>
                         """,
@@ -225,15 +291,6 @@ def main():
 
         st.text_area("Console Stream Output", value=log_text or "No system logs available.", height=320)
 
-        if st.button("⚡ Emit Mock Console Event", use_container_width=True):
-            controller.log_system_event(
-                level=LogLevel.INFO,
-                component="OrchestratorEngine",
-                message="Mock execution pulse emitted from Streamlit Console",
-                metadata={"source": "user_click"},
-            )
-            st.rerun()
-
     # ----------------------------------------------------
     # COLUMN 3: Report Display & Mock Citations
     # ----------------------------------------------------
@@ -257,11 +314,28 @@ def main():
             )
 
         st.markdown("#### 🕸️ Evidence Graph & Source Citations")
-        sources_data = [
-            {"Citation": "[1]", "Source Title": "Aegis Architecture Specification", "Relevance": "0.98", "Status": "Verified"},
-            {"Citation": "[2]", "Source Title": "NeMo Guardrails Prompt Injection Paper", "Relevance": "0.94", "Status": "Verified"},
-        ]
-        st.table(sources_data)
+        citations_path = Path("workspace/citations.json")
+        if citations_path.exists():
+            with open(citations_path, "r", encoding="utf-8") as f:
+                try:
+                    citations_data = json.load(f)
+                    
+                    # Convert to table format for display
+                    table_data = []
+                    for cit in citations_data:
+                        table_data.append({
+                            "Citation": cit.get("claim_id", ""),
+                            "Statement": cit.get("claim_text", "")[:100] + "...",
+                            "Confidence": f"{cit.get('confidence', 0) * 100:.1f}%",
+                        })
+                    if table_data:
+                        st.table(table_data)
+                    else:
+                        st.info("No citations found in the current report.")
+                except json.JSONDecodeError:
+                    st.error("Error decoding citations.json")
+        else:
+            st.info("No active citations graph found. Run a research query to generate evidence.")
 
         with st.expander("🔍 Inspect Raw state.json Contract"):
             st.json(app_state.model_dump())

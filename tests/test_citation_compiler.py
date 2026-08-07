@@ -4,8 +4,8 @@ Unit tests for Step C4 Dynamic Citation Compiler and Markdown Parser.
 
 import json
 import pytest
-from retriever.evidence_graph import EvidenceGraph
-from retriever.citation_compiler import MarkdownCitationParser, DynamicCitationCompiler
+from src.data_rag.evidence_graph import EvidenceGraph
+from src.data_rag.citation_compiler import MarkdownCitationParser, DynamicCitationCompiler
 
 
 def test_markdown_citation_parser():

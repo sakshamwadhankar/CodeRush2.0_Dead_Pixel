@@ -3,7 +3,7 @@ Unit tests for Semantic Text Chunker.
 """
 
 import pytest
-from retriever.chunker import SemanticChunker
+from src.data_rag.chunker import SemanticChunker
 
 
 def test_chunker_header_extraction_and_context():

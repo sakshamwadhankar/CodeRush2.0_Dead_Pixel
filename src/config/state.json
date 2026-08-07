@@ -1,0 +1,396 @@
+{
+  "active_tasks": [
+    {
+      "task_id": "task_e0cd3f41",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-07T17:36:24.989939+00:00",
+      "updated_at": "2026-08-07T17:36:24.993454+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: Investigate zero-day exploit trends in cloud native environments"
+      }
+    },
+    {
+      "task_id": "task_9182238a",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: In...",
+      "status": "completed",
+      "created_at": "2026-08-07T17:36:24.994746+00:00",
+      "updated_at": "2026-08-07T17:36:24.997213+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: Investigate zero-day exploit trends in cloud native environments"
+      }
+    },
+    {
+      "task_id": "task_f85fcef6",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "failed",
+      "created_at": "2026-08-07T17:36:24.998440+00:00",
+      "updated_at": "2026-08-07T17:36:25.000853+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: Investigate zero-day exploit trends in cloud native environments"
+      }
+    },
+    {
+      "task_id": "task_bd3a1177",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-07T17:44:15.215247+00:00",
+      "updated_at": "2026-08-07T17:44:15.218340+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: Investigate zero-day exploit trends in cloud native environments"
+      }
+    },
+    {
+      "task_id": "task_0374511d",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: In...",
+      "status": "completed",
+      "created_at": "2026-08-07T17:44:15.219777+00:00",
+      "updated_at": "2026-08-07T17:44:15.224920+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: Investigate zero-day exploit trends in cloud native environments"
+      }
+    },
+    {
+      "task_id": "task_c633c37f",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "failed",
+      "created_at": "2026-08-07T17:44:15.225934+00:00",
+      "updated_at": "2026-08-07T17:44:15.228862+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: Investigate zero-day exploit trends in cloud native environments"
+      }
+    }
+  ],
+  "system_logs": [
+    {
+      "log_id": "log_d30dc1e6",
+      "timestamp": "2026-08-07T17:36:24.989782+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: ModelGateway failed to produce valid TaskGraph structured output after 2 retries: Ollama local endpoint connection failed (http://localhost:11434/api/generate): HTTP Error 404: Not Found",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_37783eb9",
+      "timestamp": "2026-08-07T17:36:24.989902+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "Investigate zero-day exploit trends in cloud native environments",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_6ac08f63",
+      "timestamp": "2026-08-07T17:36:24.989981+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_e0cd3f41)",
+      "metadata": {
+        "task_id": "task_e0cd3f41"
+      }
+    },
+    {
+      "log_id": "log_d62b9bb4",
+      "timestamp": "2026-08-07T17:36:24.991760+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_e0cd3f41 status to running",
+      "metadata": {
+        "task_id": "task_e0cd3f41",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_16249c6a",
+      "timestamp": "2026-08-07T17:36:24.993498+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_e0cd3f41 status to completed",
+      "metadata": {
+        "task_id": "task_e0cd3f41",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_3d7384ae",
+      "timestamp": "2026-08-07T17:36:24.994652+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_080e4c95",
+      "timestamp": "2026-08-07T17:36:24.994721+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_a57f5065",
+      "timestamp": "2026-08-07T17:36:24.994775+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: In...' (task_9182238a)",
+      "metadata": {
+        "task_id": "task_9182238a"
+      }
+    },
+    {
+      "log_id": "log_f370e942",
+      "timestamp": "2026-08-07T17:36:24.995797+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_9182238a status to running",
+      "metadata": {
+        "task_id": "task_9182238a",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_d972e984",
+      "timestamp": "2026-08-07T17:36:24.997263+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_9182238a status to completed",
+      "metadata": {
+        "task_id": "task_9182238a",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_9404bc6a",
+      "timestamp": "2026-08-07T17:36:24.998348+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.95",
+      "metadata": {
+        "confidence": 0.95,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_b4d90729",
+      "timestamp": "2026-08-07T17:36:24.998416+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.94 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_00b5fef3",
+      "timestamp": "2026-08-07T17:36:24.998466+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_f85fcef6)",
+      "metadata": {
+        "task_id": "task_f85fcef6"
+      }
+    },
+    {
+      "log_id": "log_ea600b24",
+      "timestamp": "2026-08-07T17:36:24.999743+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_f85fcef6 status to running",
+      "metadata": {
+        "task_id": "task_f85fcef6",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_b34c9ab8",
+      "timestamp": "2026-08-07T17:36:25.000891+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_f85fcef6 status to failed",
+      "metadata": {
+        "task_id": "task_f85fcef6",
+        "new_status": "failed"
+      }
+    },
+    {
+      "log_id": "log_ef429a94",
+      "timestamp": "2026-08-07T17:44:15.215030+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: ModelGateway failed to produce valid TaskGraph structured output after 2 retries: Ollama local endpoint connection failed (http://localhost:11434/api/generate): HTTP Error 404: Not Found",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_d8ad8886",
+      "timestamp": "2026-08-07T17:44:15.215213+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "Investigate zero-day exploit trends in cloud native environments",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_be6d8756",
+      "timestamp": "2026-08-07T17:44:15.215284+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_bd3a1177)",
+      "metadata": {
+        "task_id": "task_bd3a1177"
+      }
+    },
+    {
+      "log_id": "log_afca30a0",
+      "timestamp": "2026-08-07T17:44:15.216917+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_bd3a1177 status to running",
+      "metadata": {
+        "task_id": "task_bd3a1177",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_eeae3bb4",
+      "timestamp": "2026-08-07T17:44:15.218380+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_bd3a1177 status to completed",
+      "metadata": {
+        "task_id": "task_bd3a1177",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_4328963e",
+      "timestamp": "2026-08-07T17:44:15.219680+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_f2b133db",
+      "timestamp": "2026-08-07T17:44:15.219749+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_19a677d3",
+      "timestamp": "2026-08-07T17:44:15.219823+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: In...' (task_0374511d)",
+      "metadata": {
+        "task_id": "task_0374511d"
+      }
+    },
+    {
+      "log_id": "log_4e39d469",
+      "timestamp": "2026-08-07T17:44:15.221866+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_0374511d status to running",
+      "metadata": {
+        "task_id": "task_0374511d",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_ae4de88e",
+      "timestamp": "2026-08-07T17:44:15.224949+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_0374511d status to completed",
+      "metadata": {
+        "task_id": "task_0374511d",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_d8c689a5",
+      "timestamp": "2026-08-07T17:44:15.225825+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.95",
+      "metadata": {
+        "confidence": 0.95,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_b9d87970",
+      "timestamp": "2026-08-07T17:44:15.225904+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.94 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_f13f92fa",
+      "timestamp": "2026-08-07T17:44:15.226013+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_c633c37f)",
+      "metadata": {
+        "task_id": "task_c633c37f"
+      }
+    },
+    {
+      "log_id": "log_4777a7d6",
+      "timestamp": "2026-08-07T17:44:15.227560+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_c633c37f status to running",
+      "metadata": {
+        "task_id": "task_c633c37f",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_11017e10",
+      "timestamp": "2026-08-07T17:44:15.228929+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_c633c37f status to failed",
+      "metadata": {
+        "task_id": "task_c633c37f",
+        "new_status": "failed"
+      }
+    }
+  ],
+  "user_config": {
+    "max_concurrent_tasks": 5,
+    "sandbox_timeout_seconds": 30,
+    "rag_top_k": 5,
+    "log_level": "INFO",
+    "security_strict_mode": true,
+    "model_provider": "ollama",
+    "ollama_model": "gemma4:latest",
+    "gemini_model": "gemini-1.5-flash",
+    "ollama_base_url": "http://localhost:11434"
+  },
+  "security_incidents": []
+}

@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, Optional, List
 
-from backend.schema.state_models import (
+from src.orchestration.state_models import (
     AppState,
     TaskState,
     TaskStatus,
@@ -32,7 +32,7 @@ class StateController:
             self.state_file = Path(state_filepath)
         else:
             default_path = (
-                Path(__file__).resolve().parent.parent / "config" / "state.json"
+                Path(__file__).resolve().parent.parent.parent / "config" / "state.json"
             )
             self.state_file = default_path
 

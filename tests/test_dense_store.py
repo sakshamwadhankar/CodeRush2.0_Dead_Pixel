@@ -3,7 +3,7 @@ Unit tests for ChromaDB Dense Store.
 """
 
 import pytest
-from retriever.dense_store import ChromaDenseStore
+from src.data_rag.dense_store import ChromaDenseStore
 
 
 def test_dense_store_insertion_and_query():

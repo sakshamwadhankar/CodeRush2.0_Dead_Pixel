@@ -3,7 +3,7 @@ Unit tests for BM25 Keyword Ranker.
 """
 
 import pytest
-from retriever.bm25_ranker import BM25Ranker
+from src.data_rag.bm25_ranker import BM25Ranker
 
 
 def test_bm25_tokenization():

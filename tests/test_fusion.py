@@ -3,7 +3,7 @@ Unit tests for Reciprocal Rank Fusion (RRF).
 """
 
 import pytest
-from retriever.fusion import ReciprocalRankFusion
+from src.data_rag.fusion import ReciprocalRankFusion
 
 
 def test_rrf_fusion_score_calculation_and_ranking():

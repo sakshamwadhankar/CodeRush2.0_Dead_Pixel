@@ -3,7 +3,7 @@ Unit tests for Step C3 NetworkX Evidence Graph.
 """
 
 import pytest
-from retriever.evidence_graph import EvidenceGraph
+from src.data_rag.evidence_graph import EvidenceGraph
 
 
 def test_evidence_graph_construction_and_verification():

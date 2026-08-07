@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from backend.schema.state_models import (
+from src.orchestration.state_models import (
     AppState,
     TaskStatus,
     LogLevel,
@@ -11,7 +11,7 @@ from backend.schema.state_models import (
     ContextRetrievalRequest,
     SandboxExecutionRequest,
 )
-from backend.controllers.state_controller import (
+from src.orchestration.state_controller import (
     StateController,
     retrieve_context,
     execute_sandbox,

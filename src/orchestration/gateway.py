@@ -6,8 +6,8 @@ import urllib.error
 from typing import Dict, Any, Type, TypeVar, Optional
 from pydantic import BaseModel, ValidationError
 
-from backend.controllers.state_controller import StateController
-from backend.schema.state_models import LogLevel, SeverityLevel
+from src.orchestration.state_controller import StateController
+from src.orchestration.state_models import LogLevel, SeverityLevel
 
 T = TypeVar("T", bound=BaseModel)
 

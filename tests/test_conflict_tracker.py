@@ -3,7 +3,7 @@ Unit tests for Conflict Tracker contradiction detection utility.
 """
 
 import pytest
-from retriever.conflict_tracker import ConflictTracker
+from src.data_rag.conflict_tracker import ConflictTracker
 
 
 def test_conflict_tracker_numerical_discrepancy():

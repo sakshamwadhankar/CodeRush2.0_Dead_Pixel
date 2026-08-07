@@ -7,7 +7,7 @@ and outputs structured JSON citation mappings.
 import json
 import re
 from typing import List, Dict, Any, Optional, Tuple
-from retriever.evidence_graph import EvidenceGraph
+from src.data_rag.evidence_graph import EvidenceGraph
 
 
 class MarkdownCitationParser:

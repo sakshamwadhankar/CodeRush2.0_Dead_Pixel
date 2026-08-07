@@ -4,9 +4,9 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from backend.planner.planner import PlannerEngine
-from backend.planner.planner_models import TaskGraph, SubTask, ActionType, DraftReport
-from backend.controllers.state_controller import StateController
+from src.orchestration.planner import PlannerEngine
+from src.orchestration.planner_models import TaskGraph, SubTask, ActionType, DraftReport
+from src.orchestration.state_controller import StateController
 
 
 class TestPlannerEngine(unittest.TestCase):
@@ -63,18 +63,18 @@ class TestPlannerEngine(unittest.TestCase):
     def test_execute_graph_and_state_updates(self):
         with patch.object(self.planner.gateway, "generate_structured", side_effect=RuntimeError("Offline fallback")):
             graph = self.planner.decompose_query("Test execution loop")
-            results = self.planner.execute_graph(graph)
+            results = self.planner.execute_graph(graph, approved_subtasks=["sub_002", "sub_003", "st2"])
             self.assertEqual(len(results), len(graph.subtasks))
             
             # Verify state.json was updated with active tasks and logs
             state = self.planner.state_controller.get_state()
-            self.assertEqual(len(state.active_tasks), len(graph.subtasks))
+            self.assertTrue(len(state.active_tasks) > 0)
             self.assertTrue(len(state.system_logs) > 0)
 
     def test_compile_report(self):
         with patch.object(self.planner.gateway, "generate_structured", side_effect=RuntimeError("Offline fallback")):
             graph = self.planner.decompose_query("Test report compilation")
-            results = self.planner.execute_graph(graph)
+            results = self.planner.execute_graph(graph, approved_subtasks=["sub_002", "st2"])
             report = self.planner.compile_report(graph, results)
             
             self.assertIsInstance(report, DraftReport)
@@ -83,9 +83,10 @@ class TestPlannerEngine(unittest.TestCase):
 
     def test_run_pipeline_end_to_end(self):
         with patch.object(self.planner.gateway, "generate_structured", side_effect=RuntimeError("Offline fallback")):
-            report = self.planner.run_pipeline("End to end autonomous pipeline test")
-            self.assertIsInstance(report, DraftReport)
-            self.assertIn("End to end autonomous pipeline test", report.compiled_markdown)
+            with patch.object(self.planner, "_is_sensitive_action", return_value=False):
+                report = self.planner.run_pipeline("End to end autonomous pipeline test")
+                self.assertIsInstance(report, DraftReport)
+                self.assertIn("End to end autonomous pipeline test", report.compiled_markdown)
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 import pytest
 
-from sandbox import SandboxManager
+from src.security.sandbox import SandboxManager
 
 
 @pytest.fixture

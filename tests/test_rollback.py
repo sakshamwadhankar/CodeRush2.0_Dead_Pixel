@@ -6,8 +6,8 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
-from rollback import WorkspaceSnapshotManager, SecurityError
-from sandbox import SandboxManager
+from src.security.rollback import WorkspaceSnapshotManager, SecurityError
+from src.security.sandbox import SandboxManager
 
 @pytest.fixture
 def temp_dirs(tmp_path):

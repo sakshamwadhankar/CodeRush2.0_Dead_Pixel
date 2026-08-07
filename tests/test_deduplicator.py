@@ -3,7 +3,7 @@ Unit tests for Chunk Deduplicator utility.
 """
 
 import pytest
-from retriever.deduplicator import ChunkDeduplicator
+from src.data_rag.deduplicator import ChunkDeduplicator
 
 
 def test_deduplicator_exact_duplicates():

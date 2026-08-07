@@ -5,8 +5,8 @@ Unit tests for Hybrid RAGEngine and state.json integration.
 import json
 import os
 import pytest
-from retriever.hybrid_engine import HybridRAGEngine
-from retriever.mock_retriever import MockHybridRAGEngine
+from src.data_rag.hybrid_engine import HybridRAGEngine
+from src.data_rag.mock_retriever import MockHybridRAGEngine
 
 
 def test_hybrid_engine_ingest_and_search(tmp_path):

@@ -2,19 +2,21 @@ import json
 import uuid
 from typing import List, Dict, Any, Optional
 
-from backend.controllers.state_controller import (
-    StateController,
-    retrieve_context,
-    execute_sandbox,
-)
-from backend.gateway.gateway import ModelGateway, ModelGatewayError
-from backend.schema.state_models import (
+from src.orchestration.state_controller import StateController
+import os
+import requests
+from src.data_rag.hybrid_engine import HybridRAGEngine
+from src.data_rag.evidence_graph import EvidenceGraph
+from src.data_rag.citation_compiler import DynamicCitationCompiler
+
+from src.orchestration.gateway import ModelGateway, ModelGatewayError
+from src.orchestration.state_models import (
     TaskStatus,
     LogLevel,
     ContextRetrievalRequest,
     SandboxExecutionRequest,
 )
-from backend.planner.planner_models import (
+from src.orchestration.planner_models import (
     ActionType,
     SubTask,
     TaskGraph,
@@ -33,6 +35,7 @@ class PlannerEngine:
     def __init__(self, state_filepath: Optional[str] = None):
         self.state_controller = StateController(state_filepath=state_filepath)
         self.gateway = ModelGateway(state_filepath=state_filepath)
+        self.rag_engine = HybridRAGEngine(persist_directory="workspace/chroma")
 
     def decompose_query(self, query: str) -> TaskGraph:
         """
@@ -93,12 +96,23 @@ class PlannerEngine:
                 overall_confidence_target=0.85,
             )
 
-    def execute_graph(self, graph: TaskGraph) -> List[Dict[str, Any]]:
+    def _is_sensitive_action(self, subtask: SubTask) -> bool:
+        """Determines if a subtask requires human approval based on .env config."""
+        if subtask.action_type == ActionType.CODE_EXECUTION:
+            return os.environ.get("STRICT_APPROVAL_CODE_EXECUTION", "True").lower() == "true"
+        if subtask.action_type == ActionType.SYNTHESIS:
+            return os.environ.get("STRICT_APPROVAL_SYNTHESIS", "True").lower() == "true"
+        return False
+
+    def execute_graph(self, graph: TaskGraph, approved_subtasks: Optional[List[str]] = None, rejected_subtasks: Optional[List[str]] = None) -> List[Dict[str, Any]]:
         """
         Loops through TaskGraph subtasks sequentially, updating state.json and calling contract endpoints.
         Enforces confidence thresholds and stop conditions.
         """
         results: List[Dict[str, Any]] = []
+
+        approved = approved_subtasks or []
+        rejected = rejected_subtasks or []
 
         self.state_controller.log_system_event(
             level=LogLevel.INFO,
@@ -118,7 +132,36 @@ class PlannerEngine:
                 },
             )
 
+            # 0. Check for Security Incidents
+            state = self.state_controller.get_state()
+            active_incidents = [inc for inc in getattr(state, "security_incidents", []) if not inc.resolved]
+            if active_incidents:
+                self.state_controller.update_task_status(task_entry.task_id, TaskStatus.FAILED)
+                self.state_controller.log_system_event(
+                    level=LogLevel.CRITICAL,
+                    component="PlannerEngine",
+                    message="Execution halted due to active security incident.",
+                    metadata={"incident": active_incidents[0].description}
+                )
+                break
+
             self.state_controller.update_task_status(task_entry.task_id, TaskStatus.RUNNING)
+
+            # 1.5 Approval Gate Check
+            if self._is_sensitive_action(subtask):
+                if subtask.subtask_id in rejected:
+                    self.state_controller.update_task_status(task_entry.task_id, TaskStatus.CANCELLED)
+                    continue
+                elif subtask.subtask_id not in approved:
+                    self.state_controller.update_task_status(task_entry.task_id, TaskStatus.PENDING_APPROVAL)
+                    self.state_controller.log_system_event(
+                        level=LogLevel.WARNING,
+                        component="ApprovalGate",
+                        message=f"Subtask {subtask.subtask_id} paused for approval.",
+                        metadata={"action": subtask.action_type.value}
+                    )
+                    # Halt execution and return accumulated results
+                    break
 
             subtask_result: Dict[str, Any] = {
                 "subtask_id": subtask.subtask_id,
@@ -129,19 +172,45 @@ class PlannerEngine:
                 "citation_tag": f"[{index}]",
             }
 
-            # 2. Call Step A1 Mock Endpoint based on action_type
+            # 2. Call Action Endpoints based on action_type
             if subtask.action_type == ActionType.RAG_RETRIEVAL:
-                req = ContextRetrievalRequest(query=subtask.subquestion, top_k=3)
-                rag_res = retrieve_context(req)
-                subtask_result["output"] = rag_res.results[0]["content"] if rag_res.results else "No documents found."
+                rag_res = self.rag_engine.search(subtask.subquestion, top_k=3)
+                subtask_result["output"] = "\n".join([doc.get("text", "") for doc in rag_res]) if rag_res else "No documents found."
                 subtask_result["confidence_score"] = 0.92
 
             elif subtask.action_type == ActionType.CODE_EXECUTION:
                 code_to_exec = subtask.code_snippet or f"print('Verifying subtask: {subtask.subquestion}')"
-                req = SandboxExecutionRequest(code=code_to_exec, timeout=30)
-                sandbox_res = execute_sandbox(req)
-                subtask_result["output"] = sandbox_res.stdout
-                subtask_result["confidence_score"] = 0.95
+                url = f"{os.environ.get('SANDBOX_API_URL', 'http://localhost:8000')}/sandbox/execute"
+                headers = {"Authorization": f"Bearer {os.environ.get('SANDBOX_AUTH_TOKEN', '')}"}
+                try:
+                    res = requests.post(url, json={"code": code_to_exec, "timeout": 30}, headers=headers)
+                    if res.status_code == 200:
+                        sandbox_res = res.json()
+                        subtask_result["output"] = sandbox_res.get("stdout", "") + "\n" + sandbox_res.get("stderr", "")
+                        subtask_result["confidence_score"] = 0.95
+                    else:
+                        subtask_result["output"] = f"Sandbox API Error: {res.text}"
+                        subtask_result["confidence_score"] = 0.0
+                except Exception as e:
+                    subtask_result["output"] = f"Sandbox connection failed: {str(e)}"
+                    subtask_result["confidence_score"] = 0.0
+
+            elif subtask.action_type == ActionType.BROWSER_SCRAPE:
+                url_to_scrape = subtask.code_snippet or "https://example.com"
+                url = f"{os.environ.get('SANDBOX_API_URL', 'http://localhost:8000')}/browser/scrape"
+                headers = {"Authorization": f"Bearer {os.environ.get('SANDBOX_AUTH_TOKEN', '')}"}
+                try:
+                    res = requests.post(url, json={"url": url_to_scrape}, headers=headers)
+                    if res.status_code == 200:
+                        scrape_res = res.json()
+                        subtask_result["output"] = scrape_res.get("text_content", "")[:3000]
+                        subtask_result["confidence_score"] = 0.90
+                    else:
+                        subtask_result["output"] = f"Browser Scrape API Error: {res.text}"
+                        subtask_result["confidence_score"] = 0.0
+                except Exception as e:
+                    subtask_result["output"] = f"Browser Scrape connection failed: {str(e)}"
+                    subtask_result["confidence_score"] = 0.0
 
             else:  # ActionType.SYNTHESIS
                 subtask_result["output"] = f"Synthesized analysis for subquestion: '{subtask.subquestion}'"
@@ -210,6 +279,22 @@ class PlannerEngine:
         markdown_body += "## Evidence Graph & References\n"
         for cit in citations:
             markdown_body += f"- **{cit['citation']}**: `{cit['action_type']}` - {cit['subquestion']} (Score: {cit['confidence_score']})\n"
+
+        # Generate live citations using EvidenceGraph and CitationCompiler
+        graph_engine = EvidenceGraph()
+        for res in results:
+            graph_engine.add_claim(
+                claim_id=res["citation_tag"],
+                text=res["output"][:500],
+                supported_by_chunk_ids=None,
+                confidence=res["confidence_score"]
+            )
+        
+        compiler = DynamicCitationCompiler(graph_engine)
+        os.makedirs("workspace", exist_ok=True)
+        citation_summary = compiler.compile_citations(markdown_body)
+        with open("workspace/citations.json", "w", encoding="utf-8") as f:
+            json.dump(citation_summary.get("citations", []), f, indent=2)
 
         report = DraftReport(
             title=f"Research Report: {graph.query}",

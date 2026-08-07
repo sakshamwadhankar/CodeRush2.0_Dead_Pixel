@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, ConfigDict
 class ActionType(str, Enum):
     RAG_RETRIEVAL = "rag_retrieval"
     CODE_EXECUTION = "code_execution"
+    BROWSER_SCRAPE = "browser_scrape"
     SYNTHESIS = "synthesis"
 
 

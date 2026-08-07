@@ -9,16 +9,23 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 
-from sandbox import SandboxManager
-from rollback import WorkspaceSnapshotManager
-from browser_controller import SecureBrowserController
-from quarantine_parser import QuarantineService
+from src.security.sandbox import SandboxManager
+from src.security.rollback import WorkspaceSnapshotManager
+from src.security.browser_controller import SecureBrowserController
+from src.security.quarantine_parser import QuarantineService
 
 # Setup App
 app = FastAPI(title="Sandbox REST API", version="1.0.0")
 
-# Security Token (Hardcoded for B5 prototype phase)
-AUTH_TOKEN = "AE02-SANDBOX-AUTH-TOKEN-1234"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Security Token
+AUTH_TOKEN = os.environ.get("SANDBOX_AUTH_TOKEN")
+if not AUTH_TOKEN:
+    raise ValueError("SANDBOX_AUTH_TOKEN environment variable must be set")
 security = HTTPBearer()
 
 def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):

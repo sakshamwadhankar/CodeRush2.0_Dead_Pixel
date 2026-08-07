@@ -2,7 +2,7 @@ import base64
 import json
 import urllib.parse
 from pathlib import Path
-from browser_controller import SecureBrowserController
+from src.security.browser_controller import SecureBrowserController
 
 def create_data_url(html_content: str) -> str:
     """Helper to generate a data URI to render HTML directly in Playwright."""

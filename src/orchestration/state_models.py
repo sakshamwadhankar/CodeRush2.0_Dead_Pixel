@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field, ConfigDict
 
 class TaskStatus(str, Enum):
     PENDING = "pending"
+    PENDING_APPROVAL = "pending_approval"
     RUNNING = "running"
     COMPLETED = "completed"
     FAILED = "failed"
@@ -59,7 +60,7 @@ class UserConfig(BaseModel):
     model_provider: str = Field(default="ollama")
     ollama_model: str = Field(default="gemma4:latest")
     gemini_model: str = Field(default="gemini-1.5-flash")
-    ollama_base_url: str = Field(default="http://localhost:11434")
+    ollama_base_url: str = Field(default="https://frown-repulsion-hamster.ngrok-free.dev")
 
 
 
