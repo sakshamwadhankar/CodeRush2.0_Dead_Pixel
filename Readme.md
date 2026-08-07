@@ -38,3 +38,36 @@ Provide instructions on how to run your project locally:
    # Terminal 2: Start Frontend UI
    streamlit run src/ui/app.py
    ```
+
+## Project Structure
+
+```text
+CodeRush2.0_Dead_Pixel/
+├── config/                     # Configuration and state files
+│   ├── state.json
+│   ├── strategy_v1.yaml
+│   └── strategy_v2.yaml
+├── src/
+│   ├── ui/                     # Frontend Streamlit Application
+│   │   └── app.py
+│   ├── orchestration/          # Cognitive Planner & LLM Gateway
+│   │   ├── gateway.py
+│   │   ├── planner.py
+│   │   └── state_controller.py
+│   ├── security/               # Sandboxing, Web Scraping, & APIs
+│   │   ├── api.py
+│   │   ├── sandbox.py
+│   │   ├── rollback.py
+│   │   ├── browser_controller.py
+│   │   └── quarantine_parser.py
+│   └── data_rag/               # RAG, ChromaDB, and Evidence Graph
+│       ├── hybrid_engine.py
+│       ├── evidence_graph.py
+│       ├── citation_compiler.py
+│       ├── conflict_tracker.py
+│       └── benchmark_runner.py
+├── tests/                      # Unit and integration tests
+├── Dockerfile                  # Python execution sandbox environment
+├── Dockerfile.browser          # Playwright headless browser environment
+└── requirements.txt            # Unified project dependencies
+```
