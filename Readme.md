@@ -12,8 +12,6 @@ Aegis Research OS is a secure, autonomous AI research platform capable of planni
 
 ## Technical Stack
 
-List the technologies used in this project:
-
 - **Frontend:** Streamlit, React Flow, HTML/CSS
 - **Backend:** FastAPI, Python, Uvicorn
 - **Database:** ChromaDB, BM25Okapi, NetworkX
@@ -21,21 +19,25 @@ List the technologies used in this project:
 
 ## Setup and Installation
 
-Provide instructions on how to run your project locally:
-
-1. Clone the repository.
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/sakshamwadhankar/CodeRush2.0_Dead_Pixel.git
    cd CodeRush2.0_Dead_Pixel
    ```
-2. Install dependencies: `pip install -r requirements.txt`
-3. Configure environment variables (create a `.env` file with API keys like `OPENAI_API_KEY`, `GEMINI_API_KEY`).
-4. Start the development servers: 
+2. **Install dependencies & browsers:**
    ```bash
-   # Terminal 1: Start Backend API
+   pip install -r requirements.txt
+   python -m playwright install
+   ```
+3. **Configure environment variables:**
+   Create a `.env` file in the root directory with your API keys (e.g., `OPENAI_API_KEY`, `GEMINI_API_KEY`).
+4. **Ensure Docker is running** (required for the air-gapped Python execution sandbox).
+5. **Start the development servers:** 
+   ```bash
+   # Terminal 1: Start Backend API (FastAPI)
    uvicorn src.security.api:app --port 8000
    
-   # Terminal 2: Start Frontend UI
+   # Terminal 2: Start Frontend UI (Streamlit)
    streamlit run src/ui/app.py
    ```
 
