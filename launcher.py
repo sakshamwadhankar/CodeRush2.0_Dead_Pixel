@@ -15,11 +15,10 @@ def main():
     
     # 1. Check Docker
     if not check_docker():
-        print("CRITICAL ERROR: Docker daemon is not running.")
-        print("Please start Docker Desktop or the Docker daemon and try again.")
-        sys.exit(1)
-    
-    print("Docker is running.")
+        print("WARNING: Docker daemon is not running.")
+        print("Sandbox execution will operate in fail-closed mode, but API and Streamlit UI will start.")
+    else:
+        print("Docker is running.")
     
     processes = []
     

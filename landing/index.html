@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aegis Research OS (AE-02) — Self-Evolving Autonomous Research Ecosystem</title>
+  <meta name="description" content="Aegis Research OS (AE-02) is an autonomous enterprise research platform featuring Hybrid RAG, air-gapped sandboxed code execution, headless Playwright scraping, and reproducible citation evidence graphs.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- TOP NAVIGATION BAR WITH FLOATING PILL -->
+  <header class="header-wrapper">
+    <nav class="nav-pill" id="main-nav">
+      <a href="#" class="brand-logo" id="brand-logo">
+        <span>AEGIS</span>
+        <span class="brand-badge">AE-02</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#features" class="nav-link" id="nav-link-features">FEATURES</a></li>
+        <li><a href="#architecture" class="nav-link" id="nav-link-arch">ARCHITECTURE</a></li>
+        <li><a href="#demo" class="nav-link" id="nav-link-demo">LIVE DEMO</a></li>
+        <li><a href="#use-cases" class="nav-link" id="nav-link-usecases">USE CASES</a></li>
+        <li><a href="#faq" class="nav-link" id="nav-link-faq">FAQ</a></li>
+      </ul>
+      <a href="#demo" class="btn-primary" id="header-cta-btn">SCHEDULE DEMO</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section container" id="hero">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="mint-tag scroll-reveal" id="hero-tag">
+            <span class="mint-dot"></span>
+            AE-02 · SELF-EVOLVING AUTONOMOUS RESEARCH AGENT
+          </div>
+          
+          <h1 class="text-display-xl hero-title scroll-reveal reveal-delay-1" id="hero-heading">
+            AI FOR<br>ENTERPRISE<br>RESEARCH
+          </h1>
+
+          <p class="hero-description scroll-reveal reveal-delay-2" id="hero-subtext">
+            Aegis Research OS plans complex investigations, browses the live web with Playwright, executes code in air-gapped Docker sandboxes, and builds evidence-backed reports with 100% citation traceability.
+          </p>
+
+          <div class="hero-actions scroll-reveal reveal-delay-3">
+            <a href="#architecture" class="btn-primary" id="hero-btn-primary">EXPLORE ARCHITECTURE</a>
+            <a href="#demo" class="btn-ghost" id="hero-btn-ghost">TRY LIVE DEMO</a>
+          </div>
+
+          <div class="hero-meta scroll-reveal reveal-delay-4">
+            <div class="hero-meta-item">
+              <span class="mint-dot"></span>
+              <span>100% Citation Verification</span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="voltage-dot"></span>
+              <span>Air-Gapped Execution</span>
+            </div>
+            <div class="hero-meta-item">
+              <span>ChromaDB + BM25 Hybrid</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D PRODUCT TACTILE SHOWROOM CARD -->
+        <div class="hero-visual-card scroll-reveal reveal-delay-2" id="hero-showroom-card">
+          <div class="visual-header">
+            <span class="mono-label">SYSTEM NODES SHOWROOM</span>
+            <div class="visual-status">
+              <span class="mint-dot"></span>
+              <span class="mono-label" style="color: var(--color-smoke);">ONLINE · 8000 PORT</span>
+            </div>
+          </div>
+
+          <div class="cube-showroom">
+            <div class="rendered-nodes">
+              <div class="node-block highlight">
+                <span class="node-label">VECTOR STORAGE</span>
+                <span class="node-value">ChromaDB + BM25</span>
+              </div>
+              <div class="node-block">
+                <span class="node-label">SCRAPER</span>
+                <span class="node-value">Playwright</span>
+              </div>
+              <div class="node-block">
+                <span class="node-label">SANDBOX</span>
+                <span class="node-value">Docker Sandbox</span>
+              </div>
+            </div>
+
+            <div class="rendered-nodes" style="margin-top: 12px;">
+              <div class="node-block">
+                <span class="node-label">ERP INTEGRATION</span>
+                <span class="node-value">SAP / Oracle</span>
+              </div>
+              <div class="node-block highlight">
+                <span class="node-label">LLM GATEWAY</span>
+                <span class="node-value">Gemini API</span>
+              </div>
+              <div class="node-block">
+                <span class="node-label">WORKFLOW</span>
+                <span class="node-value">Workday API</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="visual-graph-link">
+            <span class="mint-dot"></span>
+            <span>EVIDENCE GRAPH: ACTIVE (82 NODES, ZERO CONFLICTS DETECTED)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS BAND -->
+    <section class="stats-section container" id="stats">
+      <div class="stats-grid">
+        <div class="stat-card scroll-reveal reveal-delay-1" id="stat-1">
+          <span class="stat-number">0ms</span>
+          <span class="stat-desc">HALLUCINATION ESCAPE</span>
+        </div>
+        <div class="stat-card scroll-reveal reveal-delay-2" id="stat-2">
+          <span class="stat-number">100%</span>
+          <span class="stat-desc">REPRODUCIBLE RESEARCH</span>
+        </div>
+        <div class="stat-card scroll-reveal reveal-delay-3" id="stat-3">
+          <span class="stat-number">10X</span>
+          <span class="stat-desc">FASTER HYBRID RAG</span>
+        </div>
+        <div class="stat-card scroll-reveal reveal-delay-4" id="stat-4">
+          <span class="stat-number">AIR-GAPPED</span>
+          <span class="stat-desc">DOCKER SANDBOX</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE RESEARCH SIMULATOR DEMO WIDGET -->
+    <section class="demo-section container" id="demo">
+      <div class="demo-card scroll-reveal">
+        <div class="demo-header">
+          <div>
+            <div class="mint-tag">INTERACTIVE SANDBOX DEMO</div>
+            <h2 class="text-heading scroll-reveal reveal-delay-1" style="margin-top: 12px;">TEST AEGIS RESEARCH AGENT</h2>
+          </div>
+          <div class="preset-queries">
+            <button class="preset-btn active" id="preset-1" data-query="Analyze competitor LLM security benchmarks and generate a citation-backed audit.">SECURITY AUDIT</button>
+            <button class="preset-btn" id="preset-2" data-query="Extract financial disclosures from web report and verify data integrity via Python script.">FINANCIAL SCRAPE</button>
+            <button class="preset-btn" id="preset-3" data-query="Synthesize multi-source RAG papers and identify conflicting metadata statements.">RAG CONFLICT TRACK</button>
+          </div>
+        </div>
+
+        <div class="interactive-box">
+          <div class="query-input-group">
+            <label for="query-input" class="mono-label">RESEARCH GOAL PROMPT</label>
+            <textarea id="query-input" class="query-textarea" placeholder="Type a research objective or select a preset query above..."></textarea>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <button id="run-demo-btn" class="btn-primary" style="flex: 1;">
+                <span id="run-btn-text">RUN RESEARCH PIPELINE</span>
+              </button>
+              <button id="reset-demo-btn" class="btn-ghost">RESET</button>
+            </div>
+          </div>
+
+          <div class="execution-timeline-container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span class="mono-label">LIVE AGENT LOG & EXECUTION TRACE</span>
+              <span class="mono-label" id="evidence-score" style="color: var(--color-slate);">EVIDENCE SCORE: --</span>
+            </div>
+            <div class="execution-timeline" id="execution-timeline">
+              <div class="log-entry">
+                <span class="log-time">[00:00]</span>
+                <span class="log-msg">Agent standby. Enter prompt and click "RUN RESEARCH PIPELINE".</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE FEATURES GRID -->
+    <section class="features-section container" id="features">
+      <div class="mint-tag scroll-reveal">SYSTEM CAPABILITIES</div>
+      <h2 class="text-heading scroll-reveal reveal-delay-1" style="margin-top: 16px;">BUILT FOR UNCOMPROMISING ENTERPRISE ACCURACY</h2>
+
+      <div class="features-grid">
+        <div class="feature-card scroll-reveal reveal-delay-1" id="feature-1">
+          <div class="mint-tag">HYBRID RAG RETRIEVAL</div>
+          <h3 class="text-heading feature-title">CHROMADB & BM25OKAPI FUSION</h3>
+          <p class="feature-desc">Combines semantic vector embeddings with sparse keyword search and NeMo Guardrails to eliminate hallucinations and retrieve exact citations.</p>
+          <div class="feature-footer">
+            <span class="mono-label">MODULE: DATA_RAG</span>
+            <span class="voltage-highlight">SUB-SECOND LATENCY</span>
+          </div>
+        </div>
+
+        <div class="feature-card scroll-reveal reveal-delay-2" id="feature-2">
+          <div class="mint-tag">HEADLESS BROWSER SCRAPING</div>
+          <h3 class="text-heading feature-title">PLAYWRIGHT WEB AUTOMATION</h3>
+          <p class="feature-desc">Automated web navigation with quarantine parsing to safely extract unstructured text, tabular data, and dynamic web content.</p>
+          <div class="feature-footer">
+            <span class="mono-label">MODULE: BROWSER_CONTROLLER</span>
+            <span class="voltage-highlight">SECURE PARSING</span>
+          </div>
+        </div>
+
+        <div class="feature-card scroll-reveal reveal-delay-3" id="feature-3">
+          <div class="mint-tag">AIR-GAPPED SANDBOX</div>
+          <h3 class="text-heading feature-title">DOCKER CONTAINER EXECUTION</h3>
+          <p class="feature-desc">Isolated Python environment with state snapshots and rollback capabilities. Runs data transformations and math verification securely.</p>
+          <div class="feature-footer">
+            <span class="mono-label">MODULE: SECURITY.SANDBOX</span>
+            <span class="voltage-highlight">SNAPSHOT ROLLBACK</span>
+          </div>
+        </div>
+
+        <div class="feature-card scroll-reveal reveal-delay-4" id="feature-4">
+          <div class="mint-tag">EVIDENCE GRAPH</div>
+          <h3 class="text-heading feature-title">CITATIONS & CONFLICT TRACKER</h3>
+          <p class="feature-desc">Builds a transparent NetworkX directional evidence graph mapping every claim directly back to verifiable source documents.</p>
+          <div class="feature-footer">
+            <span class="mono-label">MODULE: EVIDENCE_GRAPH</span>
+            <span class="voltage-highlight">100% TRACEABLE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE SHOWCASE (INVERTED BLACK TOP-ARC CARD) -->
+    <section class="architecture-section container" id="architecture">
+      <div class="top-arc-inverted scroll-reveal">
+        <div class="arch-header">
+          <div class="mint-tag" style="background-color: var(--color-mint-chip); color: #000;">SYSTEM ARCHITECTURE</div>
+          <h2 class="text-display arch-title scroll-reveal reveal-delay-1">END-TO-END AUTONOMOUS PIPELINE</h2>
+          <p class="arch-desc scroll-reveal reveal-delay-2">Aegis Research OS operates as a decoupled multi-agent system orchestrating cognitive planning, web intelligence, sandboxed code execution, and evidence compilation.</p>
+        </div>
+
+        <div class="arch-pipeline">
+          <div class="pipeline-step scroll-reveal reveal-delay-1">
+            <span class="step-num">01 / PLANNER</span>
+            <div class="step-title">Cognitive Strategy</div>
+            <div class="step-detail">Decomposes research goal into structured execution steps & YAML strategy files.</div>
+          </div>
+
+          <div class="pipeline-step scroll-reveal reveal-delay-2">
+            <span class="step-num">02 / SCRAPING</span>
+            <div class="step-title">Browser Automation</div>
+            <div class="step-detail">Launches Playwright headless browser to scrape live web pages and quarantine raw DOM content.</div>
+          </div>
+
+          <div class="pipeline-step scroll-reveal reveal-delay-3">
+            <span class="step-num">03 / SANDBOX</span>
+            <div class="step-title">Docker Execution</div>
+            <div class="step-detail">Runs Python code in air-gapped container with workspace snapshot rollbacks.</div>
+          </div>
+
+          <div class="pipeline-step scroll-reveal reveal-delay-4">
+            <span class="step-num">04 / COMPILER</span>
+            <div class="step-title">Evidence & Citations</div>
+            <div class="step-detail">Compiles evidence graph, flags data conflicts, and outputs Markdown report with numbered citations.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASE LIBRARY -->
+    <section class="use-cases-section container" id="use-cases">
+      <div class="mint-tag scroll-reveal">USE CASE LIBRARY</div>
+      <h2 class="text-heading scroll-reveal reveal-delay-1" style="margin-top: 16px;">TAILORED FOR HIGH-STAKES ENTERPRISE DOMAINS</h2>
+
+      <div class="use-case-grid">
+        <div class="use-case-card scroll-reveal reveal-delay-1">
+          <span class="mint-tag">ENTERPRISE AUDIT</span>
+          <h3 class="text-heading" style="font-size: 24px;">AUTOMATED COMPLIANCE AUDITING</h3>
+          <p style="color: var(--color-slate); font-size: 14px;">Cross-references regulatory filings against internal ERP databases (SAP/Oracle) to detect compliance gaps.</p>
+        </div>
+
+        <div class="use-case-card scroll-reveal reveal-delay-2">
+          <span class="mint-tag">FINANCIAL RAG</span>
+          <h3 class="text-heading" style="font-size: 24px;">INVESTMENT RESEARCH SYNTHESIS</h3>
+          <p style="color: var(--color-slate); font-size: 14px;">Extracts earnings disclosures, normalizes balance sheet metrics, and calculates audit-verified ratio charts.</p>
+        </div>
+
+        <div class="use-case-card scroll-reveal reveal-delay-3">
+          <span class="mint-tag">CYBERSECURITY</span>
+          <h3 class="text-heading" style="font-size: 24px;">THREAT INTELLIGENCE AGGREGATION</h3>
+          <p style="color: var(--color-slate); font-size: 14px;">Scrapes CVE databases, analyzes exploit code in sandboxed Docker containers, and generates threat reports.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVERTED FAQ SECTION -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="mint-tag scroll-reveal" style="background-color: var(--color-mint-chip); color: #000;">FREQUENTLY ASKED QUESTIONS</div>
+        <h2 class="text-display faq-title scroll-reveal reveal-delay-1" style="margin-top: 16px;">SYSTEM & DEPLOYMENT FAQ</h2>
+
+        <div class="faq-accordion">
+          <div class="faq-item active scroll-reveal reveal-delay-1" id="faq-1">
+            <div class="faq-question">
+              <span>HOW DOES AEGIS PREVENT LLM HALLUCINATIONS?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              Aegis enforces a strict zero-hallucination constraint by building a directional NetworkX evidence graph. Every output claim must map directly to a verified source node in ChromaDB/BM25, or the citation compiler rejects the statement.
+            </div>
+          </div>
+
+          <div class="faq-item scroll-reveal reveal-delay-2" id="faq-2">
+            <div class="faq-question">
+              <span>WHY IS DOCKER SANDBOXING REQUIRED?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              To execute code generated by research agents without risking the host system, Aegis runs an air-gapped Docker sandbox container with isolated network policies and automated workspace snapshot rollbacks.
+            </div>
+          </div>
+
+          <div class="faq-item scroll-reveal reveal-delay-3" id="faq-3">
+            <div class="faq-question">
+              <span>CAN AEGIS RUN FULLY OFFLINE OR AIR-GAPPED?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              Yes! Aegis supports local LLM providers like Ollama alongside vector databases (ChromaDB) and local file RAG, enabling 100% air-gapped enterprise deployments.
+            </div>
+          </div>
+
+          <div class="faq-item scroll-reveal reveal-delay-4" id="faq-4">
+            <div class="faq-question">
+              <span>HOW DO I LAUNCH THE FULL STACK LOCALLY?</span>
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              Run <code>python launcher.py</code> in the terminal. It initializes the FastAPI Sandbox microservice on port 8000 and the Streamlit dashboard on port 8501.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <span>AEGIS</span>
+            <span class="brand-badge">AE-02</span>
+          </div>
+          <p style="color: var(--color-slate); font-size: 14px; max-width: 320px;">
+            Self-Evolving Autonomous Research Agent Ecosystem built for high-stakes enterprise research.
+          </p>
+        </div>
+
+        <div>
+          <span class="mono-label" style="color: var(--color-smoke);">CONTACT & SUPPORT</span>
+          <div class="footer-email" style="margin-top: 8px;">
+            <span>INQUIRIES: </span>
+            <span class="voltage-highlight">contact@aegis-research.ai</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 TEAM DEAD_PIXEL · AEGIS RESEARCH OS</span>
+        <span>BRUTALIST EDITORIAL DESIGN SYSTEM (DESIGN (3).MD)</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
