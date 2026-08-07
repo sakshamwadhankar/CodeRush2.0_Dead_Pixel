@@ -149,9 +149,60 @@ def main():
     # 3-Column Main Layout
     col1, col2, col3 = st.columns([1, 1.1, 1.2])
 
-    # Initialize session state for compiled report if not present
+    # Initialize session state for compiled report and approval gates
     if "latest_report" not in st.session_state:
         st.session_state["latest_report"] = None
+    if "approved_subtasks" not in st.session_state:
+        st.session_state["approved_subtasks"] = []
+    if "rejected_subtasks" not in st.session_state:
+        st.session_state["rejected_subtasks"] = []
+    if "current_graph" not in st.session_state:
+        st.session_state["current_graph"] = None
+
+    # Check if any task in state.json is waiting for user approval
+    pending_approval_tasks = [
+        t for t in app_state.active_tasks if t.status == TaskStatus.PENDING_APPROVAL
+    ]
+    if pending_approval_tasks:
+        pending_task = pending_approval_tasks[0]
+        st.warning(
+            f"⚠️ **HUMAN-IN-THE-LOOP APPROVAL REQUIRED**\n\n"
+            f"**Task ID:** `{pending_task.task_id}` | **Action:** `{pending_task.name}`\n\n"
+            f"The agent has paused backend execution pending explicit user consent for this sensitive operation."
+        )
+        ac1, ac2 = st.columns(2)
+        if ac1.button("✅ Approve Sensitive Action", use_container_width=True, key="btn_approve_gate"):
+            sub_id = pending_task.payload.get("subtask_id", "sub_002")
+            st.session_state["approved_subtasks"].append(sub_id)
+            controller.log_system_event(
+                level=LogLevel.INFO,
+                component="StreamlitUI",
+                message=f"User approved sensitive subtask execution: {sub_id}",
+            )
+            if st.session_state["current_graph"]:
+                from backend.planner.planner import PlannerEngine
+                planner = PlannerEngine()
+                results = planner.execute_graph(
+                    st.session_state["current_graph"],
+                    approved_subtasks=st.session_state["approved_subtasks"],
+                    rejected_subtasks=st.session_state["rejected_subtasks"],
+                )
+                report = planner.compile_report(st.session_state["current_graph"], results)
+                st.session_state["latest_report"] = report.compiled_markdown
+            st.success("Approval granted. Execution resumed!")
+            st.rerun()
+
+        if ac2.button("❌ Reject Action", use_container_width=True, key="btn_reject_gate"):
+            sub_id = pending_task.payload.get("subtask_id", "sub_002")
+            st.session_state["rejected_subtasks"].append(sub_id)
+            controller.update_task_status(pending_task.task_id, TaskStatus.CANCELLED)
+            controller.log_system_event(
+                level=LogLevel.WARNING,
+                component="StreamlitUI",
+                message=f"User rejected sensitive subtask execution: {sub_id}",
+            )
+            st.error("Action rejected by user. Execution halted.")
+            st.rerun()
 
     # ----------------------------------------------------
     # COLUMN 1: Research Planner & Running Tasks
@@ -170,9 +221,17 @@ def main():
                 with st.spinner("Decomposing query and executing PlannerEngine graph..."):
                     from backend.planner.planner import PlannerEngine
                     planner = PlannerEngine()
-                    report = planner.run_pipeline(query_input.strip())
-                    st.session_state["latest_report"] = report.compiled_markdown
-                st.success("PlannerEngine pipeline completed successfully!")
+                    graph = planner.decompose_query(query_input.strip())
+                    st.session_state["current_graph"] = graph
+                    results = planner.execute_graph(
+                        graph,
+                        approved_subtasks=st.session_state["approved_subtasks"],
+                        rejected_subtasks=st.session_state["rejected_subtasks"],
+                    )
+                    if results:
+                        report = planner.compile_report(graph, results)
+                        st.session_state["latest_report"] = report.compiled_markdown
+                st.success("PlannerEngine cycle updated!")
                 st.rerun()
 
         st.markdown("#### Active & Queued Tasks")
@@ -180,14 +239,15 @@ def main():
             st.info("No active tasks found in state.json.")
         else:
             for task in reversed(app_state.active_tasks):
-                status_class = f"status-badge-{task.status.value}"
+                status_val = task.status.value
+                status_class = f"status-badge-{status_val if status_val != 'pending_approval' else 'pending_approval'}"
                 with st.container():
                     st.markdown(
                         f"""
                         <div class="card-box">
                             <b>{task.name}</b><br/>
                             <small>ID: {task.task_id}</small><br/>
-                            Status: <span class="{status_class}">{task.status.value.upper()}</span><br/>
+                            Status: <span class="{status_class}">{status_val.upper()}</span><br/>
                             <small>Created: {task.created_at[:19]}</small>
                         </div>
                         """,

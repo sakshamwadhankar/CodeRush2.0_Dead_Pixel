@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, ConfigDict
 class TaskStatus(str, Enum):
     PENDING = "pending"
     RUNNING = "running"
+    PENDING_APPROVAL = "pending_approval"
     COMPLETED = "completed"
     FAILED = "failed"
     CANCELLED = "cancelled"

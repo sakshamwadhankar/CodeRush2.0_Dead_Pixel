@@ -19,6 +19,9 @@ class SubTask(BaseModel):
     confidence_threshold: float = Field(default=0.8, ge=0.0, le=1.0)
     code_snippet: Optional[str] = None
     status: str = Field(default="pending")
+    requires_approval: bool = Field(default=False)
+    approval_status: str = Field(default="none")
+
 
 
 class TaskGraph(BaseModel):

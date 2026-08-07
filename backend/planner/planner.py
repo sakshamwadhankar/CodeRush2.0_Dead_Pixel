@@ -93,11 +93,46 @@ class PlannerEngine:
                 overall_confidence_target=0.85,
             )
 
-    def execute_graph(self, graph: TaskGraph) -> List[Dict[str, Any]]:
+    def _is_sensitive_action(self, subtask: SubTask) -> bool:
         """
-        Loops through TaskGraph subtasks sequentially, updating state.json and calling contract endpoints.
-        Enforces confidence thresholds and stop conditions.
+        Determines whether a subtask action requires human-in-the-loop approval.
+        Sensitive actions include code execution, publication, deletion, payment, account changes, or private data access.
         """
+        if subtask.action_type == ActionType.CODE_EXECUTION:
+            return True
+        sensitive_keywords = ["publish", "delete", "private_data", "payment", "account_change", "escalate", "exfiltrate"]
+        sub_lower = subtask.subquestion.lower()
+        return any(kw in sub_lower for kw in sensitive_keywords)
+
+    def check_security_halt(self) -> bool:
+        """
+        Checks state.json for active unresolved security incidents (e.g. NeMo Guardrails prompt injection alerts).
+        If present, halts execution immediately.
+        """
+        state = self.state_controller.get_state()
+        unresolved = [inc for inc in state.security_incidents if not inc.resolved]
+        if unresolved:
+            self.state_controller.log_system_event(
+                level=LogLevel.CRITICAL,
+                component="PlannerEngine",
+                message=f"EXECUTION HALTED: Active security incident '{unresolved[0].alert_type}' unresolved",
+                metadata={"incident_id": unresolved[0].incident_id},
+            )
+            return True
+        return False
+
+    def execute_graph(
+        self,
+        graph: TaskGraph,
+        approved_subtasks: Optional[List[str]] = None,
+        rejected_subtasks: Optional[List[str]] = None,
+    ) -> List[Dict[str, Any]]:
+        """
+        Loops through TaskGraph subtasks sequentially, checking sensitivity approval gates and security halts.
+        Updates state.json and calls contract endpoints.
+        """
+        approved_set = set(approved_subtasks or [])
+        rejected_set = set(rejected_subtasks or [])
         results: List[Dict[str, Any]] = []
 
         self.state_controller.log_system_event(
@@ -108,7 +143,63 @@ class PlannerEngine:
         )
 
         for index, subtask in enumerate(graph.subtasks, start=1):
-            # 1. Track task in state.json
+            # 1. Security Halt Check (NeMo Prompt Injection Guardrail)
+            if self.check_security_halt():
+                task_entry = self.state_controller.add_task(
+                    name=f"Subtask {index}: {subtask.action_type.value.upper()} [HALTED]",
+                    payload={"subtask_id": subtask.subtask_id, "reason": "security_incident_halt"},
+                )
+                self.state_controller.update_task_status(task_entry.task_id, TaskStatus.FAILED)
+                break
+
+            # 2. Check sensitivity & Approval Gate
+            is_sensitive = self._is_sensitive_action(subtask)
+            subtask.requires_approval = is_sensitive
+
+            if is_sensitive and subtask.subtask_id not in approved_set:
+                if subtask.subtask_id in rejected_set:
+                    subtask.approval_status = "rejected"
+                    subtask.status = "cancelled"
+                    task_entry = self.state_controller.add_task(
+                        name=f"Subtask {index}: {subtask.action_type.value.upper()} [REJECTED BY USER]",
+                        payload={"subtask_id": subtask.subtask_id, "approval": "rejected"},
+                    )
+                    self.state_controller.update_task_status(task_entry.task_id, TaskStatus.CANCELLED)
+                    self.state_controller.log_system_event(
+                        level=LogLevel.WARNING,
+                        component="PlannerEngine",
+                        message=f"APPROVAL REJECTED by user for sensitive subtask {subtask.subtask_id}",
+                    )
+                    break
+                else:
+                    subtask.approval_status = "pending_approval"
+                    subtask.status = "pending_approval"
+                    task_entry = self.state_controller.add_task(
+                        name=f"Subtask {index}: {subtask.action_type.value.upper()} [WAITING USER APPROVAL]",
+                        payload={
+                            "subtask_id": subtask.subtask_id,
+                            "approval": "pending",
+                            "subquestion": subtask.subquestion,
+                        },
+                    )
+                    self.state_controller.update_task_status(task_entry.task_id, TaskStatus.PENDING_APPROVAL)
+                    self.state_controller.log_system_event(
+                        level=LogLevel.WARNING,
+                        component="PlannerEngine",
+                        message=f"APPROVAL GATE PAUSE: Subtask {subtask.subtask_id} requires explicit user consent",
+                    )
+                    # Halt graph execution at approval pause point
+                    break
+
+            if is_sensitive and subtask.subtask_id in approved_set:
+                subtask.approval_status = "approved"
+                self.state_controller.log_system_event(
+                    level=LogLevel.INFO,
+                    component="PlannerEngine",
+                    message=f"APPROVAL GRANTED by user for subtask {subtask.subtask_id}",
+                )
+
+            # 3. Track running task in state.json
             task_entry = self.state_controller.add_task(
                 name=f"Subtask {index}: {subtask.action_type.value.upper()} - {subtask.subquestion[:35]}...",
                 payload={
@@ -117,7 +208,6 @@ class PlannerEngine:
                     "subquestion": subtask.subquestion,
                 },
             )
-
             self.state_controller.update_task_status(task_entry.task_id, TaskStatus.RUNNING)
 
             subtask_result: Dict[str, Any] = {
@@ -129,7 +219,7 @@ class PlannerEngine:
                 "citation_tag": f"[{index}]",
             }
 
-            # 2. Call Step A1 Mock Endpoint based on action_type
+            # 4. Call Step A1 Mock Endpoint based on action_type
             if subtask.action_type == ActionType.RAG_RETRIEVAL:
                 req = ContextRetrievalRequest(query=subtask.subquestion, top_k=3)
                 rag_res = retrieve_context(req)
@@ -147,7 +237,7 @@ class PlannerEngine:
                 subtask_result["output"] = f"Synthesized analysis for subquestion: '{subtask.subquestion}'"
                 subtask_result["confidence_score"] = 0.88
 
-            # 3. Check Confidence Thresholds & Stop Conditions
+            # 5. Check Confidence Thresholds & Stop Conditions
             if subtask_result["confidence_score"] >= subtask.confidence_threshold:
                 self.state_controller.update_task_status(task_entry.task_id, TaskStatus.COMPLETED)
                 subtask.status = "completed"

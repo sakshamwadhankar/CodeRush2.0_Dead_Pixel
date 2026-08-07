@@ -26,7 +26,7 @@
           "name": { "type": "string" },
           "status": {
             "type": "string",
-            "enum": ["pending", "running", "completed", "failed", "cancelled"]
+            "enum": ["pending", "running", "pending_approval", "completed", "failed", "cancelled"]
           },
           "created_at": { "type": "string" },
           "updated_at": { "type": "string" },
