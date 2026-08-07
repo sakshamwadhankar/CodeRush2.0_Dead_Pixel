@@ -220,6 +220,12 @@ Human Approval
 
 **Dead_Pixel**
 
+- **Saksham Wadhankar**
+- **Om Rai**
+- **Sahil Mahure**
+- **Animesh Yadav**
+- **Pradum Meshram**
+
 Building trustworthy autonomous AI research systems.
 
 ---
