@@ -247,7 +247,8 @@ def main():
         with st.form("research_task_form"):
             query_input = st.text_area(
                 "Enter Research Query / Objective:",
-                value="Investigate zero-day exploit trends in cloud native environments",
+                placeholder="e.g. Investigate zero-day exploit trends in cloud native environments...",
+                value="",
                 height=90,
             )
             submitted = st.form_submit_button("🚀 Launch Research Task", use_container_width=True)
@@ -337,18 +338,7 @@ def main():
         if st.session_state["latest_report"]:
             st.markdown(st.session_state["latest_report"])
         else:
-            st.markdown(
-                """
-                ### Executive Summary: Aegis Platform Baseline Security
-                The **Aegis Research OS** integrates hybrid RAG retrieval and isolated python code sandboxes to ensure safe execution of autonomous research workflows **[1]**.
-                
-                #### Key Findings
-                1. **NeMo Guardrails Integration**: Prompt injection attempts are flagged and intercepted prior to planner graph evaluation **[2]**.
-                2. **Deterministic State Contract**: `state.json` maintains schema compliance across sandbox, planner, and memory subsystems **[1]**.
-                
-                ---
-                """
-            )
+            st.info("No research report generated yet. Enter a query and launch a task to begin.")
 
         st.markdown("#### 🕸️ Evidence Graph & Source Citations")
         citations_path = Path("workspace/citations.json")
@@ -375,7 +365,16 @@ def main():
             st.info("No active citations graph found. Run a research query to generate evidence.")
 
         with st.expander("🔍 Inspect Raw state.json Contract"):
-            st.json(app_state.model_dump())
+            state_file_path = Path("config/state.json")
+            if state_file_path.exists():
+                with open(state_file_path, "r", encoding="utf-8") as f:
+                    try:
+                        raw_data = json.load(f)
+                        st.json(raw_data)
+                    except json.JSONDecodeError:
+                        st.error("Error decoding raw state.json")
+            else:
+                st.warning("No state.json file found yet.")
 
 
 if __name__ == "__main__":
