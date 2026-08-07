@@ -245,6 +245,34 @@ body::before {
   transform: scale(0.98);
 }
 
+/* HEADER START CHAT CAPSULE BUTTON */
+#header-cta-btn {
+  padding: 8px 18px !important;
+  font-size: 13px !important;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.5px;
+  border-radius: 9999px !important; /* Capsule shape */
+  background-color: var(--color-carbon-black);
+  color: var(--color-paper-white);
+  border: 1.5px solid var(--color-carbon-black);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+#header-cta-btn:hover {
+  transform: translateY(-2px) scale(1.05) !important;
+  background-color: var(--color-mint-chip) !important;
+  color: var(--color-carbon-black) !important;
+  border-color: var(--color-carbon-black) !important;
+  opacity: 1 !important;
+}
+
+#header-cta-btn:active {
+  transform: scale(0.96) !important;
+}
+
+
 .btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -356,24 +384,25 @@ body::before {
 .word-flip-container {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   perspective: 1000px;
   vertical-align: middle;
   min-height: 1.1em;
-  margin: 6px 0;
+  margin: 4px 0;
+  max-width: 100%;
 }
 
 .char-cube {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 10px;
-  height: 1.05em;
+  padding: 0 8px;
+  height: 1.02em;
   background-color: var(--color-mint-chip);
   color: var(--color-carbon-black);
-  border-radius: 10px;
+  border-radius: 8px;
   font-family: var(--font-display);
-  font-size: clamp(60px, 7.5vw, 136px);
+  font-size: clamp(36px, 4.2vw, 76px); /* Sleek compact flipping cube text */
   font-weight: var(--font-weight-bold);
   line-height: 1;
   text-transform: uppercase;
@@ -396,8 +425,9 @@ body::before {
 
 .char-cube:hover {
   background-color: var(--color-voltage-yellow);
-  transform: scale(1.1) rotate(2deg);
+  transform: scale(1.08) rotate(2deg);
 }
+
 
 
 
@@ -454,18 +484,20 @@ body::before {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   gap: var(--spacing-64);
-  align-items: center;
+  align-items: flex-start; /* Lock vertical alignment */
 }
 
 .hero-content {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-24);
+  min-height: 480px; /* Stable container height */
 }
 
 .hero-title {
   color: var(--color-carbon-black);
   word-break: break-word;
+  min-height: 180px; /* Lock title height to absorb letter line variations */
 }
 
 .hero-description {
@@ -511,6 +543,8 @@ body::before {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--color-ash);
+  align-self: flex-start; /* Lock showroom card layout */
+  width: 100%;
 }
 
 .visual-header {
