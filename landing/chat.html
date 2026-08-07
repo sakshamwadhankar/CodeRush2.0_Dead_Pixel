@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aegis Research OS (AE-02) — Interactive Agent Chat</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .chat-layout {
+      min-height: calc(100vh - 5rem);
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      padding-top: 24px;
+      padding-bottom: 40px;
+    }
+
+    .sidebar-card {
+      background-color: var(--surface-card);
+      border-radius: var(--radius-card-sm);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      height: fit-content;
+    }
+
+    .chat-container {
+      background-color: var(--surface-card);
+      border-radius: var(--radius-card);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      height: 78vh;
+      justify-content: space-between;
+    }
+
+    .messages-area {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-right: 12px;
+      margin-bottom: 20px;
+    }
+
+    .msg-bubble {
+      max-width: 80%;
+      padding: 16px 20px;
+      border-radius: 16px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .msg-agent {
+      background-color: var(--color-mist-gray);
+      color: var(--color-carbon-black);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg-user {
+      background-color: var(--color-carbon-black);
+      color: var(--color-paper-white);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-input-bar {
+      display: flex;
+      gap: 12px;
+      background-color: var(--color-mist-gray);
+      padding: 8px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--color-ash);
+    }
+
+    .chat-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--color-carbon-black);
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="header-wrapper">
+    <nav class="nav-pill" id="main-nav">
+      <a href="index.html" class="brand-logo" id="brand-logo">
+        <span>AEGIS</span>
+        <span class="brand-badge">AE-02</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#features" class="nav-link">FEATURES</a></li>
+        <li><a href="index.html#architecture" class="nav-link">ARCHITECTURE</a></li>
+        <li><a href="index.html#demo" class="nav-link">LIVE DEMO</a></li>
+      </ul>
+      <a href="index.html" class="btn-ghost">← BACK TO LANDING</a>
+    </nav>
+  </header>
+
+  <main class="container chat-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar-card">
+      <div class="mint-tag">AGENT STANDBY</div>
+      <h3 class="text-heading" style="font-size: 20px;">AEGIS RESEARCH ASSISTANT</h3>
+      <p style="color: var(--color-slate); font-size: 13px;">Ask any complex investigation goal. Aegis runs Playwright web intelligence, ChromaDB RAG, and air-gapped Docker code execution.</p>
+      
+      <div style="border-top: 1px solid var(--color-ash); padding-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+        <span class="mono-label" style="color: var(--color-smoke);">ACTIVE MODULES</span>
+        <div style="font-family: var(--font-mono); font-size: 11px; display: flex; flex-direction: column; gap: 4px;">
+          <span>🟢 FastAPI REST API : 8000</span>
+          <span>🟢 ChromaDB RAG Vector Store</span>
+          <span>🟢 Playwright Web Scraper</span>
+          <span>🟢 Docker Sandbox Isolation</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CHAT INTERFACE -->
+    <section class="chat-container">
+      <div class="messages-area" id="chat-messages">
+        <div class="msg-bubble msg-agent">
+          <strong>AEGIS AGENT (AE-02):</strong><br>
+          Welcome to Aegis Research OS! Enter your research goal below (e.g. <em>"Analyze competitor LLM security benchmarks and build citation report"</em>).
+        </div>
+      </div>
+
+      <div class="chat-input-bar">
+        <input type="text" id="chat-input-field" class="chat-input" placeholder="Type your research prompt here...">
+        <button id="send-chat-btn" class="btn-primary" style="padding: 10px 20px;">SEND PROMPT</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const input = document.getElementById('chat-input-field');
+      const btn = document.getElementById('send-chat-btn');
+      const messages = document.getElementById('chat-messages');
+
+      function sendMessage() {
+        const text = input.value.trim();
+        if (!text) return;
+
+        const userBubble = document.createElement('div');
+        userBubble.className = 'msg-bubble msg-user';
+        userBubble.textContent = text;
+        messages.appendChild(userBubble);
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
+
+        setTimeout(() => {
+          const agentBubble = document.createElement('div');
+          agentBubble.className = 'msg-bubble msg-agent';
+          agentBubble.innerHTML = `<strong>AEGIS AGENT (AE-02):</strong><br>Executing cognitive planning & Playwright scrape for: <em>"${text}"</em>.<br><span style="font-family: var(--font-mono); font-size: 11px; color: var(--color-smoke);">STATUS: 18 nodes verified · 0 conflicts · Citation score: 100%.</span>`;
+          messages.appendChild(agentBubble);
+          messages.scrollTop = messages.scrollHeight;
+        }, 800);
+      }
+
+      btn.addEventListener('click', sendMessage);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') sendMessage();
+      });
+    });
+  </script>
+</body>
+</html>

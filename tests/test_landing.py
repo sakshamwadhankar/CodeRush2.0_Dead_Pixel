@@ -6,9 +6,11 @@ LANDING_DIR = Path(__file__).parent.parent / "landing"
 
 def test_landing_files_exist():
     assert (LANDING_DIR / "index.html").exists(), "index.html must exist"
+    assert (LANDING_DIR / "chat.html").exists(), "chat.html must exist"
     assert (LANDING_DIR / "styles.css").exists(), "styles.css must exist"
     assert (LANDING_DIR / "app.js").exists(), "app.js must exist"
     assert (LANDING_DIR / "server.py").exists(), "server.py must exist"
+    assert (LANDING_DIR / "agentation-bundle.js").exists(), "agentation-bundle.js must exist"
 
 def test_html_structure_and_seo():
     html_content = (LANDING_DIR / "index.html").read_text(encoding="utf-8")
@@ -17,6 +19,8 @@ def test_html_structure_and_seo():
     assert "<title>" in html_content, "Page must have title tag"
     assert 'name="description"' in html_content, "Page must have meta description"
     assert html_content.count("<h1") == 1, "Page must have exactly one <h1> tag"
+    assert "START CHAT" in html_content, "Header CTA button must say START CHAT"
+    assert "flip-word-container" in html_content, "Hero display heading must contain flip-word-container"
     
     # Required Unique IDs for Interactive Browser Testing
     required_ids = [

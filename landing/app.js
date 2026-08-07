@@ -148,5 +148,50 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     scrollElements.forEach(el => el.classList.add('is-visible'));
   }
+
+  // MECHANICAL CUBE CHAIN / BINARY CLOCK LETTER-BY-LETTER FLIP ANIMATION
+  const flipWords = ['ENTERPRISE', 'AUTONOMOUS', 'SCIENTIFIC', 'SECURITY', 'STRATEGIC', 'FINANCIAL', 'INTELLIGENCE'];
+  let flipWordIdx = 0;
+  const flipContainer = document.getElementById('flip-word-container');
+
+  function renderWordCubes(word) {
+    if (!flipContainer) return;
+    flipContainer.innerHTML = '';
+    word.split('').forEach((char, i) => {
+      const cube = document.createElement('span');
+      cube.className = 'char-cube flip-in';
+      cube.textContent = char;
+      flipContainer.appendChild(cube);
+      
+      // Staggered arrival animation
+      setTimeout(() => {
+        cube.classList.remove('flip-in');
+      }, i * 45 + 30);
+    });
+  }
+
+  if (flipContainer) {
+    // Render initial word
+    renderWordCubes(flipWords[0]);
+
+    setInterval(() => {
+      const cubes = flipContainer.querySelectorAll('.char-cube');
+      
+      // Step 1: Flip letters out sequentially from left to right like mechanical clock digits
+      cubes.forEach((cube, i) => {
+        setTimeout(() => {
+          cube.classList.add('flip-out');
+        }, i * 45);
+      });
+
+      // Step 2: Swap to new word after animation completes
+      setTimeout(() => {
+        flipWordIdx = (flipWordIdx + 1) % flipWords.length;
+        renderWordCubes(flipWords[flipWordIdx]);
+      }, (cubes.length * 45) + 260);
+    }, 3200);
+  }
 });
+
+
 
