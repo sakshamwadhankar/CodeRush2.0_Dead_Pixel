@@ -20,6 +20,20 @@ class WorkspaceSnapshotManager:
 
         self.workspace_dir.mkdir(parents=True, exist_ok=True)
         self.snapshot_dir.mkdir(parents=True, exist_ok=True)
+        
+        self._prune_orphaned_snapshots()
+
+    def _prune_orphaned_snapshots(self) -> None:
+        """Removes temporary checkpoint files older than 5 minutes (300 seconds)."""
+        current_time = time.time()
+        for item in self.snapshot_dir.iterdir():
+            if item.is_file() and item.suffix == ".tar":
+                # Check modification time
+                if current_time - item.stat().st_mtime > 300:
+                    try:
+                        item.unlink()
+                    except Exception:
+                        pass
 
     def _write_audit_log(self, entry: Dict[str, Any]) -> None:
         """Appends a snapshot or rollback event to the JSON audit log."""
@@ -58,12 +72,12 @@ class WorkspaceSnapshotManager:
         Compresses the current file tree of the workspace into a named archive.
         """
         start_time = time.time()
-        tar_path = self.snapshot_dir / f"{checkpoint_name}.tar.gz"
+        tar_path = self.snapshot_dir / f"{checkpoint_name}.tar"
         
         file_count = 0
         status = "pending"
         try:
-            with tarfile.open(tar_path, "w:gz") as tar:
+            with tarfile.open(tar_path, "w") as tar:
                 for item in self.workspace_dir.iterdir():
                     tar.add(item, arcname=item.name)
             
@@ -92,7 +106,7 @@ class WorkspaceSnapshotManager:
         Purges all files in the workspace and restores the exact state of the named checkpoint.
         """
         start_time = time.time()
-        tar_path = self.snapshot_dir / f"{checkpoint_name}.tar.gz"
+        tar_path = self.snapshot_dir / f"{checkpoint_name}.tar"
         
         if not tar_path.exists():
             raise FileNotFoundError(f"System error: Checkpoint '{checkpoint_name}' not found.")
@@ -108,7 +122,7 @@ class WorkspaceSnapshotManager:
                     shutil.rmtree(item)
                     
             # Safe extraction
-            with tarfile.open(tar_path, "r:gz") as tar:
+            with tarfile.open(tar_path, "r") as tar:
                 self._safe_extract(tar, path=self.workspace_dir)
                 file_count = len([m for m in tar.getmembers() if m.isfile()])
             

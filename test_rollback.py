@@ -63,10 +63,10 @@ def test_path_traversal_prevention_during_extraction(temp_dirs):
     workspace, snapshots, audit = temp_dirs
     manager = WorkspaceSnapshotManager(workspace, snapshots, audit)
     
-    malicious_tar = snapshots / "malicious.tar.gz"
+    malicious_tar = snapshots / "malicious.tar"
     
     # Create a malicious tarball manually with path traversal
-    with tarfile.open(malicious_tar, "w:gz") as tar:
+    with tarfile.open(malicious_tar, "w") as tar:
         temp_file = snapshots / "temp.txt"
         temp_file.write_text("malicious content")
         tar.add(temp_file, arcname="../outside.txt")

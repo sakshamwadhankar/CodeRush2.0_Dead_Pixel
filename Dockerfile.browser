@@ -1,0 +1,18 @@
+# Dockerfile.browser for Step B3 Secure Playwright Scraper
+FROM mcr.microsoft.com/playwright/python:v1.44.0-focal
+
+# Create a non-root group and user for isolation
+RUN groupadd -r scrapergroup && useradd -r -g scrapergroup -u 1000 -m scraperuser
+
+# Create workspace directory
+WORKDIR /app
+RUN chown -R scraperuser:scrapergroup /app
+
+# Environment setup
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+# Switch to non-privileged user
+USER scraperuser
+
+CMD ["python3"]
