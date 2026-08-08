@@ -139,7 +139,9 @@ class DynamicCitationCompiler:
             header = claim_item["section_header"]
 
             # Query Evidence Graph to verify claim provenance
-            verification = self.evidence_graph.verify_claim(marker if marker else claim_text)
+            verification = self.evidence_graph.verify_claim(
+                marker if self.evidence_graph.graph.has_node(marker) else claim_text
+            )
 
             is_verified = verification["verified"]
             if is_verified:
