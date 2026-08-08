@@ -97,8 +97,22 @@ class PlannerEngine:
             )
 
     def _is_sensitive_action(self, subtask: SubTask) -> bool:
-        """Determines if a subtask requires human approval based on .env config."""
+        """Determines if a subtask requires human approval based on .env config and content."""
         if subtask.action_type == ActionType.CODE_EXECUTION:
+            # Expanded Human Approval Gates
+            if subtask.code_snippet:
+                code_lower = subtask.code_snippet.lower()
+                # 1. Simulated external payment transactions
+                if any(kw in code_lower for kw in ["payment", "stripe", "checkout", "transaction"]):
+                    return True
+                # 2. Access mocked private credentials
+                if any(kw in code_lower for kw in ["api_key", "secret", "credential", "password"]):
+                    return True
+                # 3. Data deletion outside /workspace/
+                if any(kw in code_lower for kw in ["rm -rf", "shutil.rmtree", "os.remove", "os.unlink"]):
+                    if "/workspace/" not in code_lower:
+                        return True
+                        
             return os.environ.get("STRICT_APPROVAL_CODE_EXECUTION", "True").lower() == "true"
         if subtask.action_type == ActionType.SYNTHESIS:
             return os.environ.get("STRICT_APPROVAL_SYNTHESIS", "True").lower() == "true"

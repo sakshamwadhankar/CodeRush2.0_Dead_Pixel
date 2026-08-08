@@ -110,8 +110,25 @@ class SecureBrowserController:
                     elif not response and not url.startswith("data:"):
                         raise Exception(f"Failed to load page. Status Code: None")
                         
-                    # Extract clean text and unique links via DOM injection
-                    raw_text = page.evaluate("document.body.innerText") or ""
+                    # Advanced Content Filtering: DOM Ad and Comment Scrubber
+                    raw_html = page.content()
+                    from bs4 import BeautifulSoup
+                    soup = BeautifulSoup(raw_html, "html.parser")
+                    
+                    # Target classes and IDs typically containing ads, comments, or prompt injections
+                    bad_keywords = ["disqus", "comment-box", "sponsor", "sidebar-ads", "ad-container", "comment", "nav", "footer"]
+                    for tag in soup.find_all(True):
+                        if not hasattr(tag, "attrs") or not tag.attrs:
+                            continue
+                        cls_val = tag.attrs.get('class', [])
+                        cls_str = " ".join(cls_val) if isinstance(cls_val, list) else str(cls_val)
+                        id_str = str(tag.attrs.get('id', ''))
+                        combined = (cls_str + " " + id_str).lower()
+                        if any(kw in combined for kw in bad_keywords):
+                            tag.decompose()
+                            
+                    raw_text = soup.get_text(separator="\n", strip=True)
+                    
                     links = page.evaluate("Array.from(document.links).map(a => a.href)") or []
                     title = page.title()
                     

@@ -61,6 +61,7 @@ class UserConfig(BaseModel):
     ollama_model: str = Field(default="gemma4:latest")
     gemini_model: str = Field(default="gemini-1.5-flash")
     ollama_base_url: str = Field(default="https://frown-repulsion-hamster.ngrok-free.dev")
+    memory_expiry_hours: int = Field(default=24, ge=1)
 
 
 
@@ -77,6 +78,16 @@ class SecurityIncident(BaseModel):
     resolved: bool = False
 
 
+class MemoryItem(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    
+    memory_id: str
+    key: str
+    value: Any
+    timestamp_created: str
+    access_count: int = 0
+
+
 class AppState(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -84,6 +95,7 @@ class AppState(BaseModel):
     system_logs: List[SystemLog] = Field(default_factory=list)
     user_config: UserConfig = Field(default_factory=UserConfig)
     security_incidents: List[SecurityIncident] = Field(default_factory=list)
+    long_term_memory: List[MemoryItem] = Field(default_factory=list)
 
 
 # Engine API Contract Models

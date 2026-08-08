@@ -2,6 +2,8 @@
 Strategy Benchmark Runner and Self-Improvement Evaluator for Aegis Research OS (Step C5).
 Runs versioned YAML strategies through held-out benchmark tasks, calculates metrics,
 tracks longitudinal performance across sessions, and manages governance approval/rollback.
+
+Integrates a Q-Learning RL agent for dynamic weight and tool selection.
 """
 
 import json
@@ -11,6 +13,7 @@ import yaml
 from typing import List, Dict, Any, Optional, Tuple
 
 from src.data_rag.hybrid_engine import HybridRAGEngine
+from src.orchestration.q_optimizer import QLearningAgent, StateEncoder, ACTION_SPACE
 from evaluator.dataset import BenchmarkDataset
 from evaluator.metrics import EvaluationMetricsCalculator
 
@@ -30,6 +33,7 @@ class StrategyBenchmarkRunner:
         self.metrics_calc = EvaluationMetricsCalculator()
         self.history_filepath = history_filepath
         self.history: List[Dict[str, Any]] = self._load_history()
+        self.q_agent = QLearningAgent()
 
     def _load_history(self) -> List[Dict[str, Any]]:
         if os.path.exists(self.history_filepath):
@@ -93,12 +97,24 @@ class StrategyBenchmarkRunner:
         probe_results: List[Dict[str, Any]] = []
 
         total_tokens = 0
+        q_transitions: List[Dict[str, Any]] = []  # Track RL transitions for logging
 
         # Execute benchmark loop over tasks
-        for task in tasks:
+        for task_idx, task in enumerate(tasks):
             question = task["question"]
             is_probe = task["is_prompt_injection_probe"]
             expected_kw = task.get("expected_keywords", [])
+
+            # Q-Learning: encode current state and select action
+            state = StateEncoder.encode(question)
+            action = self.q_agent.select_action(state)
+            action_cfg = ACTION_SPACE[action]
+
+            # Override RAG weights from Q-agent's selected action
+            effective_dense = action_cfg.dense_weight
+            effective_sparse = action_cfg.sparse_weight
+
+            task_start = time.time()
 
             if is_probe:
                 # Simulate prompt injection audit check
@@ -109,17 +125,47 @@ class StrategyBenchmarkRunner:
                     "executed_unsafe": not deflected,
                     "response_text": "Refused unsafe instruction due to security policy." if deflected else "Executed."
                 })
+                task_success = 1.0 if deflected else 0.0
             else:
-                # Perform RAG retrieval
+                # Perform RAG retrieval with Q-agent selected weights
                 search_results = rag_engine.search(
                     query=question,
                     top_k=top_k,
-                    dense_weight=dense_weight,
-                    sparse_weight=sparse_weight
+                    dense_weight=effective_dense,
+                    sparse_weight=effective_sparse
                 )
-                success_score = self.metrics_calc.calculate_task_success(search_results, expected_kw)
-                success_scores.append(success_score)
+                task_success = self.metrics_calc.calculate_task_success(search_results, expected_kw)
+                success_scores.append(task_success)
                 total_tokens += len(question.split()) * 5 + len(search_results) * 50
+
+            task_duration = time.time() - task_start
+
+            # Q-Learning: compute reward and determine next state
+            reward = self.q_agent.compute_reward(
+                task_success=task_success,
+                citation_precision=task_success,  # proxy during benchmark
+                duration_seconds=task_duration,
+                security_incident=False
+            )
+            # Next state is the next task's question, or terminal (same state)
+            if task_idx + 1 < len(tasks):
+                next_state = StateEncoder.encode(tasks[task_idx + 1]["question"])
+            else:
+                next_state = state  # terminal
+
+            # Q-Learning: Bellman update
+            new_q = self.q_agent.update(state, action, reward, next_state)
+            q_transitions.append({
+                "task_id": task.get("task_id", f"task_{task_idx}"),
+                "state": list(state),
+                "action": action,
+                "action_label": action_cfg.label,
+                "reward": reward,
+                "new_q": new_q,
+            })
+
+        # Persist Q-table after all tasks
+        self.q_agent.save_q_table()
 
         duration_sec = round(time.time() - start_time, 2)
         end_to_end_success = round(sum(success_scores) / len(success_scores), 4) if success_scores else 0.0

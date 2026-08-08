@@ -42,9 +42,14 @@ class ChromaDenseStore:
                 embedding_function=embedding_function
             )
         else:
-            # Uses Chroma default embedding function (all-MiniLM-L6-v2)
+            # Uses Multilingual embedding function for cross-lingual support
+            from chromadb.utils import embedding_functions
+            multilingual_ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+                model_name="paraphrase-multilingual-MiniLM-L12-v2"
+            )
             self.collection = self.client.get_or_create_collection(
-                name=self.collection_name
+                name=self.collection_name,
+                embedding_function=multilingual_ef
             )
 
     def add_passages(self, chunks: List[Dict[str, Any]]) -> None:

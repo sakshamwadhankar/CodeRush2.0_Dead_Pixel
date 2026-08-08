@@ -2,6 +2,8 @@
 Reciprocal Rank Fusion (RRF) for combining dense vector search and sparse BM25 search.
 """
 
+import math
+from datetime import datetime, timezone
 from typing import List, Dict, Any, Optional
 
 
@@ -9,14 +11,17 @@ class ReciprocalRankFusion:
     """
     Reciprocal Rank Fusion (RRF) implementation for Hybrid Search.
     Dynamically combines and re-ranks sparse (keyword) and dense (semantic) retrieval results.
+    Incorporates an exponential time-decay weight for source freshness.
     """
 
-    def __init__(self, rrf_k: int = 60):
+    def __init__(self, rrf_k: int = 60, decay_rate: float = 0.01):
         """
         Args:
             rrf_k: Smoothing constant added to ranks (standard baseline is 60).
+            decay_rate: Lambda for exponential time-decay calculation (default 0.01 for slow decay over hours).
         """
         self.rrf_k = rrf_k
+        self.decay_rate = decay_rate
 
     def fuse(
         self,
@@ -91,6 +96,22 @@ class ReciprocalRankFusion:
                 fused_map[doc_id]["rrf_score"] += score_contrib
                 fused_map[doc_id]["sparse_rank"] = sparse_rank
                 fused_map[doc_id]["bm25_score"] = bm25_score
+
+        # Apply Time-Aware Source Freshness Decay
+        now = datetime.now(timezone.utc)
+        for doc_id, data in fused_map.items():
+            t_hours = 0.0
+            timestamp_str = data["metadata"].get("timestamp") or data["metadata"].get("timestamp_created")
+            if timestamp_str:
+                try:
+                    doc_time = datetime.fromisoformat(timestamp_str.replace("Z", "+00:00"))
+                    delta = now - doc_time
+                    t_hours = max(0.0, delta.total_seconds() / 3600.0)
+                except ValueError:
+                    pass
+            
+            decay_factor = math.exp(-self.decay_rate * t_hours)
+            data["rrf_score"] = data["rrf_score"] * decay_factor
 
         # Convert to list and sort by RRF score descending
         fused_list = list(fused_map.values())

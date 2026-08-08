@@ -139,6 +139,8 @@ class DynamicCitationCompiler:
                 "section_header": header,
                 "verification_status": status,
                 "confidence": verification["confidence"],
+                "uncertainty": verification.get("uncertainty", 0.0),
+                "lineage": verification.get("lineage", ""),
                 "provenance": {
                     "claim_id": verification.get("claim_id"),
                     "supporting_chunk_ids": verification["supporting_chunk_ids"],

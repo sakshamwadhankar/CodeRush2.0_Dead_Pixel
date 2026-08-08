@@ -37,6 +37,35 @@ class StateController:
             self.state_file = default_path
 
         self._state: AppState = self.load_state()
+        self.prune_memory()
+
+    def prune_memory(self):
+        """Archives or purges memory items older than memory_expiry_hours."""
+        now = datetime.now(timezone.utc)
+        expiry_hours = self._state.user_config.memory_expiry_hours
+        active_memory = []
+        
+        pruned_count = 0
+        for item in self._state.long_term_memory:
+            try:
+                doc_time = datetime.fromisoformat(item.timestamp_created.replace("Z", "+00:00"))
+                delta = now - doc_time
+                if delta.total_seconds() / 3600.0 <= expiry_hours:
+                    active_memory.append(item)
+                else:
+                    pruned_count += 1
+            except ValueError:
+                # If parsing fails, keep it to be safe
+                active_memory.append(item)
+                
+        if pruned_count > 0:
+            self._state.long_term_memory = active_memory
+            self.save_state(self._state)
+            self.log_system_event(
+                LogLevel.INFO,
+                "StateController",
+                f"Pruned {pruned_count} expired items from long_term_memory."
+            )
 
     def _get_iso_timestamp(self) -> str:
         return datetime.now(timezone.utc).isoformat()

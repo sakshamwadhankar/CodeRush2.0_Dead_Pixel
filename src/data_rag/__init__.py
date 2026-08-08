@@ -13,7 +13,6 @@ from src.data_rag.conflict_tracker import ConflictTracker
 from src.data_rag.evidence_graph import EvidenceGraph
 from src.data_rag.citation_compiler import MarkdownCitationParser, DynamicCitationCompiler
 from src.data_rag.hybrid_engine import HybridRAGEngine
-from src.data_rag.mock_retriever import MockHybridRAGEngine
 
 __all__ = [
     "SemanticChunker",
@@ -25,6 +24,5 @@ __all__ = [
     "EvidenceGraph",
     "MarkdownCitationParser",
     "DynamicCitationCompiler",
-    "HybridRAGEngine",
-    "MockHybridRAGEngine"
+    "HybridRAGEngine"
 ]

@@ -12,21 +12,40 @@ from watchdog.events import FileSystemEventHandler
 import pypdf
 import docx
 import pandas as pd
+import pytesseract
+from pdf2image import convert_from_path
 
 class SecureParser:
     """Handles secure extraction of supported file formats, stripping active elements."""
     
     @staticmethod
     def process_pdf(file_path: Path) -> str:
-        """Extracts text from PDF while natively ignoring Javascript and active forms."""
+        """Extracts text from PDF while natively ignoring Javascript and active forms. Supports OCR fallback."""
         text = []
-        with open(file_path, "rb") as f:
-            reader = pypdf.PdfReader(f)
-            for page in reader.pages:
-                page_text = page.extract_text()
-                if page_text:
-                    text.append(page_text)
-        return "\n".join(text)
+        try:
+            with open(file_path, "rb") as f:
+                reader = pypdf.PdfReader(f)
+                for page in reader.pages:
+                    page_text = page.extract_text()
+                    if page_text:
+                        text.append(page_text)
+        except Exception:
+            pass # Fallback to OCR if pypdf fails
+        
+        extracted_text = "\n".join(text).strip()
+        
+        # Hard-Mode: Malformed Scans & OCR Parsing
+        if not extracted_text or len(extracted_text) < 50:
+            try:
+                images = convert_from_path(str(file_path))
+                ocr_text = []
+                for img in images:
+                    ocr_text.append(pytesseract.image_to_string(img))
+                extracted_text = "\n".join(ocr_text).strip()
+            except Exception:
+                return ""
+                
+        return extracted_text
 
     @staticmethod
     def process_docx(file_path: Path) -> str:

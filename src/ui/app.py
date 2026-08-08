@@ -151,6 +151,50 @@ def main():
             st.success("Security incidents resolved!")
             st.rerun()
 
+        st.divider()
+
+        st.header("🗑️ Database Management")
+        if st.button("🗑️ Delete DB & Reset", use_container_width=True, type="primary"):
+            import shutil
+            cleared = []
+            # ChromaDB vector store
+            chroma_path = Path("workspace/chroma")
+            if chroma_path.exists():
+                shutil.rmtree(chroma_path, ignore_errors=True)
+                cleared.append("ChromaDB")
+            # State contract
+            state_path = Path("config/state.json")
+            if state_path.exists():
+                state_path.unlink()
+                cleared.append("state.json")
+            # Citations
+            cit_path = Path("workspace/citations.json")
+            if cit_path.exists():
+                cit_path.unlink()
+                cleared.append("citations.json")
+            # Q-table
+            qt_path = Path("workspace/q_table.json")
+            if qt_path.exists():
+                qt_path.unlink()
+                cleared.append("q_table.json")
+            # Audit log
+            audit_path = Path("audit_log.json")
+            if audit_path.exists():
+                audit_path.unlink()
+                cleared.append("audit_log.json")
+            # Clear session state
+            for key in ["latest_report", "current_graph", "current_graph_results",
+                         "approved_subtasks", "rejected_subtasks"]:
+                if key in st.session_state:
+                    del st.session_state[key]
+            # Reset cached controller
+            get_controller.clear()
+            if cleared:
+                st.success(f"Cleared: {', '.join(cleared)}")
+            else:
+                st.info("Nothing to clear — already clean.")
+            st.rerun()
+
     # Initialize session state for compiled report if not present
     if "latest_report" not in st.session_state:
         st.session_state["latest_report"] = None
@@ -328,6 +372,44 @@ def main():
             log_text += f"[{log.timestamp[:19]}] [{log.level.value}] [{log.component}] {log.message}\n"
 
         st.text_area("Console Stream Output", value=log_text or "No system logs available.", height=320)
+
+        # Q-Learning Agent State Viewer
+        with st.expander("🤖 Q-Learning Agent State"):
+            q_table_path = Path("workspace/q_table.json")
+            if q_table_path.exists():
+                try:
+                    with open(q_table_path, "r", encoding="utf-8") as qf:
+                        q_data = json.load(qf)
+                    
+                    # Hyperparameters
+                    hp = q_data.get("hyperparameters", {})
+                    hp_cols = st.columns(3)
+                    hp_cols[0].metric("Learning Rate (α)", f"{hp.get('learning_rate', 0.1)}")
+                    hp_cols[1].metric("Discount (γ)", f"{hp.get('discount_factor', 0.95)}")
+                    hp_cols[2].metric("Epsilon (ε)", f"{hp.get('epsilon', 0.1)}")
+
+                    # Q-Table
+                    q_table = q_data.get("q_table", {})
+                    if q_table:
+                        action_labels = ["DENSE_HEAVY", "SPARSE_HEAVY", "CODE_EXEC", "WEB_SCRAPE"]
+                        table_rows = []
+                        for state_key, q_values in sorted(q_table.items()):
+                            best_idx = q_values.index(max(q_values))
+                            table_rows.append({
+                                "State": f"({state_key.replace('_', ', ')})",
+                                "DENSE_HEAVY": f"{q_values[0]:.4f}",
+                                "SPARSE_HEAVY": f"{q_values[1]:.4f}",
+                                "CODE_EXEC": f"{q_values[2]:.4f}",
+                                "WEB_SCRAPE": f"{q_values[3]:.4f}",
+                                "Best": f"✅ {action_labels[best_idx]}",
+                            })
+                        st.table(table_rows)
+                    else:
+                        st.info("Q-table is empty. Run a benchmark to begin training.")
+                except (json.JSONDecodeError, Exception) as e:
+                    st.error(f"Error loading Q-table: {e}")
+            else:
+                st.info("No Q-table found yet. Run a research task or benchmark to initialise the RL agent.")
 
     # ----------------------------------------------------
     # COLUMN 3: Report Display & Mock Citations

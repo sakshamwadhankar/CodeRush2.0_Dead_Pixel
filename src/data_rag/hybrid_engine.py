@@ -94,12 +94,27 @@ class HybridRAGEngine:
         dense_weight: float = 0.5,
         sparse_weight: float = 0.5
     ) -> List[Dict[str, Any]]:
-        """Performs hybrid dense vector and sparse BM25 retrieval with RRF fusion."""
+        """Performs hybrid dense vector and sparse BM25 retrieval with RRF fusion and translation."""
         if not query or not query.strip():
             return []
 
-        dense_top = self.dense_store.query(query_text=query, top_k=top_k * 2)
-        sparse_top = self.bm25_ranker.query(query_text=query, top_k=top_k * 2)
+        import langdetect
+        from deep_translator import GoogleTranslator
+        
+        try:
+            detected_lang = langdetect.detect(query)
+        except Exception:
+            detected_lang = "en"
+            
+        search_query = query
+        if detected_lang != "en":
+            try:
+                search_query = GoogleTranslator(source=detected_lang, target='en').translate(query)
+            except Exception:
+                search_query = query
+
+        dense_top = self.dense_store.query(query_text=search_query, top_k=top_k * 2)
+        sparse_top = self.bm25_ranker.query(query_text=search_query, top_k=top_k * 2)
 
         fused_results = self.fusion.fuse(
             dense_results=dense_top,
@@ -108,6 +123,15 @@ class HybridRAGEngine:
             dense_weight=dense_weight,
             sparse_weight=sparse_weight
         )
+        
+        if detected_lang != "en":
+            try:
+                translator = GoogleTranslator(source='en', target=detected_lang)
+                for res in fused_results:
+                    if "text" in res and res["text"]:
+                        res["text"] = translator.translate(res["text"])
+            except Exception:
+                pass
 
         return fused_results
 

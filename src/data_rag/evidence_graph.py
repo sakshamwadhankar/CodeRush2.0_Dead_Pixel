@@ -65,20 +65,25 @@ class EvidenceGraph:
         claim_id: str,
         text: str,
         supported_by_chunk_ids: Optional[List[str]] = None,
-        confidence: float = 0.90
+        confidence: float = 0.90,
+        retrieval_similarity_score: float = 1.0,
+        lineage: str = "raw_extraction -> synthesis"
     ) -> None:
         """Adds a Claim node and links it to supporting Chunk nodes via SUPPORTED_BY edges."""
+        uncertainty = 1.0 - (retrieval_similarity_score * confidence)
         self.graph.add_node(
             claim_id,
             node_type="claim",
             text=text,
-            confidence=confidence
+            confidence=confidence,
+            uncertainty=uncertainty,
+            lineage=lineage
         )
 
         if supported_by_chunk_ids:
             for chunk_id in supported_by_chunk_ids:
                 if self.graph.has_node(chunk_id):
-                    self.graph.add_edge(claim_id, chunk_id, relation="SUPPORTED_BY")
+                    self.graph.add_edge(claim_id, chunk_id, relation="SUPPORTED_BY", lineage=lineage)
 
     def add_contradiction(self, claim_id_a: str, claim_id_b: str, reason: str = "") -> None:
         """Adds a CONTRADICTS edge between two conflicting claims."""
@@ -155,10 +160,14 @@ class EvidenceGraph:
                 quotes.append(chunk_attrs.get("text", ""))
 
         confidence = self.graph.nodes[target_node].get("confidence", 0.90)
+        uncertainty = self.graph.nodes[target_node].get("uncertainty", 0.10)
+        lineage = self.graph.nodes[target_node].get("lineage", "")
 
         return {
             "verified": True,
             "confidence": confidence,
+            "uncertainty": uncertainty,
+            "lineage": lineage,
             "claim_id": target_node,
             "supporting_chunk_ids": supporting_chunks,
             "source_paths": list(set(sources)),

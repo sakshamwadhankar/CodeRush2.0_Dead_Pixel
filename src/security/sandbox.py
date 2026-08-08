@@ -225,9 +225,38 @@ class SandboxManager:
                 "audit_id": audit_id,
             }
 
+        # Granular Proxy Wrapper
+        proxy_whitelist = os.environ.get("PROXY_WHITELIST", "*")
+        proxy_wrapper_code = f"""import socket
+import sys
+import os
+
+whitelist = [d.strip() for d in "{proxy_whitelist}".split(",")]
+original_getaddrinfo = socket.getaddrinfo
+
+def custom_getaddrinfo(host, port, *args, **kwargs):
+    if "*" not in whitelist:
+        if not any(host == d or host.endswith("." + d) for d in whitelist if d):
+            raise socket.gaierror(f"Security Alert: Domain '{{host}}' is not in the configured proxy whitelist.")
+    return original_getaddrinfo(host, port, *args, **kwargs)
+
+socket.getaddrinfo = custom_getaddrinfo
+
+if __name__ == '__main__':
+    with open(sys.argv[1], 'r', encoding='utf-8') as f:
+        code = f.read()
+    sys.argv.pop(0)
+    exec(code, {{"__name__": "__main__", "__file__": sys.argv[0]}})
+"""
+        proxy_wrapper_path = self.workspace_dir / f"proxy_wrapper_{audit_id}.py"
+        with open(proxy_wrapper_path, "w", encoding="utf-8") as f:
+            f.write(proxy_wrapper_code)
+
         container_script_path = f"/workspace/{filename}"
+        container_wrapper_path = f"/workspace/proxy_wrapper_{audit_id}.py"
+        
         if language.lower() == "python":
-            cmd = ["python3", container_script_path]
+            cmd = ["python3", container_wrapper_path, container_script_path]
         elif language.lower() in ("bash", "sh"):
             cmd = ["bash", container_script_path]
         else:
@@ -246,7 +275,6 @@ class SandboxManager:
                 image=self.image_name,
                 command=cmd,
                 detach=True,
-                network_mode="none",
                 mem_limit=self.mem_limit,
                 nano_cpus=self.nano_cpus,
                 user=self.user,
