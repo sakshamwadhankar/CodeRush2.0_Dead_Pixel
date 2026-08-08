@@ -76,11 +76,15 @@ class PolicyEngine:
             r"ignore all previous",
             r"ignore previous instructions",
             r"you are no longer",
+            r"you are not a",
             r"system prompts",
             r"forget everything",
             r"bypass security",
             r"output the underlying",
-            r"system configuration rules"
+            r"system configuration rules",
+            r"give me.*env",
+            r"show.*env",
+            r"print.*secret"
         ]
         
         for pattern in injection_patterns:

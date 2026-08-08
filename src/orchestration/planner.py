@@ -271,8 +271,14 @@ class PlannerEngine:
                 reward = subtask_result["confidence_score"]
                 # Update Q-table with reward from this subtask execution
                 self.q_agent.update(state_tuple, action_id, reward, state_tuple)
+                # MUST save to disk so the Streamlit UI can render the updated table!
+                self.q_agent.save_q_table()
             except Exception as e:
-                pass
+                self.state_controller.log_system_event(
+                    level=LogLevel.WARNING,
+                    component="PlannerEngine.QLearning",
+                    message=f"Failed to update Q-table: {e}"
+                )
 
         return results
 

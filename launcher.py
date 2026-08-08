@@ -54,7 +54,7 @@ def main():
         processes.append(landing_proc)
         
         print("\n=======================================================")
-        print("🚀 System successfully booted!")
+        print("System successfully booted!")
         print(" - Landing Page: http://localhost:3000")
         print(" - FastAPI Sandbox: http://localhost:8000")
         print(" - Streamlit Agent Dashboard: http://localhost:8501")

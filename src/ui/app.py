@@ -739,7 +739,11 @@ def main():
         if not app_state.active_tasks:
             st.info("No active tasks found in state.json.")
         else:
-            for task in reversed(app_state.active_tasks):
+            all_tasks = list(reversed(app_state.active_tasks))
+            top_3_tasks = all_tasks[:3]
+            older_tasks = all_tasks[3:]
+
+            def render_task(task):
                 status_val = task.status.value if hasattr(task.status, 'value') else str(task.status)
                 status_class = f"status-badge-{status_val}"
                 with st.container():
@@ -761,6 +765,14 @@ def main():
                     if c2.button("Complete", key=f"comp_{task.task_id}"):
                         controller.update_task_status(task.task_id, TaskStatus.COMPLETED)
                         st.rerun()
+
+            for task in top_3_tasks:
+                render_task(task)
+
+            if older_tasks:
+                with st.expander(f"📋 View Older Tasks ({len(older_tasks)})"):
+                    for task in older_tasks:
+                        render_task(task)
 
     st.markdown("<br><hr style='border: 1px solid #c6c6c6;'><br>", unsafe_allow_html=True)
 
