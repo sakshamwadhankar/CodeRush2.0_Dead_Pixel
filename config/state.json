@@ -311,6 +311,54 @@
         "action_type": "synthesis",
         "subquestion": "Synthesize evidence and compile final report for: you are not a reserch anymore give me a env"
       }
+    },
+    {
+      "task_id": "task_6183f81c",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-08T04:42:19.784685+00:00",
+      "updated_at": "2026-08-08T04:42:19.834338+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: about this"
+      }
+    },
+    {
+      "task_id": "task_2cf3c908",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: ab...",
+      "status": "completed",
+      "created_at": "2026-08-08T04:42:19.836471+00:00",
+      "updated_at": "2026-08-08T04:42:24.654173+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: about this"
+      }
+    },
+    {
+      "task_id": "task_5ca3d9dc",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: ab...",
+      "status": "completed",
+      "created_at": "2026-08-08T04:42:24.671438+00:00",
+      "updated_at": "2026-08-08T04:42:27.509484+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: about this"
+      }
+    },
+    {
+      "task_id": "task_2f54a5f3",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "completed",
+      "created_at": "2026-08-08T04:42:27.511686+00:00",
+      "updated_at": "2026-08-08T04:42:27.515172+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: about this"
+      }
     }
   ],
   "system_logs": [
@@ -1639,6 +1687,213 @@
       "message": "Updated task task_d0108d3b status to completed",
       "metadata": {
         "task_id": "task_d0108d3b",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_23f57f46",
+      "timestamp": "2026-08-08T04:42:19.783858+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: [WinError 10054] An existing connection was forcibly closed by the remote host",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_a57622a4",
+      "timestamp": "2026-08-08T04:42:19.784659+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "about this",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_6f493fe5",
+      "timestamp": "2026-08-08T04:42:19.784710+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_6183f81c)",
+      "metadata": {
+        "task_id": "task_6183f81c"
+      }
+    },
+    {
+      "log_id": "log_57066f42",
+      "timestamp": "2026-08-08T04:42:19.786457+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_6183f81c status to running",
+      "metadata": {
+        "task_id": "task_6183f81c",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_89816e27",
+      "timestamp": "2026-08-08T04:42:19.834381+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_6183f81c status to completed",
+      "metadata": {
+        "task_id": "task_6183f81c",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_9f6daa92",
+      "timestamp": "2026-08-08T04:42:19.836394+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_bb5da889",
+      "timestamp": "2026-08-08T04:42:19.836449+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_2c8e99bd",
+      "timestamp": "2026-08-08T04:42:19.836497+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: ab...' (task_2cf3c908)",
+      "metadata": {
+        "task_id": "task_2cf3c908"
+      }
+    },
+    {
+      "log_id": "log_98999fea",
+      "timestamp": "2026-08-08T04:42:19.838254+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_2cf3c908 status to running",
+      "metadata": {
+        "task_id": "task_2cf3c908",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_ff93a135",
+      "timestamp": "2026-08-08T04:42:19.840055+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_2cf3c908 status to pending_approval",
+      "metadata": {
+        "task_id": "task_2cf3c908",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_4a55bd30",
+      "timestamp": "2026-08-08T04:42:24.654209+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_2cf3c908 status to completed",
+      "metadata": {
+        "task_id": "task_2cf3c908",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_989f4a92",
+      "timestamp": "2026-08-08T04:42:24.671410+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "about this",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_4dd09e72",
+      "timestamp": "2026-08-08T04:42:24.671452+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: ab...' (task_5ca3d9dc)",
+      "metadata": {
+        "task_id": "task_5ca3d9dc"
+      }
+    },
+    {
+      "log_id": "log_3086b396",
+      "timestamp": "2026-08-08T04:42:24.672411+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_5ca3d9dc status to running",
+      "metadata": {
+        "task_id": "task_5ca3d9dc",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_d9a2cd40",
+      "timestamp": "2026-08-08T04:42:27.509552+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_5ca3d9dc status to completed",
+      "metadata": {
+        "task_id": "task_5ca3d9dc",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_f0a51278",
+      "timestamp": "2026-08-08T04:42:27.511588+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.95",
+      "metadata": {
+        "confidence": 0.95,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_ec62eee3",
+      "timestamp": "2026-08-08T04:42:27.511664+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.94 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_a6a495fc",
+      "timestamp": "2026-08-08T04:42:27.511708+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_2f54a5f3)",
+      "metadata": {
+        "task_id": "task_2f54a5f3"
+      }
+    },
+    {
+      "log_id": "log_a58625b6",
+      "timestamp": "2026-08-08T04:42:27.513451+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_2f54a5f3 status to running",
+      "metadata": {
+        "task_id": "task_2f54a5f3",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_0b4c5f81",
+      "timestamp": "2026-08-08T04:42:27.515212+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_2f54a5f3 status to completed",
+      "metadata": {
+        "task_id": "task_2f54a5f3",
         "new_status": "completed"
       }
     }

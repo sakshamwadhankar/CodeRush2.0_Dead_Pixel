@@ -688,6 +688,12 @@ def main():
                 value="",
                 height=110,
             )
+            uploaded_pdfs = st.file_uploader(
+                "Upload Reference PDF Documents (Optional):",
+                type=["pdf"],
+                accept_multiple_files=True,
+                help="Uploaded PDFs will be securely parsed, sanitized, and ingested into the RAG vector store & evidence graph."
+            )
             submitted = st.form_submit_button("Launch Research Task", use_container_width=True)
             if submitted and query_input.strip():
                 st.session_state["latest_report"] = None
@@ -716,9 +722,38 @@ def main():
                     st.rerun()
                 
                 # --- Proceed to planning if safe ---
-                with st.spinner("Decomposing research objective..."):
+                with st.spinner("Decomposing research objective & ingesting context..."):
                     from src.orchestration.planner import PlannerEngine
+                    from src.security.quarantine_parser import SecureParser
                     planner = PlannerEngine()
+
+                    # Ingest uploaded PDF documents if present
+                    if uploaded_pdfs:
+                        uploads_dir = Path("workspace/uploads")
+                        uploads_dir.mkdir(parents=True, exist_ok=True)
+                        ingested_count = 0
+                        for pdf_file in uploaded_pdfs:
+                            pdf_path = uploads_dir / pdf_file.name
+                            with open(pdf_path, "wb") as f:
+                                f.write(pdf_file.getbuffer())
+                            
+                            extracted_text = SecureParser.process_pdf(pdf_path)
+                            if extracted_text and extracted_text.strip():
+                                doc_id = f"doc_{pdf_file.name.replace('.', '_')}"
+                                planner.rag_engine.ingest_document(
+                                    text=extracted_text,
+                                    doc_id=doc_id,
+                                    metadata={"source_path": str(pdf_path), "title": pdf_file.name}
+                                )
+                                ingested_count += 1
+                        if ingested_count > 0:
+                            controller.log_system_event(
+                                level=LogLevel.INFO,
+                                component="PDFUploader",
+                                message=f"Successfully parsed and ingested {ingested_count} uploaded PDF document(s).",
+                                metadata={"pdf_count": ingested_count}
+                            )
+
                     graph = planner.decompose_query(query_input.strip())
                     st.session_state["current_graph"] = graph
                     
