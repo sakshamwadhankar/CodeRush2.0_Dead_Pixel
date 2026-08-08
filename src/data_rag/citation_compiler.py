@@ -46,14 +46,32 @@ class MarkdownCitationParser:
         current_header = "Executive Summary"
         claim_counter = 1
 
+        in_code_block = False
         for line in lines:
             line_str = line.strip()
             if not line_str:
                 continue
 
+            if line_str.startswith("```"):
+                in_code_block = not in_code_block
+                continue
+
+            if in_code_block:
+                continue
+
             # Header detection
             if line_str.startswith("#"):
                 current_header = line_str.lstrip("#").strip()
+                continue
+
+            # Skip formatting lines, raw dicts/JSON strings, and markdown list bullet meta lines
+            if (
+                line_str.startswith("**Action Type**:") or
+                line_str.startswith("{") or
+                line_str.startswith("• **") or
+                line_str.startswith("- **") or
+                line_str.startswith("Action Type:")
+            ):
                 continue
 
             # Sentence splitting within paragraph
@@ -131,8 +149,11 @@ class DynamicCitationCompiler:
                 unverified_count += 1
                 status = "unverified"
 
+            claim_id_val = verification.get("claim_id") or marker or f"cite_{idx:03d}"
+
             citation_entry = {
                 "citation_id": f"cite_{idx:03d}",
+                "claim_id": claim_id_val,
                 "marker": marker,
                 "claim_text": claim_text,
                 "raw_sentence": claim_item["sentence"],

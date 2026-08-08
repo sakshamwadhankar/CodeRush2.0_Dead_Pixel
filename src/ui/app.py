@@ -892,11 +892,19 @@ def main():
                     
                     # Convert to table format for display
                     table_data = []
-                    for cit in citations_data:
+                    for idx, cit in enumerate(citations_data, start=1):
+                        citation_tag = (
+                            cit.get("claim_id") or
+                            cit.get("marker") or
+                            cit.get("citation_id") or
+                            f"cite_{idx:03d}"
+                        )
+                        raw_statement = cit.get("claim_text") or cit.get("sentence", "")
+                        statement_preview = raw_statement[:100] + ("..." if len(raw_statement) > 100 else "")
                         table_data.append({
-                            "Citation": cit.get("claim_id", ""),
-                            "Statement": cit.get("claim_text", "")[:100] + "...",
-                            "Confidence": f"{cit.get('confidence', 0) * 100:.1f}%",
+                            "Citation": citation_tag,
+                            "Statement": statement_preview,
+                            "Confidence": f"{cit.get('confidence', 0.0) * 100:.1f}%",
                         })
                     if table_data:
                         st.table(table_data)

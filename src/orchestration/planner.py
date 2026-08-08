@@ -190,7 +190,7 @@ class PlannerEngine:
                 "subquestion": subtask.subquestion,
                 "output": "",
                 "confidence_score": 0.0,
-                "citation_tag": f"[{index}]",
+                "citation_tag": f"[CIT-{index + 1}]",
             }
 
             # 2. Call Action Endpoints based on action_type
