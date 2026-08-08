@@ -192,37 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3200);
   }
 
-  // CHAT MODAL LOGIC
-  const headerCtaBtn = document.getElementById('header-cta-btn');
-  const chatModal = document.getElementById('chat-modal');
-  const chatModalClose = document.getElementById('chat-modal-close');
-  const chatIframe = document.getElementById('chat-iframe');
-
-  if (headerCtaBtn && chatModal && chatModalClose && chatIframe) {
-    headerCtaBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      // Set the src only when opening to save resources
-      if (!chatIframe.src || chatIframe.src === window.location.href) {
-        chatIframe.src = "http://localhost:8501/";
-      }
-      chatModal.classList.add('show');
-      document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
-    });
-
-    chatModalClose.addEventListener('click', () => {
-      chatModal.classList.remove('show');
-      document.body.style.overflow = '';
-    });
-
-    // Close when clicking outside the modal content
-    chatModal.addEventListener('click', (e) => {
-      if (e.target === chatModal) {
-        chatModal.classList.remove('show');
-        document.body.style.overflow = '';
-      }
-    });
-  }
 });
+
 
 
 

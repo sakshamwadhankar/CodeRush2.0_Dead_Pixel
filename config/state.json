@@ -407,6 +407,198 @@
         "action_type": "synthesis",
         "subquestion": "Synthesize evidence and compile final report for: MANTIS: A low-latency, tweakable lightweight block cipher. It heavily bases its framework on the PRINCE infrastructure but adds a \"tweak\" input to safely encrypt multiple streams of data under the same key without vulnerability leaks."
       }
+    },
+    {
+      "task_id": "task_17283f71",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-08T08:44:27.647373+00:00",
+      "updated_at": "2026-08-08T08:44:28.280316+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_af0e164b",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: wi...",
+      "status": "completed",
+      "created_at": "2026-08-08T08:44:28.283135+00:00",
+      "updated_at": "2026-08-08T08:44:47.419097+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_250c714d",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: wi...",
+      "status": "completed",
+      "created_at": "2026-08-08T08:44:47.449710+00:00",
+      "updated_at": "2026-08-08T08:44:49.502028+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_a3266b12",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "completed",
+      "created_at": "2026-08-08T08:44:49.504243+00:00",
+      "updated_at": "2026-08-08T08:44:49.505616+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_80ab3585",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:23:37.135902+00:00",
+      "updated_at": "2026-08-08T09:23:37.175368+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_91f16127",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: wi...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:23:37.177156+00:00",
+      "updated_at": "2026-08-08T09:23:40.931831+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_2804a62f",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: wi...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:23:40.952916+00:00",
+      "updated_at": "2026-08-08T09:23:43.001469+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_9d1d6b5e",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:23:43.004168+00:00",
+      "updated_at": "2026-08-08T09:23:43.006912+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_64593299",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:48:37.045489+00:00",
+      "updated_at": "2026-08-08T09:48:37.084321+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_30177435",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: wi...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:48:37.086932+00:00",
+      "updated_at": "2026-08-08T09:48:39.441472+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_7cf3f5bd",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: wi...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:48:39.466149+00:00",
+      "updated_at": "2026-08-08T09:48:41.506600+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_254a6ff7",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:48:41.510065+00:00",
+      "updated_at": "2026-08-08T09:48:41.516186+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_220101fe",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:52:28.881605+00:00",
+      "updated_at": "2026-08-08T09:52:28.922725+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_ba9973db",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: wi...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:52:28.927447+00:00",
+      "updated_at": "2026-08-08T09:52:34.621864+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_ced0e069",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: wi...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:52:34.644384+00:00",
+      "updated_at": "2026-08-08T09:52:36.667015+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: will ai replace software engineers"
+      }
+    },
+    {
+      "task_id": "task_b7c627c3",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "completed",
+      "created_at": "2026-08-08T09:52:36.670192+00:00",
+      "updated_at": "2026-08-08T09:52:36.675195+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: will ai replace software engineers"
+      }
     }
   ],
   "system_logs": [
@@ -2149,6 +2341,834 @@
       "message": "Updated task task_3344ba73 status to completed",
       "metadata": {
         "task_id": "task_3344ba73",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_5456f0a8",
+      "timestamp": "2026-08-08T08:44:27.644518+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: ModelGateway failed to produce valid TaskGraph structured output after 2 retries: Ollama local endpoint connection failed (https://frown-repulsion-hamster.ngrok-free.dev/api/generate): HTTP Error 404: Not Found",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_e659634f",
+      "timestamp": "2026-08-08T08:44:27.647336+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "will ai replace software engineers",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_02fc10c2",
+      "timestamp": "2026-08-08T08:44:27.647397+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_17283f71)",
+      "metadata": {
+        "task_id": "task_17283f71"
+      }
+    },
+    {
+      "log_id": "log_d932ef4b",
+      "timestamp": "2026-08-08T08:44:27.652264+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_17283f71 status to running",
+      "metadata": {
+        "task_id": "task_17283f71",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_f63bb22c",
+      "timestamp": "2026-08-08T08:44:28.280396+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_17283f71 status to completed",
+      "metadata": {
+        "task_id": "task_17283f71",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_10ad6bd7",
+      "timestamp": "2026-08-08T08:44:28.282261+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_47a24d3b",
+      "timestamp": "2026-08-08T08:44:28.282330+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_ce3b8e3b",
+      "timestamp": "2026-08-08T08:44:28.283182+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: wi...' (task_af0e164b)",
+      "metadata": {
+        "task_id": "task_af0e164b"
+      }
+    },
+    {
+      "log_id": "log_139b94f2",
+      "timestamp": "2026-08-08T08:44:28.284450+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_af0e164b status to running",
+      "metadata": {
+        "task_id": "task_af0e164b",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_813cbb8f",
+      "timestamp": "2026-08-08T08:44:28.285631+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_af0e164b status to pending_approval",
+      "metadata": {
+        "task_id": "task_af0e164b",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_ebf2d965",
+      "timestamp": "2026-08-08T08:44:47.419144+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_af0e164b status to completed",
+      "metadata": {
+        "task_id": "task_af0e164b",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_8cef275c",
+      "timestamp": "2026-08-08T08:44:47.449664+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "will ai replace software engineers",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_5de02cf4",
+      "timestamp": "2026-08-08T08:44:47.449735+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: wi...' (task_250c714d)",
+      "metadata": {
+        "task_id": "task_250c714d"
+      }
+    },
+    {
+      "log_id": "log_4799878a",
+      "timestamp": "2026-08-08T08:44:47.451302+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_250c714d status to running",
+      "metadata": {
+        "task_id": "task_250c714d",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_d7104f0b",
+      "timestamp": "2026-08-08T08:44:49.502064+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_250c714d status to completed",
+      "metadata": {
+        "task_id": "task_250c714d",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_7da053b8",
+      "timestamp": "2026-08-08T08:44:49.503474+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.95",
+      "metadata": {
+        "confidence": 0.95,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_78997cc7",
+      "timestamp": "2026-08-08T08:44:49.503517+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.94 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_356d3a2b",
+      "timestamp": "2026-08-08T08:44:49.504270+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_a3266b12)",
+      "metadata": {
+        "task_id": "task_a3266b12"
+      }
+    },
+    {
+      "log_id": "log_4d99d48e",
+      "timestamp": "2026-08-08T08:44:49.504951+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_a3266b12 status to running",
+      "metadata": {
+        "task_id": "task_a3266b12",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_0a1bef9c",
+      "timestamp": "2026-08-08T08:44:49.505627+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_a3266b12 status to completed",
+      "metadata": {
+        "task_id": "task_a3266b12",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_5f71f07c",
+      "timestamp": "2026-08-08T09:23:37.135195+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: The read operation timed out",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_2f4ba532",
+      "timestamp": "2026-08-08T09:23:37.135837+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "will ai replace software engineers",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_2213168d",
+      "timestamp": "2026-08-08T09:23:37.135948+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_80ab3585)",
+      "metadata": {
+        "task_id": "task_80ab3585"
+      }
+    },
+    {
+      "log_id": "log_b0822b2a",
+      "timestamp": "2026-08-08T09:23:37.138983+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_80ab3585 status to running",
+      "metadata": {
+        "task_id": "task_80ab3585",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_c9150825",
+      "timestamp": "2026-08-08T09:23:37.175391+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_80ab3585 status to completed",
+      "metadata": {
+        "task_id": "task_80ab3585",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_4cd16baf",
+      "timestamp": "2026-08-08T09:23:37.176608+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_66f3dba6",
+      "timestamp": "2026-08-08T09:23:37.176640+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_14804e4c",
+      "timestamp": "2026-08-08T09:23:37.177184+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: wi...' (task_91f16127)",
+      "metadata": {
+        "task_id": "task_91f16127"
+      }
+    },
+    {
+      "log_id": "log_41a00426",
+      "timestamp": "2026-08-08T09:23:37.178044+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_91f16127 status to running",
+      "metadata": {
+        "task_id": "task_91f16127",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_64e05c5d",
+      "timestamp": "2026-08-08T09:23:37.178894+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_91f16127 status to pending_approval",
+      "metadata": {
+        "task_id": "task_91f16127",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_998d0948",
+      "timestamp": "2026-08-08T09:23:40.931859+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_91f16127 status to completed",
+      "metadata": {
+        "task_id": "task_91f16127",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_fb2cc6ad",
+      "timestamp": "2026-08-08T09:23:40.952872+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "will ai replace software engineers",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_12b9698f",
+      "timestamp": "2026-08-08T09:23:40.952942+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: wi...' (task_2804a62f)",
+      "metadata": {
+        "task_id": "task_2804a62f"
+      }
+    },
+    {
+      "log_id": "log_6c0ac9f7",
+      "timestamp": "2026-08-08T09:23:40.954691+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_2804a62f status to running",
+      "metadata": {
+        "task_id": "task_2804a62f",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_c4124a5b",
+      "timestamp": "2026-08-08T09:23:43.001533+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_2804a62f status to completed",
+      "metadata": {
+        "task_id": "task_2804a62f",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_be7f9b84",
+      "timestamp": "2026-08-08T09:23:43.003435+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.95",
+      "metadata": {
+        "confidence": 0.95,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_71cc30cb",
+      "timestamp": "2026-08-08T09:23:43.003500+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.94 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_b6f80e95",
+      "timestamp": "2026-08-08T09:23:43.004204+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_9d1d6b5e)",
+      "metadata": {
+        "task_id": "task_9d1d6b5e"
+      }
+    },
+    {
+      "log_id": "log_74aea4b5",
+      "timestamp": "2026-08-08T09:23:43.005371+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_9d1d6b5e status to running",
+      "metadata": {
+        "task_id": "task_9d1d6b5e",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_55d880cf",
+      "timestamp": "2026-08-08T09:23:43.006948+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_9d1d6b5e status to completed",
+      "metadata": {
+        "task_id": "task_9d1d6b5e",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_a618e376",
+      "timestamp": "2026-08-08T09:48:37.045046+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: The read operation timed out",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_e034e32d",
+      "timestamp": "2026-08-08T09:48:37.045458+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "will ai replace software engineers",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_a0e66a22",
+      "timestamp": "2026-08-08T09:48:37.045511+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_64593299)",
+      "metadata": {
+        "task_id": "task_64593299"
+      }
+    },
+    {
+      "log_id": "log_145f64f5",
+      "timestamp": "2026-08-08T09:48:37.048024+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_64593299 status to running",
+      "metadata": {
+        "task_id": "task_64593299",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_d8eab66c",
+      "timestamp": "2026-08-08T09:48:37.084347+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_64593299 status to completed",
+      "metadata": {
+        "task_id": "task_64593299",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_d441009b",
+      "timestamp": "2026-08-08T09:48:37.086034+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_d3cc7e15",
+      "timestamp": "2026-08-08T09:48:37.086087+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_0cd4169a",
+      "timestamp": "2026-08-08T09:48:37.086979+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: wi...' (task_30177435)",
+      "metadata": {
+        "task_id": "task_30177435"
+      }
+    },
+    {
+      "log_id": "log_0c15da69",
+      "timestamp": "2026-08-08T09:48:37.088145+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_30177435 status to running",
+      "metadata": {
+        "task_id": "task_30177435",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_a6e0cf86",
+      "timestamp": "2026-08-08T09:48:37.089057+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_30177435 status to pending_approval",
+      "metadata": {
+        "task_id": "task_30177435",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_9ae8f9e3",
+      "timestamp": "2026-08-08T09:48:39.441501+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_30177435 status to completed",
+      "metadata": {
+        "task_id": "task_30177435",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_ffd6fd4d",
+      "timestamp": "2026-08-08T09:48:39.466112+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "will ai replace software engineers",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_8339261f",
+      "timestamp": "2026-08-08T09:48:39.466172+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: wi...' (task_7cf3f5bd)",
+      "metadata": {
+        "task_id": "task_7cf3f5bd"
+      }
+    },
+    {
+      "log_id": "log_e2d58797",
+      "timestamp": "2026-08-08T09:48:39.468379+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_7cf3f5bd status to running",
+      "metadata": {
+        "task_id": "task_7cf3f5bd",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_a220ac2c",
+      "timestamp": "2026-08-08T09:48:41.506648+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_7cf3f5bd status to completed",
+      "metadata": {
+        "task_id": "task_7cf3f5bd",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_9d52c79b",
+      "timestamp": "2026-08-08T09:48:41.508919+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.95",
+      "metadata": {
+        "confidence": 0.95,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_bdeff094",
+      "timestamp": "2026-08-08T09:48:41.508974+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.94 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_f1d8c0bc",
+      "timestamp": "2026-08-08T09:48:41.510101+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_254a6ff7)",
+      "metadata": {
+        "task_id": "task_254a6ff7"
+      }
+    },
+    {
+      "log_id": "log_30c58e48",
+      "timestamp": "2026-08-08T09:48:41.513687+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_254a6ff7 status to running",
+      "metadata": {
+        "task_id": "task_254a6ff7",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_777bee54",
+      "timestamp": "2026-08-08T09:48:41.516227+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_254a6ff7 status to completed",
+      "metadata": {
+        "task_id": "task_254a6ff7",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_3e1e55d1",
+      "timestamp": "2026-08-08T09:52:28.880978+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: The read operation timed out",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_9b27deb8",
+      "timestamp": "2026-08-08T09:52:28.881559+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "will ai replace software engineers",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_41885cef",
+      "timestamp": "2026-08-08T09:52:28.881651+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_220101fe)",
+      "metadata": {
+        "task_id": "task_220101fe"
+      }
+    },
+    {
+      "log_id": "log_4bd1c420",
+      "timestamp": "2026-08-08T09:52:28.885387+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_220101fe status to running",
+      "metadata": {
+        "task_id": "task_220101fe",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_cc5a7e92",
+      "timestamp": "2026-08-08T09:52:28.922758+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_220101fe status to completed",
+      "metadata": {
+        "task_id": "task_220101fe",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_5537f42a",
+      "timestamp": "2026-08-08T09:52:28.926533+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_3de92449",
+      "timestamp": "2026-08-08T09:52:28.926575+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_90b11aa0",
+      "timestamp": "2026-08-08T09:52:28.927485+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: wi...' (task_ba9973db)",
+      "metadata": {
+        "task_id": "task_ba9973db"
+      }
+    },
+    {
+      "log_id": "log_d4e8c1a4",
+      "timestamp": "2026-08-08T09:52:28.929388+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_ba9973db status to running",
+      "metadata": {
+        "task_id": "task_ba9973db",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_127e8024",
+      "timestamp": "2026-08-08T09:52:28.930838+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_ba9973db status to pending_approval",
+      "metadata": {
+        "task_id": "task_ba9973db",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_c850e66a",
+      "timestamp": "2026-08-08T09:52:34.621896+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_ba9973db status to completed",
+      "metadata": {
+        "task_id": "task_ba9973db",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_07025743",
+      "timestamp": "2026-08-08T09:52:34.644346+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "will ai replace software engineers",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_0312a0f0",
+      "timestamp": "2026-08-08T09:52:34.644407+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: wi...' (task_ced0e069)",
+      "metadata": {
+        "task_id": "task_ced0e069"
+      }
+    },
+    {
+      "log_id": "log_bff3d73f",
+      "timestamp": "2026-08-08T09:52:34.646293+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_ced0e069 status to running",
+      "metadata": {
+        "task_id": "task_ced0e069",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_80778a78",
+      "timestamp": "2026-08-08T09:52:36.667050+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_ced0e069 status to completed",
+      "metadata": {
+        "task_id": "task_ced0e069",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_67991519",
+      "timestamp": "2026-08-08T09:52:36.669107+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.95",
+      "metadata": {
+        "confidence": 0.95,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_a6502a71",
+      "timestamp": "2026-08-08T09:52:36.669152+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.94 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_1120e920",
+      "timestamp": "2026-08-08T09:52:36.670249+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_b7c627c3)",
+      "metadata": {
+        "task_id": "task_b7c627c3"
+      }
+    },
+    {
+      "log_id": "log_bd23f469",
+      "timestamp": "2026-08-08T09:52:36.673841+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_b7c627c3 status to running",
+      "metadata": {
+        "task_id": "task_b7c627c3",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_99c65a5b",
+      "timestamp": "2026-08-08T09:52:36.675211+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_b7c627c3 status to completed",
+      "metadata": {
+        "task_id": "task_b7c627c3",
         "new_status": "completed"
       }
     }

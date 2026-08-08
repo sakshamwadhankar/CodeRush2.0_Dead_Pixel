@@ -11,6 +11,8 @@ load_dotenv()
 
 from src.orchestration.state_controller import StateController
 from src.orchestration.state_models import TaskStatus, LogLevel, SeverityLevel
+from src.ui.report_component import render_dual_report_view
+
 
 # Page configuration
 st.set_page_config(
@@ -812,13 +814,12 @@ def main():
     st.markdown("<br><hr style='border: 1px solid #c6c6c6;'><br>", unsafe_allow_html=True)
 
     # ----------------------------------------------------
-    # LOWER DASHBOARD: Console (Left) & Reports (Right)
+    # LOWER DASHBOARD: System Console & State Inspector
     # ----------------------------------------------------
-    col_console, col_report = st.columns([1, 1])
+    col_console, col_state = st.columns([1, 1])
 
     with col_console:
         st.subheader("Central Console Window")
-
         st.caption("Live System Logs & Execution Trace")
 
         log_level_filter = st.selectbox(
@@ -835,10 +836,14 @@ def main():
         for log in reversed(filtered_logs[-15:]):
             log_text += f"[{log.timestamp[:19]}] [{log.level.value}] [{log.component}] {log.message}\n"
 
-        st.text_area("Console Stream Output", value=log_text or "No system logs available.", height=320)
+        st.text_area("Console Stream Output", value=log_text or "No system logs available.", height=280)
+
+    with col_state:
+        st.subheader("System State & RL Agent")
+        st.caption("Inspect Reinforcement Learning Q-Table & Shared State Contract")
 
         # Q-Learning Agent State Viewer
-        with st.expander("Q-Learning Agent State"):
+        with st.expander("Q-Learning Agent State", expanded=True):
             q_table_path = Path("workspace/q_table.json")
             if q_table_path.exists():
                 try:
@@ -869,51 +874,11 @@ def main():
                             })
                         st.table(table_rows)
                     else:
-                        st.info("Q-table is empty. Run a benchmark to begin training.")
+                        st.info("Q-table is empty. Run a research task or benchmark to initialise the RL agent.")
                 except (json.JSONDecodeError, Exception) as e:
                     st.error(f"Error loading Q-table: {e}")
             else:
                 st.info("No Q-table found yet. Run a research task or benchmark to initialise the RL agent.")
-
-    with col_report:
-        st.subheader("Draft Report & Evidence")
-
-        if st.session_state["latest_report"]:
-            st.markdown(st.session_state["latest_report"])
-        else:
-            st.info("No research report generated yet. Enter a query and launch a task to begin.")
-
-        st.markdown("#### Evidence Graph & Source Citations")
-        citations_path = Path("workspace/citations.json")
-        if citations_path.exists():
-            with open(citations_path, "r", encoding="utf-8") as f:
-                try:
-                    citations_data = json.load(f)
-                    
-                    # Convert to table format for display
-                    table_data = []
-                    for idx, cit in enumerate(citations_data, start=1):
-                        citation_tag = (
-                            cit.get("claim_id") or
-                            cit.get("marker") or
-                            cit.get("citation_id") or
-                            f"cite_{idx:03d}"
-                        )
-                        raw_statement = cit.get("claim_text") or cit.get("sentence", "")
-                        statement_preview = raw_statement[:100] + ("..." if len(raw_statement) > 100 else "")
-                        table_data.append({
-                            "Citation": citation_tag,
-                            "Statement": statement_preview,
-                            "Confidence": f"{cit.get('confidence', 0.0) * 100:.1f}%",
-                        })
-                    if table_data:
-                        st.table(table_data)
-                    else:
-                        st.info("No citations found in the current report.")
-                except json.JSONDecodeError:
-                    st.error("Error decoding citations.json")
-        else:
-            st.info("No active citations graph found. Run a research query to generate evidence.")
 
         with st.expander("Inspect Raw state.json Contract"):
             state_file_path = Path("config/state.json")
@@ -926,6 +891,15 @@ def main():
                         st.error("Error decoding raw state.json")
             else:
                 st.warning("No state.json file found yet.")
+
+    st.markdown("<br><hr style='border: 1px solid #000000;'><br>", unsafe_allow_html=True)
+
+    # ----------------------------------------------------
+    # FULL-WIDTH REPORT DASHBOARD: Draft vs Final Verified
+    # ----------------------------------------------------
+    render_dual_report_view(st.session_state["latest_report"])
+
+
 
 
 if __name__ == "__main__":

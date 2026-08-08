@@ -1,0 +1,19 @@
+# Ignore backend python files, docker & datasets for fast static Vercel deployment
+.env
+.env.template
+.git
+.pytest_cache
+src/
+tests/
+docs/
+workspace/
+sandbox_snapshots/
+Dockerfile*
+requirements.txt
+generate_evidence_map.py
+launcher.py
+security_architecture_guide.md
+ARCHITECTURE.md
+DESIGN (3).md
+audit_log.json
+evidence_map.png

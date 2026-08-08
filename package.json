@@ -1,4 +1,11 @@
 {
+  "name": "aegis-research-os-landing",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Landing page ready for Vercel deployment'",
+    "deploy": "npx vercel --prod"
+  },
   "devDependencies": {
     "agentation": "^3.0.2",
     "esbuild": "^0.28.1",

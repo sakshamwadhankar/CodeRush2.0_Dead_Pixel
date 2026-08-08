@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aegis Research OS — Autonomous Agent Session</title>
+  <meta name="description" content="Interactive Agent Workspace for Aegis Research OS (AE-02). Autonomous research, evidence graph verification, and air-gapped code execution.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Chat Application Specific Styling */
+    .chat-app-wrapper {
+      min-height: 100vh;
+      background-color: var(--color-warm-canvas);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-header {
+      background: var(--color-paper-white);
+      border-bottom: 2px solid var(--color-carbon-black);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .status-pill-online {
+      background: var(--color-mint-chip);
+      color: var(--color-carbon-black);
+      border: 1px solid var(--color-carbon-black);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot-green {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    .chat-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 24px 32px 120px 32px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 32px;
+      flex: 1;
+    }
+
+    .chat-sidebar {
+      background: var(--color-paper-white);
+      border: 2px solid var(--color-carbon-black);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 6px 6px 0px var(--color-carbon-black);
+      height: fit-content;
+    }
+
+    .sidebar-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--color-carbon-black);
+      padding-bottom: 8px;
+    }
+
+    .preset-card-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--color-warm-canvas);
+      border: 2px solid var(--color-carbon-black);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-carbon-black);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 3px 3px 0px var(--color-carbon-black);
+    }
+
+    .preset-card-btn:hover {
+      background: var(--color-voltage-yellow);
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0px var(--color-carbon-black);
+    }
+
+    .chat-feed-area {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .msg-card {
+      background: var(--color-paper-white);
+      border: 2px solid var(--color-carbon-black);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 6px 6px 0px var(--color-carbon-black);
+    }
+
+    .msg-card-user {
+      background: var(--color-carbon-black);
+      color: var(--color-paper-white);
+      box-shadow: 6px 6px 0px var(--color-voltage-yellow);
+    }
+
+    .msg-card-user .msg-sender {
+      color: var(--color-voltage-yellow);
+    }
+
+    .msg-sender {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .msg-body {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* Execution Log Stream */
+    .execution-log-card {
+      background: var(--color-graphite);
+      color: var(--color-mint-chip);
+      border: 2px solid var(--color-carbon-black);
+      border-radius: 10px;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.6;
+      box-shadow: 4px 4px 0px var(--color-carbon-black);
+      max-height: 240px;
+      overflow-y: auto;
+    }
+
+    .exec-step {
+      margin-bottom: 6px;
+    }
+
+    .exec-step span.time {
+      color: var(--color-smoke);
+      margin-right: 8px;
+    }
+
+    /* Dual Report View Component */
+    .dual-report-container {
+      background: var(--color-paper-white);
+      border: 2px solid var(--color-carbon-black);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 6px 6px 0px var(--color-carbon-black);
+      margin-top: 16px;
+    }
+
+    .metrics-bar-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-item-box {
+      background: var(--color-warm-canvas);
+      border: 2px solid var(--color-carbon-black);
+      border-radius: 8px;
+      padding: 14px;
+      box-shadow: 3px 3px 0px var(--color-carbon-black);
+    }
+
+    .metric-item-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--color-slate);
+    }
+
+    .metric-item-val {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--color-carbon-black);
+      margin-top: 4px;
+    }
+
+    .report-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .report-pane-draft {
+      background: #ffffff;
+      border: 2px solid #000000;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 4px 4px 0px #000000;
+    }
+
+    .report-pane-final {
+      background: #f0fdf4;
+      border: 2px solid #166534;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 4px 4px 0px #166534;
+    }
+
+    /* Fixed Floating Chat Bar */
+    .chat-input-bar-wrapper {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-paper-white);
+      border-top: 2px solid var(--color-carbon-black);
+      padding: 16px 32px;
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+      z-index: 99;
+    }
+
+    .chat-input-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      gap: 16px;
+    }
+
+    .chat-input-field {
+      flex: 1;
+      background: var(--color-warm-canvas);
+      border: 2px solid var(--color-carbon-black);
+      border-radius: 8px;
+      padding: 14px 20px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-carbon-black);
+      outline: none;
+    }
+
+    .chat-input-field:focus {
+      background: #ffffff;
+      border-color: var(--color-carbon-black);
+      box-shadow: 3px 3px 0px var(--color-carbon-black);
+    }
+
+    .chat-send-btn {
+      background: var(--color-carbon-black);
+      color: var(--color-paper-white);
+      border: 2px solid var(--color-carbon-black);
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 4px 4px 0px var(--color-voltage-yellow);
+    }
+
+    .chat-send-btn:hover {
+      background: var(--color-voltage-yellow);
+      color: var(--color-carbon-black);
+      box-shadow: 4px 4px 0px var(--color-carbon-black);
+    }
+  </style>
+</head>
+<body class="chat-app-wrapper">
+
+  <!-- TOP CHAT HEADER -->
+  <header class="chat-header">
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <a href="index.html" class="brand-logo" style="text-decoration: none;">
+        <span>AEGIS</span>
+        <span class="brand-badge">AE-02</span>
+      </a>
+      <div class="status-pill-online">
+        <span class="status-dot-green"></span>
+        <span>SYSTEM ONLINE · AIR-GAPPED DOCKER CLEAN</span>
+      </div>
+    </div>
+
+    <a href="index.html" class="btn-ghost" style="padding: 8px 16px; font-size: 13px;">← BACK TO LANDING PAGE</a>
+  </header>
+
+  <!-- MAIN CHAT WORKSPACE -->
+  <div class="chat-container">
+    
+    <!-- LEFT SIDEBAR: PRESET QUERIES & CONTROL PANEL -->
+    <aside class="chat-sidebar">
+      <div class="sidebar-title">RESEARCH PRESETS</div>
+      
+      <button class="preset-card-btn" data-query="Audit Smart Contract for Reentrancy & Memory Overflows">
+        🛡️ Audit Smart Contract for Reentrancy & Memory Overflows
+      </button>
+
+      <button class="preset-card-btn" data-query="Synthesize Quantum Computing Research Paper & Benchmark Results">
+        📄 Synthesize Quantum Computing Paper & Benchmarks
+      </button>
+
+      <button class="preset-card-btn" data-query="Scan CVE Threat Intelligence Disclosures & Exploit Sandbox">
+        🔍 Scan Threat Intelligence CVE Disclosures
+      </button>
+
+      <div class="sidebar-title" style="margin-top: 24px;">ENGINE STATUS</div>
+      <div style="font-family: var(--font-mono); font-size: 12px; line-height: 1.8; color: var(--color-slate);">
+        <div>• <strong>Hybrid RAG:</strong> ChromaDB + BM25</div>
+        <div>• <strong>Playwright:</strong> Headless Active</div>
+        <div>• <strong>Sandbox:</strong> Docker Air-Gapped</div>
+        <div>• <strong>Compiler:</strong> Citation Graph v2.1</div>
+      </div>
+    </aside>
+
+    <!-- RIGHT MAIN CHAT FEED -->
+    <main class="chat-feed-area" id="chat-feed">
+      
+      <!-- WELCOME MESSAGE -->
+      <div class="msg-card">
+        <div class="msg-sender" style="color: var(--color-slate);">AEGIS RESEARCH OS // AUTONOMOUS AGENT</div>
+        <div class="msg-body">
+          Welcome to the <strong>Aegis Research OS (AE-02)</strong> live research workspace.
+          <br><br>
+          Select a research prompt from the left panel or type your prompt below to launch the autonomous planning engine. Aegis will decompose your prompt, scrape targets via Playwright, execute code in an air-gapped Docker sandbox, and present a <strong>Side-by-Side Draft vs Final Verified Report</strong>.
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- FLOATING CHAT INPUT BAR -->
+  <div class="chat-input-bar-wrapper">
+    <form class="chat-input-inner" id="chat-form">
+      <input 
+        type="text" 
+        id="chat-prompt-input" 
+        class="chat-input-field" 
+        placeholder="Ask Aegis Research OS to audit code, synthesize papers, or analyze evidence..."
+        required 
+      />
+      <button type="submit" id="chat-submit-btn" class="chat-send-btn">
+        RUN PIPELINE
+      </button>
+    </form>
+  </div>
+
+  <script src="chat.js"></script>
+</body>
+</html>
