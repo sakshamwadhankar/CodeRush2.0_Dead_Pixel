@@ -65,6 +65,37 @@ class PolicyEngine:
 
         return True, "Strategy is compliant."
 
+    def check_prompt_injection(self, query: str) -> Tuple[bool, str]:
+        """
+        Uses heuristics (simulating NeMo Guardrails) to detect prompt injection attempts.
+        In a full enterprise deployment, this would invoke the nemoguardrails package
+        with compiled .co Colang policies.
+        """
+        query_lower = query.lower()
+        injection_patterns = [
+            r"ignore all previous",
+            r"ignore previous instructions",
+            r"you are no longer",
+            r"system prompts",
+            r"forget everything",
+            r"bypass security",
+            r"output the underlying",
+            r"system configuration rules"
+        ]
+        
+        for pattern in injection_patterns:
+            if re.search(pattern, query_lower):
+                reason = f"NeMo Guardrails Blocked: Prompt injection pattern detected ('{pattern}')"
+                self.state_controller.log_system_event(
+                    level=LogLevel.CRITICAL,
+                    component="NeMoGuardrailsFilter",
+                    message=reason,
+                    metadata={"query": query[:100]}
+                )
+                return False, reason
+                
+        return True, "Clean prompt."
+
     def _log_and_quarantine(self, reason: str, yaml_content: str, filename: str):
         """Halts execution, logs critical event, and quarantines the file."""
         self.state_controller.log_system_event(

@@ -1,5 +1,6 @@
 import json
 import os
+import time
 from pathlib import Path
 from typing import Dict, Any
 
@@ -697,6 +698,26 @@ def main():
                 st.session_state["current_graph_results"] = []
                 st.session_state["current_graph"] = None
                 
+                # --- NeMo Guardrails Prompt Injection Check ---
+                from src.security.policy_engine import PolicyEngine
+                from src.orchestration.state_models import SeverityLevel
+                policy = PolicyEngine(state_controller=controller)
+                is_safe, reason = policy.check_prompt_injection(query_input.strip())
+                
+                if not is_safe:
+                    controller.trigger_security_alert(
+                        alert_type="NeMo Guardrails Prompt Injection",
+                        severity=SeverityLevel.HIGH,
+                        source_component="NeMoGuardrailsFilter",
+                        description=reason,
+                        raw_payload={"user_input": query_input.strip()},
+                    )
+                    st.error(f"Blocked by NeMo Guardrails: {reason}")
+                    # Allow error to render for a moment before forcing state update
+                    time.sleep(1)
+                    st.rerun()
+                
+                # --- Proceed to planning if safe ---
                 with st.spinner("Decomposing research objective..."):
                     from src.orchestration.planner import PlannerEngine
                     planner = PlannerEngine()
