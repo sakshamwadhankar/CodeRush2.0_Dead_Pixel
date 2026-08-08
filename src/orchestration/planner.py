@@ -36,6 +36,9 @@ class PlannerEngine:
         self.state_controller = StateController(state_filepath=state_filepath)
         self.gateway = ModelGateway(state_filepath=state_filepath)
         self.rag_engine = HybridRAGEngine(persist_directory="workspace/chroma")
+        from src.orchestration.q_optimizer import QLearningAgent, StateEncoder
+        self.q_agent = QLearningAgent()
+        self.state_encoder = StateEncoder()
 
     def decompose_query(self, query: str) -> TaskGraph:
         """
@@ -259,6 +262,17 @@ class PlannerEngine:
                     component="PlannerEngine",
                     message=f"Stop condition satisfied early (avg confidence {avg_confidence:.2f} >= target {graph.overall_confidence_target})",
                 )
+                
+            # --- Dynamically Update Q-Learning Model ---
+            try:
+                state_tuple = self.state_encoder.encode(graph.query)
+                action_map = {"RAG_RETRIEVAL": 0, "CODE_EXECUTION": 1, "BROWSER_SCRAPE": 2, "SYNTHESIS": 3}
+                action_id = action_map.get(subtask.action_type.name, 0)
+                reward = subtask_result["confidence_score"]
+                # Update Q-table with reward from this subtask execution
+                self.q_agent.update(state_tuple, action_id, reward, state_tuple)
+            except Exception as e:
+                pass
 
         return results
 
