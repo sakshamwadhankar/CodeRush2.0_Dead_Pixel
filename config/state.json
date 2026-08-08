@@ -359,6 +359,54 @@
         "action_type": "synthesis",
         "subquestion": "Synthesize evidence and compile final report for: about this"
       }
+    },
+    {
+      "task_id": "task_12c04aae",
+      "name": "Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...",
+      "status": "completed",
+      "created_at": "2026-08-08T04:49:08.662545+00:00",
+      "updated_at": "2026-08-08T04:49:08.766861+00:00",
+      "payload": {
+        "subtask_id": "sub_001",
+        "action_type": "rag_retrieval",
+        "subquestion": "Retrieve technical documentation and security baselines for: MANTIS: A low-latency, tweakable lightweight block cipher. It heavily bases its framework on the PRINCE infrastructure but adds a \"tweak\" input to safely encrypt multiple streams of data under the same key without vulnerability leaks."
+      }
+    },
+    {
+      "task_id": "task_34494af0",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: MA...",
+      "status": "completed",
+      "created_at": "2026-08-08T04:49:08.768904+00:00",
+      "updated_at": "2026-08-08T04:49:11.501130+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: MANTIS: A low-latency, tweakable lightweight block cipher. It heavily bases its framework on the PRINCE infrastructure but adds a \"tweak\" input to safely encrypt multiple streams of data under the same key without vulnerability leaks."
+      }
+    },
+    {
+      "task_id": "task_d97d9ff8",
+      "name": "Subtask 2: CODE_EXECUTION - Execute verification script for: MA...",
+      "status": "completed",
+      "created_at": "2026-08-08T04:49:11.522101+00:00",
+      "updated_at": "2026-08-08T04:49:14.230595+00:00",
+      "payload": {
+        "subtask_id": "sub_002",
+        "action_type": "code_execution",
+        "subquestion": "Execute verification script for: MANTIS: A low-latency, tweakable lightweight block cipher. It heavily bases its framework on the PRINCE infrastructure but adds a \"tweak\" input to safely encrypt multiple streams of data under the same key without vulnerability leaks."
+      }
+    },
+    {
+      "task_id": "task_3344ba73",
+      "name": "Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...",
+      "status": "completed",
+      "created_at": "2026-08-08T04:49:14.232200+00:00",
+      "updated_at": "2026-08-08T04:49:14.235311+00:00",
+      "payload": {
+        "subtask_id": "sub_003",
+        "action_type": "synthesis",
+        "subquestion": "Synthesize evidence and compile final report for: MANTIS: A low-latency, tweakable lightweight block cipher. It heavily bases its framework on the PRINCE infrastructure but adds a \"tweak\" input to safely encrypt multiple streams of data under the same key without vulnerability leaks."
+      }
     }
   ],
   "system_logs": [
@@ -1894,6 +1942,213 @@
       "message": "Updated task task_2f54a5f3 status to completed",
       "metadata": {
         "task_id": "task_2f54a5f3",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_6e6c9641",
+      "timestamp": "2026-08-08T04:49:08.662337+00:00",
+      "level": "WARNING",
+      "component": "PlannerEngine",
+      "message": "ModelGateway decomposition fallback activated: [WinError 10054] An existing connection was forcibly closed by the remote host",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_8b0e8532",
+      "timestamp": "2026-08-08T04:49:08.662532+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "MANTIS: A low-latency, tweakable lightweight block cipher. It heavily bases its framework on the PRINCE infrastructure but adds a \"tweak\" input to safely encrypt multiple streams of data under the same key without vulnerability leaks.",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_3b460031",
+      "timestamp": "2026-08-08T04:49:08.662558+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 1: RAG_RETRIEVAL - Retrieve technical documentation an...' (task_12c04aae)",
+      "metadata": {
+        "task_id": "task_12c04aae"
+      }
+    },
+    {
+      "log_id": "log_17f6dfac",
+      "timestamp": "2026-08-08T04:49:08.663798+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_12c04aae status to running",
+      "metadata": {
+        "task_id": "task_12c04aae",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_75bcdf54",
+      "timestamp": "2026-08-08T04:49:08.766889+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_12c04aae status to completed",
+      "metadata": {
+        "task_id": "task_12c04aae",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_61b97844",
+      "timestamp": "2026-08-08T04:49:08.768837+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_001 with confidence 0.92",
+      "metadata": {
+        "confidence": 0.92,
+        "threshold": 0.85
+      }
+    },
+    {
+      "log_id": "log_a61914d3",
+      "timestamp": "2026-08-08T04:49:08.768885+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.92 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_e36436cf",
+      "timestamp": "2026-08-08T04:49:08.768927+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: MA...' (task_34494af0)",
+      "metadata": {
+        "task_id": "task_34494af0"
+      }
+    },
+    {
+      "log_id": "log_70c98df4",
+      "timestamp": "2026-08-08T04:49:08.770217+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_34494af0 status to running",
+      "metadata": {
+        "task_id": "task_34494af0",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_ca1f532f",
+      "timestamp": "2026-08-08T04:49:08.771362+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_34494af0 status to pending_approval",
+      "metadata": {
+        "task_id": "task_34494af0",
+        "new_status": "pending_approval"
+      }
+    },
+    {
+      "log_id": "log_f83dcbb5",
+      "timestamp": "2026-08-08T04:49:11.501161+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_34494af0 status to completed",
+      "metadata": {
+        "task_id": "task_34494af0",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_1fbccf4b",
+      "timestamp": "2026-08-08T04:49:11.522063+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Beginning execution of TaskGraph with 3 subtasks",
+      "metadata": {
+        "query": "MANTIS: A low-latency, tweakable lightweight block cipher. It heavily bases its framework on the PRINCE infrastructure but adds a \"tweak\" input to safely encrypt multiple streams of data under the same key without vulnerability leaks.",
+        "stop_condition": "Target confidence >= 0.85 achieved across all subtasks"
+      }
+    },
+    {
+      "log_id": "log_68954da1",
+      "timestamp": "2026-08-08T04:49:11.522123+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 2: CODE_EXECUTION - Execute verification script for: MA...' (task_d97d9ff8)",
+      "metadata": {
+        "task_id": "task_d97d9ff8"
+      }
+    },
+    {
+      "log_id": "log_6f6cdc0d",
+      "timestamp": "2026-08-08T04:49:11.523751+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_d97d9ff8 status to running",
+      "metadata": {
+        "task_id": "task_d97d9ff8",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_426b119e",
+      "timestamp": "2026-08-08T04:49:14.230631+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_d97d9ff8 status to completed",
+      "metadata": {
+        "task_id": "task_d97d9ff8",
+        "new_status": "completed"
+      }
+    },
+    {
+      "log_id": "log_ad21d0a6",
+      "timestamp": "2026-08-08T04:49:14.232144+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Completed subtask sub_002 with confidence 0.95",
+      "metadata": {
+        "confidence": 0.95,
+        "threshold": 0.8
+      }
+    },
+    {
+      "log_id": "log_70034e51",
+      "timestamp": "2026-08-08T04:49:14.232183+00:00",
+      "level": "INFO",
+      "component": "PlannerEngine",
+      "message": "Stop condition satisfied early (avg confidence 0.94 >= target 0.85)",
+      "metadata": {}
+    },
+    {
+      "log_id": "log_07a19683",
+      "timestamp": "2026-08-08T04:49:14.232222+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Added new task 'Subtask 3: SYNTHESIS - Synthesize evidence and compile fin...' (task_3344ba73)",
+      "metadata": {
+        "task_id": "task_3344ba73"
+      }
+    },
+    {
+      "log_id": "log_63f61027",
+      "timestamp": "2026-08-08T04:49:14.233609+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_3344ba73 status to running",
+      "metadata": {
+        "task_id": "task_3344ba73",
+        "new_status": "running"
+      }
+    },
+    {
+      "log_id": "log_1a6e91cf",
+      "timestamp": "2026-08-08T04:49:14.235360+00:00",
+      "level": "INFO",
+      "component": "StateController",
+      "message": "Updated task task_3344ba73 status to completed",
+      "metadata": {
+        "task_id": "task_3344ba73",
         "new_status": "completed"
       }
     }
