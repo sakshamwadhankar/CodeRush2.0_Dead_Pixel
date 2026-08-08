@@ -41,6 +41,12 @@ class TestAppLayout(unittest.TestCase):
         self.assertTrue(hasattr(app, "main"))
         self.assertTrue(hasattr(app, "get_controller"))
 
+    def test_centered_planner_layout(self):
+        app_path = Path(__file__).parent.parent / "src" / "ui" / "app.py"
+        content = app_path.read_text(encoding="utf-8")
+        self.assertIn("CENTERED HERO SECTION: Research Planner & Tasks", content)
+        self.assertIn("planner_l, planner_center, planner_r = st.columns([0.08, 0.84, 0.08])", content)
+
 
 if __name__ == "__main__":
     unittest.main()

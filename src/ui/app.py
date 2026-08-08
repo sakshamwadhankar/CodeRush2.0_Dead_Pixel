@@ -674,13 +674,11 @@ def main():
 
     st.markdown("<br>", unsafe_allow_html=True)
     
-    # 3-Column Main Layout
-    col1, col2, col3 = st.columns([1, 1.1, 1.2])
-
     # ----------------------------------------------------
-    # COLUMN 1: Research Planner & Running Tasks
+    # CENTERED HERO SECTION: Research Planner & Tasks
     # ----------------------------------------------------
-    with col1:
+    planner_l, planner_center, planner_r = st.columns([0.08, 0.84, 0.08])
+    with planner_center:
         st.subheader("Research Planner & Tasks")
 
         with st.form("research_task_form"):
@@ -688,7 +686,7 @@ def main():
                 "Enter Research Query / Objective:",
                 placeholder="e.g. Investigate zero-day exploit trends in cloud native environments...",
                 value="",
-                height=90,
+                height=110,
             )
             submitted = st.form_submit_button("Launch Research Task", use_container_width=True)
             if submitted and query_input.strip():
@@ -764,10 +762,14 @@ def main():
                         controller.update_task_status(task.task_id, TaskStatus.COMPLETED)
                         st.rerun()
 
+    st.markdown("<br><hr style='border: 1px solid #c6c6c6;'><br>", unsafe_allow_html=True)
+
     # ----------------------------------------------------
-    # COLUMN 2: Central Console Window & Log Viewer
+    # LOWER DASHBOARD: Console (Left) & Reports (Right)
     # ----------------------------------------------------
-    with col2:
+    col_console, col_report = st.columns([1, 1])
+
+    with col_console:
         st.subheader("Central Console Window")
 
         st.caption("Live System Logs & Execution Trace")
@@ -826,10 +828,7 @@ def main():
             else:
                 st.info("No Q-table found yet. Run a research task or benchmark to initialise the RL agent.")
 
-    # ----------------------------------------------------
-    # COLUMN 3: Report Display & Mock Citations
-    # ----------------------------------------------------
-    with col3:
+    with col_report:
         st.subheader("Draft Report & Evidence")
 
         if st.session_state["latest_report"]:
