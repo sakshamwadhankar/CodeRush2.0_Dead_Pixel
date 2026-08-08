@@ -44,7 +44,22 @@ def main():
         )
         processes.append(streamlit_proc)
         
-        print("System successfully booted. Press CTRL+C to shut down.")
+        # 4. Start Landing Page Server
+        print("Starting Landing Page on port 3000...")
+        landing_proc = subprocess.Popen(
+            [sys.executable, "landing/server.py"],
+            stdout=sys.stdout,
+            stderr=sys.stderr
+        )
+        processes.append(landing_proc)
+        
+        print("\n=======================================================")
+        print("🚀 System successfully booted!")
+        print(" - Landing Page: http://localhost:3000")
+        print(" - FastAPI Sandbox: http://localhost:8000")
+        print(" - Streamlit Agent Dashboard: http://localhost:8501")
+        print("=======================================================")
+        print("Press CTRL+C to shut down all services.")
         
         # Keep alive
         while True:
