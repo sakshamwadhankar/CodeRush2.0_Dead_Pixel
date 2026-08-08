@@ -1,9 +1,10 @@
 import json
 import os
-from dotenv import load_dotenv
-import streamlit as st
 from pathlib import Path
 from typing import Dict, Any
+
+import streamlit as st
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -13,48 +14,428 @@ from src.orchestration.state_models import TaskStatus, LogLevel, SeverityLevel
 # Page configuration
 st.set_page_config(
     page_title="Aegis Research OS | Autonomous AI Research",
-    page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Custom Styling for modern dark glassmorphism aesthetic
+# Custom Styling for Brutalist Editorial Warm Canvas aesthetic (DESIGN (3).md)
 st.markdown(
     """
     <style>
-    .main-header {
-        font-size: 2.2rem;
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    :root {
+      --color-carbon-black: #000000;
+      --color-paper-white: #ffffff;
+      --color-warm-canvas: #e5e5e5;
+      --color-mist-gray: #f3f3f3;
+      --color-ash: #c6c6c6;
+      --color-smoke: #666666;
+      --color-slate: #222222;
+      --color-graphite: #2f2f2f;
+      --color-mint-chip: #d1ffca;
+      --color-voltage-yellow: #fff100;
+    }
+
+    /* Streamlit Main App Canvas */
+    .stApp {
+        background-color: #e5e5e5 !important;
+        color: #000000 !important;
+        font-family: 'Inter', sans-serif !important;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Barlow Condensed', sans-serif !important;
+        text-transform: uppercase !important;
+        color: #000000 !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.5px !important;
+    }
+
+    /* Widget Labels & Markdown Captions */
+    [data-testid="stWidgetLabel"] label, 
+    [data-testid="stWidgetLabel"] p, 
+    [data-testid="stWidgetLabel"] span {
+        color: #000000 !important;
+        font-weight: 600 !important;
+        font-family: 'Inter', sans-serif !important;
+    }
+
+    .stCaption, small {
+        color: #333333 !important;
+        font-weight: 600 !important;
+    }
+
+    /* Top Navigation Pill */
+    .top-nav-bar {
+        background: #ffffff;
+        border: 1px solid #000000;
+        border-radius: 48px;
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+    }
+
+    .brand-logo-text {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 24px;
         font-weight: 700;
-        background: linear-gradient(90deg, #4F46E5, #06B6D4);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 0px;
+        text-transform: uppercase;
+        color: #000000;
     }
+
+    .nav-btn-link {
+        background: #000000;
+        color: #ffffff !important;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-decoration: none;
+        display: inline-block;
+        margin-left: 8px;
+    }
+
+    .nav-btn-mint {
+        background: #d1ffca;
+        color: #000000 !important;
+        border: 1px solid #000000;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-decoration: none;
+        display: inline-block;
+        margin-left: 8px;
+    }
+
+    /* Header Text Styles */
+    .main-header {
+        font-family: 'Barlow Condensed', sans-serif !important;
+        font-size: 3.8rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: -2px !important;
+        color: #000000 !important;
+        margin-bottom: 0px !important;
+        line-height: 0.9 !important;
+    }
+
     .sub-header {
-        font-size: 1.0rem;
-        color: #9CA3AF;
-        margin-bottom: 20px;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 1.05rem !important;
+        color: #333333 !important;
+        margin-bottom: 24px !important;
+        font-weight: 600 !important;
     }
+
+    .mint-badge {
+        background: #d1ffca !important;
+        color: #000000 !important;
+        border: 1px solid #000000 !important;
+        border-radius: 64px !important;
+        padding: 6px 16px !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .mint-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #000000;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    /* Security Alert Banner */
     .security-banner {
-        background-color: rgba(239, 68, 68, 0.15);
-        border: 1px solid #EF4444;
-        border-radius: 8px;
-        padding: 14px 18px;
-        margin-bottom: 20px;
-        color: #F87171;
+        background-color: #ffffff !important;
+        border: 2px solid #000000 !important;
+        border-left: 10px solid #000000 !important;
+        border-radius: 20px !important;
+        padding: 20px 24px !important;
+        margin-bottom: 24px !important;
+        color: #000000 !important;
     }
+
+    .security-banner h4 {
+        font-family: 'Barlow Condensed', sans-serif !important;
+        font-size: 24px !important;
+        text-transform: uppercase !important;
+        margin-bottom: 8px !important;
+        color: #000000 !important;
+    }
+
+    /* Card Box Containers */
     .card-box {
-        background-color: #1E293B;
-        border-radius: 8px;
-        padding: 15px;
-        border: 1px solid #334155;
-        margin-bottom: 12px;
+        background-color: #ffffff !important;
+        border-radius: 20px !important;
+        padding: 20px !important;
+        border: 1px solid #000000 !important;
+        margin-bottom: 16px !important;
+        color: #000000 !important;
     }
-    .status-badge-pending { color: #FBBF24; font-weight: 600; }
-    .status-badge-running { color: #60A5FA; font-weight: 600; }
-    .status-badge-completed { color: #34D399; font-weight: 600; }
-    .status-badge-failed { color: #F87171; font-weight: 600; }
-    .status-badge-pending_approval { color: #F59E0B; font-weight: 600; }
+
+    /* Sidebar High-Contrast Override */
+    [data-testid="stSidebar"] {
+        background-color: #ffffff !important;
+        border-right: 1px solid #000000 !important;
+    }
+
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3 {
+        color: #000000 !important;
+        font-family: 'Barlow Condensed', sans-serif !important;
+    }
+
+    [data-testid="stSidebar"] label, 
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] div {
+        color: #000000 !important;
+        font-weight: 600 !important;
+    }
+
+    /* BUTTONS OVERRIDE - WHITE TEXT ON BLACK BUTTONS */
+    .stButton > button, 
+    .stFormSubmitButton > button,
+    button[kind="primary"], 
+    button[kind="secondary"] {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        border-radius: 8px !important;
+        border: 1px solid #000000 !important;
+        padding: 10px 20px !important;
+        transition: all 0.15s ease !important;
+        box-shadow: none !important;
+    }
+
+    .stButton > button *, 
+    .stFormSubmitButton > button *,
+    button[kind="primary"] *, 
+    button[kind="secondary"] * {
+        color: #ffffff !important;
+        background-color: transparent !important;
+        font-weight: 700 !important;
+    }
+
+    .stButton > button:hover, 
+    .stFormSubmitButton > button:hover {
+        background-color: #2f2f2f !important;
+        color: #ffffff !important;
+        transform: translateY(-1px) !important;
+    }
+
+    .stButton > button:hover *, 
+    .stFormSubmitButton > button:hover * {
+        color: #ffffff !important;
+        background-color: transparent !important;
+    }
+
+    /* Input Controls High Contrast */
+    .stTextInput input, 
+    .stTextArea textarea, 
+    .stNumberInput input {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        font-family: 'JetBrains Mono', monospace !important;
+        border-radius: 8px !important;
+        border: 1px solid #000000 !important;
+        font-weight: 600 !important;
+    }
+
+    .stTextInput input::placeholder, 
+    .stTextArea textarea::placeholder {
+        color: #666666 !important;
+        font-weight: 400 !important;
+    }
+
+    .stTextArea textarea:focus,
+    .stTextInput input:focus {
+        border-color: #000000 !important;
+        background-color: #ffffff !important;
+    }
+
+    /* BASEWEB SELECTBOX & DROPDOWN ("ALL", "INFO", etc.) */
+    [data-baseweb="select"] {
+        background-color: #ffffff !important;
+        border-radius: 8px !important;
+        border: 1px solid #000000 !important;
+    }
+
+    [data-baseweb="select"] div, 
+    [data-baseweb="select"] span, 
+    [data-baseweb="select"] input {
+        color: #000000 !important;
+        background-color: transparent !important;
+        font-weight: 600 !important;
+    }
+
+    [data-baseweb="popover"], 
+    [data-baseweb="menu"], 
+    [role="listbox"] {
+        background-color: #ffffff !important;
+        border: 1px solid #000000 !important;
+    }
+
+    [role="option"] {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    [role="option"] * {
+        color: #000000 !important;
+        background-color: transparent !important;
+        font-weight: 600 !important;
+    }
+
+    [role="option"]:hover, 
+    [role="option"][aria-selected="true"] {
+        background-color: #d1ffca !important;
+    }
+
+    [role="option"]:hover *, 
+    [role="option"][aria-selected="true"] * {
+        color: #000000 !important;
+        background-color: transparent !important;
+    }
+
+    /* INSPECT RAW STATE.JSON & STREAMLIT JSON VIEWER */
+    [data-testid="stJson"] {
+        background-color: #ffffff !important;
+        border: 1px solid #000000 !important;
+        border-radius: 12px !important;
+        padding: 16px !important;
+    }
+
+    [data-testid="stJson"] * {
+        color: #000000 !important;
+        font-family: 'JetBrains Mono', monospace !important;
+    }
+
+    [data-testid="stJson"] span, 
+    [data-testid="stJson"] div, 
+    [data-testid="stJson"] label, 
+    [data-testid="stJson"] p {
+        color: #000000 !important;
+    }
+
+    .react-json-view {
+        background-color: #ffffff !important;
+        font-family: 'JetBrains Mono', monospace !important;
+    }
+
+    .react-json-view * {
+        color: #000000 !important;
+    }
+
+    /* Number Input Buttons (+/-) */
+    [data-testid="stNumberInputContainer"] button {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        border: 1px solid #000000 !important;
+    }
+
+    [data-testid="stNumberInputContainer"] button * {
+        color: #ffffff !important;
+    }
+
+    /* Streamlit Alert Box Override */
+    [data-testid="stAlert"] {
+        background-color: #ffffff !important;
+        border: 1px solid #000000 !important;
+        border-left: 8px solid #000000 !important;
+        border-radius: 12px !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+    }
+
+    [data-testid="stAlert"] * {
+        color: #000000 !important;
+        font-weight: 600 !important;
+    }
+
+    /* Expander Containers */
+    .streamlit-expanderHeader, [data-testid="stExpander"] summary {
+        background-color: #ffffff !important;
+        border-radius: 12px !important;
+        border: 1px solid #000000 !important;
+        color: #000000 !important;
+        font-family: 'Barlow Condensed', sans-serif !important;
+        font-size: 20px !important;
+        text-transform: uppercase !important;
+        font-weight: 700 !important;
+    }
+
+    .streamlit-expanderHeader *, [data-testid="stExpander"] summary * {
+        color: #000000 !important;
+    }
+
+    .streamlit-expanderContent, [data-testid="stExpander"] > div[role="region"] {
+        background-color: #ffffff !important;
+        border-radius: 0 0 12px 12px !important;
+        border: 1px solid #000000 !important;
+        border-top: none !important;
+    }
+
+    .streamlit-expanderContent *, [data-testid="stExpander"] > div[role="region"] * {
+        color: #000000 !important;
+    }
+
+    /* Table Styling */
+    table {
+        border-collapse: separate !important;
+        border-spacing: 0 !important;
+        border-radius: 12px !important;
+        border: 1px solid #000000 !important;
+        background-color: #ffffff !important;
+        width: 100% !important;
+    }
+
+    th {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        font-family: 'Barlow Condensed', sans-serif !important;
+        font-size: 16px !important;
+        text-transform: uppercase !important;
+        padding: 10px 14px !important;
+    }
+
+    th * {
+        color: #ffffff !important;
+    }
+
+    td {
+        font-family: 'JetBrains Mono', monospace !important;
+        color: #000000 !important;
+        border-bottom: 1px solid #e5e5e5 !important;
+        padding: 10px 14px !important;
+    }
+
+    td * {
+        color: #000000 !important;
+    }
+
+    /* Status Badges */
+    .status-badge-pending { background: #fff100; color: #000000; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-family: 'JetBrains Mono'; border: 1px solid #000000; }
+    .status-badge-running { background: #d1ffca; color: #000000; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-family: 'JetBrains Mono'; border: 1px solid #000000; }
+    .status-badge-completed { background: #000000; color: #ffffff; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-family: 'JetBrains Mono'; }
+    .status-badge-failed { background: #ff4d4d; color: #ffffff; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-family: 'JetBrains Mono'; }
+    .status-badge-pending_approval { background: #fff100; color: #000000; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-family: 'JetBrains Mono'; border: 1px solid #000000; }
     </style>
     """,
     unsafe_allow_html=True,
@@ -72,8 +453,23 @@ def main():
     # Force reload state from file on render
     app_state = controller.load_state()
 
+    # Top Ecosystem Nav Pill
+    st.markdown(
+        """
+        <div class="top-nav-bar">
+            <div class="brand-logo-text">AEGIS RESEARCH OS <span style="font-size:12px; background:#d1ffca; border:1px solid #000; padding:3px 10px; border-radius:64px; margin-left:8px;">AE-02</span></div>
+            <div>
+                <a href="http://localhost:3000" target="_blank" class="nav-btn-mint">LANDING & CHAT (3000)</a>
+                <a href="http://localhost:8000" target="_blank" class="nav-btn-link">SECURITY API (8000)</a>
+            </div>
+        </div>
+        <div class="mint-badge"><span class="mint-dot"></span>AE-02 · AUTONOMOUS AI RESEARCH DASHBOARD (PORT 8501)</div>
+        """,
+        unsafe_allow_html=True
+    )
+
     # Header
-    st.markdown('<p class="main-header">🧠 Aegis Research OS</p>', unsafe_allow_html=True)
+    st.markdown('<p class="main-header">AEGIS RESEARCH OS</p>', unsafe_allow_html=True)
     st.markdown(
         '<p class="sub-header">Self-Evolving Autonomous Research Agent | Live Execution State</p>',
         unsafe_allow_html=True,
@@ -85,7 +481,7 @@ def main():
         st.markdown(
             f"""
             <div class="security-banner">
-                <h4>🚨 CRITICAL SECURITY ALERT DETECTED ({len(active_incidents)} Active)</h4>
+                <h4>CRITICAL SECURITY ALERT DETECTED ({len(active_incidents)} Active)</h4>
                 <p><b>Alert Type:</b> {active_incidents[0].alert_type} | <b>Severity:</b> {active_incidents[0].severity.value}</p>
                 <p><b>Component:</b> {active_incidents[0].source_component}</p>
                 <p><b>Description:</b> {active_incidents[0].description}</p>
@@ -96,7 +492,7 @@ def main():
 
     # 2. Sidebar Controls (User Config & System Controls)
     with st.sidebar:
-        st.header("⚙️ System Configuration")
+        st.header("System Configuration")
         st.caption("Reads & updates state.json user_config")
 
         config = app_state.user_config
@@ -117,7 +513,7 @@ def main():
         )
         new_strict_mode = st.toggle("Security Strict Mode", value=config.security_strict_mode)
 
-        if st.button("💾 Save Settings to state.json", use_container_width=True):
+        if st.button("Save Settings to state.json", use_container_width=True):
             controller.update_user_config(
                 {
                     "max_concurrent_tasks": new_max_tasks,
@@ -132,8 +528,8 @@ def main():
 
         st.divider()
 
-        st.header("🛡️ Security Alert Simulator")
-        if st.button("⚠️ Trigger NeMo Prompt Injection Alert", use_container_width=True):
+        st.header("Security Alert Simulator")
+        if st.button("Trigger NeMo Prompt Injection Alert", use_container_width=True):
             controller.trigger_security_alert(
                 alert_type="NeMo Guardrails Prompt Injection",
                 severity=SeverityLevel.HIGH,
@@ -144,7 +540,7 @@ def main():
             st.warning("Security alert logged to state.json!")
             st.rerun()
 
-        if active_incidents and st.button("✅ Resolve All Incidents", use_container_width=True):
+        if active_incidents and st.button("Resolve All Incidents", use_container_width=True):
             for inc in app_state.security_incidents:
                 inc.resolved = True
             controller.save_state()
@@ -153,8 +549,8 @@ def main():
 
         st.divider()
 
-        st.header("🗑️ Database Management")
-        if st.button("🗑️ Delete DB & Reset", use_container_width=True, type="primary"):
+        st.header("Database Management")
+        if st.button("Delete DB & Reset", use_container_width=True, type="primary"):
             import shutil
             cleared = []
             # ChromaDB vector store
@@ -214,12 +610,12 @@ def main():
     if pending_approval_tasks:
         pending_task = pending_approval_tasks[0]
         st.warning(
-            f"⚠️ **HUMAN-IN-THE-LOOP APPROVAL REQUIRED**\n\n"
+            f"**HUMAN-IN-THE-LOOP APPROVAL REQUIRED**\n\n"
             f"**Task ID:** `{pending_task.task_id}` | **Action:** `{pending_task.name}`\n\n"
             f"The agent has paused backend execution pending explicit user consent for this sensitive operation."
         )
         ac1, ac2 = st.columns(2)
-        if ac1.button("✅ Approve Sensitive Action", use_container_width=True, key="btn_approve_gate"):
+        if ac1.button("Approve Sensitive Action", use_container_width=True, key="btn_approve_gate"):
             sub_id = pending_task.payload.get("subtask_id", "sub_002")
             st.session_state["approved_subtasks"].append(sub_id)
             
@@ -247,7 +643,7 @@ def main():
             st.success("Approval granted. Execution resumed!")
             st.rerun()
 
-        if ac2.button("❌ Reject Action", use_container_width=True, key="btn_reject_gate"):
+        if ac2.button("Reject Action", use_container_width=True, key="btn_reject_gate"):
             sub_id = pending_task.payload.get("subtask_id", "sub_002")
             st.session_state["rejected_subtasks"].append(sub_id)
             
@@ -280,13 +676,11 @@ def main():
     # 3-Column Main Layout
     col1, col2, col3 = st.columns([1, 1.1, 1.2])
 
-    # (Lines moved up before st.columns)
-
     # ----------------------------------------------------
     # COLUMN 1: Research Planner & Running Tasks
     # ----------------------------------------------------
     with col1:
-        st.subheader("📋 Research Planner & Tasks")
+        st.subheader("Research Planner & Tasks")
 
         with st.form("research_task_form"):
             query_input = st.text_area(
@@ -295,7 +689,7 @@ def main():
                 value="",
                 height=90,
             )
-            submitted = st.form_submit_button("🚀 Launch Research Task", use_container_width=True)
+            submitted = st.form_submit_button("Launch Research Task", use_container_width=True)
             if submitted and query_input.strip():
                 st.session_state["latest_report"] = None
                 st.session_state["approved_subtasks"] = []
@@ -342,10 +736,10 @@ def main():
                         unsafe_allow_html=True,
                     )
                     c1, c2 = st.columns(2)
-                    if c1.button("▶ Run Task", key=f"run_{task.task_id}"):
+                    if c1.button("Run Task", key=f"run_{task.task_id}"):
                         controller.update_task_status(task.task_id, TaskStatus.RUNNING)
                         st.rerun()
-                    if c2.button("✔ Complete", key=f"comp_{task.task_id}"):
+                    if c2.button("Complete", key=f"comp_{task.task_id}"):
                         controller.update_task_status(task.task_id, TaskStatus.COMPLETED)
                         st.rerun()
 
@@ -353,7 +747,7 @@ def main():
     # COLUMN 2: Central Console Window & Log Viewer
     # ----------------------------------------------------
     with col2:
-        st.subheader("🖥️ Central Console Window")
+        st.subheader("Central Console Window")
 
         st.caption("Live System Logs & Execution Trace")
 
@@ -374,7 +768,7 @@ def main():
         st.text_area("Console Stream Output", value=log_text or "No system logs available.", height=320)
 
         # Q-Learning Agent State Viewer
-        with st.expander("🤖 Q-Learning Agent State"):
+        with st.expander("Q-Learning Agent State"):
             q_table_path = Path("workspace/q_table.json")
             if q_table_path.exists():
                 try:
@@ -401,7 +795,7 @@ def main():
                                 "SPARSE_HEAVY": f"{q_values[1]:.4f}",
                                 "CODE_EXEC": f"{q_values[2]:.4f}",
                                 "WEB_SCRAPE": f"{q_values[3]:.4f}",
-                                "Best": f"✅ {action_labels[best_idx]}",
+                                "Best": f"{action_labels[best_idx]}",
                             })
                         st.table(table_rows)
                     else:
@@ -415,14 +809,14 @@ def main():
     # COLUMN 3: Report Display & Mock Citations
     # ----------------------------------------------------
     with col3:
-        st.subheader("📄 Draft Report & Evidence")
+        st.subheader("Draft Report & Evidence")
 
         if st.session_state["latest_report"]:
             st.markdown(st.session_state["latest_report"])
         else:
             st.info("No research report generated yet. Enter a query and launch a task to begin.")
 
-        st.markdown("#### 🕸️ Evidence Graph & Source Citations")
+        st.markdown("#### Evidence Graph & Source Citations")
         citations_path = Path("workspace/citations.json")
         if citations_path.exists():
             with open(citations_path, "r", encoding="utf-8") as f:
@@ -446,7 +840,7 @@ def main():
         else:
             st.info("No active citations graph found. Run a research query to generate evidence.")
 
-        with st.expander("🔍 Inspect Raw state.json Contract"):
+        with st.expander("Inspect Raw state.json Contract"):
             state_file_path = Path("config/state.json")
             if state_file_path.exists():
                 with open(state_file_path, "r", encoding="utf-8") as f:
